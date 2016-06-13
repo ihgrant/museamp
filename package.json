@@ -1,0 +1,38 @@
+{
+  "name": "museamp",
+  "version": "1.0.0",
+  "description": "a music player using electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "test": "mocha ./test/**/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electron/electron-quick-start.git"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/electron/electron-quick-start/issues"
+  },
+  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.0",
+    "mocha": "^2.5.3",
+    "should": "^9.0.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.0",
+    "findit": "^2.0.0",
+    "knex": "^0.11.5",
+    "musicmetadata": "^2.0.4",
+    "sqlite3": "^3.1.4"
+  }
+}
