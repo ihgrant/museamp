@@ -1,17 +1,14 @@
 var should = require('should');
-var library = require('../library');
+var songLibrary = require('../song-library');
 
 describe('song library', function () {
 
 	it('initializes without error', function (done) {
-		return library.initialize().then(result => {
-			should.equal(result.length, 1);
-			done();
-		}).catch(done);
+		return songLibrary.initialize();
 	});
 
 	it('adds song records without error', function (done) {
-		return library.addSong({
+		songLibrary.addSong({
 			title: 'test title',
 			album: 'test album',
 			artist: 'test artist',
@@ -22,7 +19,7 @@ describe('song library', function () {
 	});
 
 	it('gets all song records with corresponding filepaths', function (done) {
-		return library.getAllSongs().then(results => {
+		songLibrary.getAllSongs().then(results => {
 			console.log(results);
 			done();
 		}).catch(done);
