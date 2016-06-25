@@ -1,4 +1,9 @@
-const electron, {ipcMain} = require('electron')
+const Promise = require('bluebird');
+const getFiles = require('./get-files');
+const songLibrary = require('./song-library');
+
+const electron = require('electron');
+const ipcMain = electron.ipcMain;
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -13,7 +18,7 @@ function createWindow () {
 	mainWindow = new BrowserWindow({width: 800, height: 600})
 
 	// and load the index.html of the app.
-	mainWindow.loadURL(`file://${__dirname}/index.html`)
+	mainWindow.loadURL(`file://${__dirname}/../index.html`)
 
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools()
@@ -51,3 +56,15 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on('CHOOSE_FOLDER', (event, arg) => {
+	getFiles(arg).then(files => {
+		return Promise.map(files, file => {
+			return songLibrary.addSong(file)
+		});
+	}).then(() => {
+		event.sender.send(true);
+	}).catch(err => {
+		event.sender.send(err);
+	})
+});

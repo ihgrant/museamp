@@ -7,7 +7,9 @@ var sequelize = new Sequelize('database', 'username', 'password', {
 		min: 0,
 		idle: 10000
 	},
-	storage: './database.sqlite'
+	storage: process.env.NODE_ENV='test' ?
+		'./test-database.sqlite' :
+		'./database.sqlite'
 });
 
 var Songs = sequelize.define('songs', {

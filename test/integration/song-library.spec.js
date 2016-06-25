@@ -1,5 +1,5 @@
 var should = require('should');
-var songLibrary = require('../../song-library');
+var songLibrary = require('../../src/main-process/song-library');
 
 describe('song library', function () {
 
@@ -10,7 +10,7 @@ describe('song library', function () {
 	});
 
 	it('initializes without error', function (done) {
-		return songLibrary.initialize().then(result => {
+		return songLibrary.initialize({test: true}).then(result => {
 			done();
 		}).catch(done);
 	});
