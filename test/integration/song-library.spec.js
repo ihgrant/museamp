@@ -1,10 +1,18 @@
 var should = require('should');
-var songLibrary = require('../song-library');
+var songLibrary = require('../../song-library');
 
 describe('song library', function () {
 
+	it('can connect to the database', function (done) {
+		return songLibrary.authenticate().then(result => {
+			done();
+		}).catch(done);
+	});
+
 	it('initializes without error', function (done) {
-		return songLibrary.initialize();
+		return songLibrary.initialize().then(result => {
+			done();
+		}).catch(done);
 	});
 
 	it('adds song records without error', function (done) {
@@ -12,7 +20,7 @@ describe('song library', function () {
 			title: 'test title',
 			album: 'test album',
 			artist: 'test artist',
-			filepath: './test.mp3'
+			path: './test.mp3'
 		}).then(result => {
 			done();
 		}).catch(done);
@@ -20,8 +28,14 @@ describe('song library', function () {
 
 	it('gets all song records with corresponding filepaths', function (done) {
 		songLibrary.getAllSongs().then(results => {
-			console.log(results);
+			console.log(results.map(song => song.title));
 			done();
 		}).catch(done);
+	});
+
+	after(function (done) {
+		songLibrary.deleteAllSongs().then(() => {
+			done()
+		});
 	});
 });
