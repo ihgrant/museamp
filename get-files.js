@@ -4,34 +4,43 @@ var Promise = require('bluebird');
 var mm = Promise.promisify(require('musicmetadata'));
 
 var getFiles = function (dir) {
-	var finder = find(dir, null);
-	var files = [];
-	var cover = '';
-
 	return new Promise((resolve, reject) => {
+		var finder = find(dir, null);
+		var files = [];
+		var cover = '';
+
 		finder.on('file', (file, stat) => {
-			if (isMusic(file)) {
-				getFileInfo(file).then(file => {
-					files.push(file);
-				}).catch(err => console.error(err));
-			} else if (isCoverImage(file)) {
-				cover = file;
-			}
+			files.push({file, stat});
 		});
-		finder.on('end', () => resolve(files));
+
+		finder.on('end', () => {
+			const result = files.filter(el => {
+				return isMusic(el.file);
+			});
+
+			Promise.map(result, el => {
+				return getFileInfo(el.file);
+			}).then(resolve);
+		});
+
 		finder.on('error', reject);
 	});
 };
 
 var getFileInfo = function (file) {
 	var stream = fs.createReadStream(file);
-	return mm(stream);
+
+	return mm(stream).then(metadata => {
+		return Object.assign({}, metadata, {
+			path: file
+		});
+	});
 };
 
 var isMusic = function (filename) {
-	var a = filename.split('.'),
-	ext = a[a.length-1],
-	valid = [
+	var a = filename.split('.');
+	var ext = a[a.length-1];
+	var valid = [
 		'mp3',
 		'wav'
 	];
@@ -39,9 +48,9 @@ var isMusic = function (filename) {
 };
 
 var isCoverImage = function (filename) {
-	var a = filename.split('.'),
-	ext = a[a.length-1],
-	valid = [
+	var a = filename.split('.');
+	var ext = a[a.length-1];
+	var valid = [
 		'jpg',
 		'png'
 	];
