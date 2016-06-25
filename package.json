@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "test": "mocha ./test/**/*.spec.js"
+    "test": "mocha ./test/**/*.spec.js",
+    "postinstall": "./node_modules/.bin/electron-rebuild"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/electron/electron-quick-start#readme",
   "devDependencies": {
     "electron-prebuilt": "^1.2.0",
+    "electron-rebuild": "^1.1.5",
     "mocha": "^2.5.3",
     "should": "^9.0.2"
   },
