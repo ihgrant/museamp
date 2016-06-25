@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('database', {
+var sequelize = new Sequelize('database', 'username', 'password', {
+	host: 'localhost',
 	dialect: 'sqlite',
 	pool: {
 		max: 5,
@@ -21,6 +22,22 @@ var Songs = sequelize.define('songs', {
 	title: Sequelize.STRING,
 }, {
 	freezeTableName: true // Model tableName will be the same as the model name
+});
+
+var SongPaths = sequelize.define('song_paths', {
+	id: {
+		type: Sequelize.INTEGER,
+		autoIncrement: true,
+		primaryKey: true
+	},
+	songId: {
+		type: Sequelize.INTEGER,
+		references: {
+			model: 'songs',
+			key: 'id'
+		}
+	},
+	path: Sequelize.STRING
 });
 
 var Playlists = sequelize.define('playlists', {
@@ -55,12 +72,18 @@ var PlaylistDetails = sequelize.define('playlistDetails', {
 	sort: Sequelize.INTEGER
 });
 
+var authenticate = () => {
+	return sequelize.authenticate();
+};
+
 var initialize = function () {
 	return sequelize.sync();
 };
 
 var deleteAllSongs = function () {
-	return Songs.truncate();
+	return SongPaths.truncate().then(() => {
+		return Songs.truncate();
+	});
 };
 
 var addSong = function (song) {
@@ -69,6 +92,15 @@ var addSong = function (song) {
 		albumArtist: song.albumArtist,
 		artist: song.artist,
 		title: song.title
+	}).then(instance => {
+		if (song.path) {
+			return SongPaths.create({
+				path: song.path,
+				songId: instance.id
+			}).then(() => instance);
+		} else {
+			return instance;
+		}
 	});
 };
 
@@ -78,6 +110,7 @@ var getAllSongs = function () {
 
 module.exports = {
 	addSong,
+	authenticate,
 	deleteAllSongs,
 	getAllSongs,
 	initialize
