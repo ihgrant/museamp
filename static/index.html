@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    <div id="page"></div>
+  </body>
+
+  <script>
+  console.log(process.env.NODE_ENV);
+    // if (process.env.NODE_ENV === 'development') {
+    //     const electronHot = require('electron-hot-loader');
+    //     electronHot.install();
+    //     electronHot.watchJsx(['./**/*.jsx']);
+    //     electronHot.watchCss(['../static/**/*.css']);
+    // }
+    // You can also require other files to run in this process
+    require('./../lib/index.js');
+  </script>
+</html>

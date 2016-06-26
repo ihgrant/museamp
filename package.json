@@ -4,8 +4,10 @@
   "description": "a music player using electron",
   "main": "main.js",
   "scripts": {
-    "start": "electron src/main-process/main.js",
-    "test": "mocha ./test/**/*.spec.js",
+    "babel:watch": "babel src --out-dir lib -s -w",
+    "start": "npm run babel:watch & npm run run:dev",
+    "run:dev": "NODE_ENV=development electron src/main-process/main.js",
+    "test": "NODE_ENV=test mocha ./test/**/*.spec.js",
     "postinstall": "./node_modules/.bin/electron-rebuild"
   },
   "repository": {
@@ -25,6 +27,9 @@
   },
   "homepage": "https://github.com/electron/electron-quick-start#readme",
   "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
+    "babel-preset-react": "^6.5.0",
     "electron-prebuilt": "^1.2.0",
     "electron-rebuild": "^1.1.5",
     "mocha": "^2.5.3",
@@ -35,6 +40,11 @@
     "electron-prebuilt": "^1.2.5",
     "findit": "^2.0.0",
     "musicmetadata": "^2.0.4",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-photonkit": "^0.4.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
     "sequelize": "^3.23.3",
     "sqlite3": "^3.1.4"
   }

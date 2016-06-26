@@ -3,7 +3,8 @@ const getFiles = require('./get-files');
 const songLibrary = require('./song-library');
 
 const electron = require('electron');
-const ipcMain = electron.ipcMain;
+const {ipcMain} = require('electron');
+
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -18,7 +19,7 @@ function createWindow () {
 	mainWindow = new BrowserWindow({width: 800, height: 600})
 
 	// and load the index.html of the app.
-	mainWindow.loadURL(`file://${__dirname}/../index.html`)
+	mainWindow.loadURL(`file://${__dirname}/../../static/index.html`)
 
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools()
@@ -57,14 +58,42 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipcMain.on('CHOOSE_FOLDER', (event, arg) => {
+ipcMain.on('CHOOSE_DIR', (event, arg) => {
+	console.log(arg);
 	getFiles(arg).then(files => {
 		return Promise.map(files, file => {
 			return songLibrary.addSong(file)
 		});
 	}).then(() => {
-		event.sender.send(true);
+		return songLibrary.getAllSongs();
+	}).then(songs => {
+		event.sender.send('GET_LIBRARY_REPLY', songs);
 	}).catch(err => {
-		event.sender.send(err);
+		event.sender.send('GET_LIBRARY_REPLY', err);
 	})
 });
+
+ipcMain.on('GET_LIBRARY', (event, arg) => {
+	songLibrary.getAllSongs().then(songs => {
+		event.sender.send('GET_LIBRARY_REPLY', songs);
+	}).catch(err => {
+		event.sender.send('GET_LIBRARY_REPLY', err);
+	})
+});
+
+songLibrary.initialize().then(() => {
+	console.log('initialized.');
+}).catch(err => console.error(err));
+
+// songLibrary.deleteAllSongs().then(() => {
+// 	console.log(process.cwd());
+// 	console.log('done');
+// 	return getFiles('/Users/ian/Music').then(files => {
+// 		console.log(files);
+// 		return Promise.map(files, file => {
+// 			return songLibrary.addSong(file)
+// 		});
+// 	}).then(() => {
+// 		console.log('done again.');
+// 	});
+// }).catch(err => console.error(err));

@@ -7,7 +7,7 @@ var sequelize = new Sequelize('database', 'username', 'password', {
 		min: 0,
 		idle: 10000
 	},
-	storage: process.env.NODE_ENV='test' ?
+	storage: process.env.NODE_ENV === 'test' ?
 		'./test-database.sqlite' :
 		'./database.sqlite'
 });
@@ -92,7 +92,7 @@ var addSong = function (song) {
 	return Songs.create({
 		album: song.album,
 		albumArtist: song.albumArtist,
-		artist: song.artist,
+		artist: song.artist.join('||'),
 		title: song.title
 	}).then(instance => {
 		if (song.path) {
@@ -107,7 +107,9 @@ var addSong = function (song) {
 };
 
 var getAllSongs = function () {
-	return Songs.findAll();
+	return Songs.findAll().then(instances => {
+		return instances.map(inst => inst.dataValues);
+	});
 };
 
 module.exports = {

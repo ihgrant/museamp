@@ -6,6 +6,7 @@ describe('getFiles', function () {
 
 	it('should return results', function (done) {
 		getFiles(TEST_DIR).then(files => {
+			files.length.should.be.above(0);
 			files.should.matchEach(value => {
 				value.should.have.property('title');
 				value.should.have.property('path');
