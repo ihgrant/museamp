@@ -1,6 +1,6 @@
 {
   "name": "museamp",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "description": "a music player using electron",
   "main": "main.js",
   "scripts": {
@@ -39,11 +39,13 @@
     "bluebird": "^3.4.0",
     "electron-prebuilt": "^1.2.5",
     "findit": "^2.0.0",
+    "lodash": "^4.13.1",
     "musicmetadata": "^2.0.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-photonkit": "^0.4.1",
     "react-redux": "^4.4.5",
+    "react-treeview": "^0.4.5",
     "redux": "^3.5.2",
     "sequelize": "^3.23.3",
     "sqlite3": "^3.1.4"
