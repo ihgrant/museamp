@@ -60,8 +60,8 @@ app.on('activate', function () {
 
 ipcMain.on('CHOOSE_DIR', (event, arg) => {
 	console.log(arg);
-	getFiles(arg).then(files => {
-		return Promise.map(files, file => {
+	getFiles(arg).then(songs => {
+		return Promise.map(songs, song => {
 			return songLibrary.addSong(file)
 		});
 	}).then(() => {

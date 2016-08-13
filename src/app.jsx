@@ -1,6 +1,8 @@
 'use strict';
 const React = require('react');
+import Controls from './controls';
 import LibraryNav from './library-nav';
+import Playlist from './playlist';
 import {Window, Toolbar, Content, Pane} from 'react-photonkit';
 
 module.exports = React.createClass({
@@ -8,20 +10,16 @@ module.exports = React.createClass({
 		library: React.PropTypes.array,
 		onChooseDirectory: React.PropTypes.func
 	},
-	componentDidMount() {
-		this.refs.dir.setAttribute('webkitdirectory', 'true');
-	},
 	render() {
+		console.log(this.props.library);
 		return (
 			<Window>
 				<Toolbar>
-					<input type='file' ref='dir' onChange={this.props.onChooseDirectory} />
+					<Controls onChooseDirectory={this.props.onChooseDirectory} />
 				</Toolbar>
 				<Content>
 					<LibraryNav library={this.props.library} />
-					<Pane>
-				    	basic template
-				    </Pane>
+					<Playlist list={this.props.library} />
 				</Content>
 				<Toolbar psType="footer" />
 			</Window>

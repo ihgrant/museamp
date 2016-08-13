@@ -88,7 +88,7 @@ var deleteAllSongs = function () {
 	});
 };
 
-var addSong = function (song) {
+var addSong = (song) => {
 	return Songs.create({
 		album: song.album,
 		albumArtist: song.albumArtist,
@@ -109,6 +109,18 @@ var addSong = function (song) {
 var getAllSongs = function () {
 	return Songs.findAll().then(instances => {
 		return instances.map(inst => inst.dataValues);
+	});
+};
+
+var flattenSong = song => {
+	return Object.assign({}, song, {
+		artist: song.artist.join('||')
+	});
+};
+
+var unflattenSong = song => {
+	return Object.assign({}, song, {
+		artist: song.artist.split('||')
 	});
 };
 
