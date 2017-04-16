@@ -6,12 +6,9 @@ const {ipcRenderer} = require('electron');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const App = require('./app');
-// var input = document.querySelector('input[type="file"]');
-// input.addEventListener('change', e => {
-// 	console.log(e.target.files[0].path);
-// })
 
 let library = [];
+let path = '';
 
 function onChooseDirectory(e) {
 	if (e.target.files[0]) {
@@ -19,9 +16,17 @@ function onChooseDirectory(e) {
 	}
 }
 
-function render(library) {
+function onChooseSong(id) {
+	ipcRenderer.send('GET_SONG_PATH', id);
+}
+
+function render(library, path) {
 	ReactDOM.render(
-		<App library={library} onChooseDirectory={onChooseDirectory} />,
+		<App
+			library={library}
+			currentPath={path}
+			onChooseDirectory={onChooseDirectory}
+			onChooseSong={onChooseSong} />,
 		document.getElementById('page')
 	);
 }
@@ -35,8 +40,17 @@ ipcRenderer.on('GET_LIBRARY_REPLY', (event, arg) => {
 		console.error(err);
 	} else {
 		library = arg;
-		render(library);
+		render(library, path);
 	}
 });
 
-render(library);
+ipcRenderer.on('GET_SONG_PATH_REPLY', (event, arg) => {
+	if (arg instanceof Error) {
+		console.error(err);
+	} else {
+		path = arg;
+		render(library, path);
+	}
+});
+
+render(library, path);

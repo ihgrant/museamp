@@ -4,48 +4,45 @@
   "description": "a music player using electron",
   "main": "main.js",
   "scripts": {
-    "babel:watch": "babel src --out-dir lib -s -w",
-    "start": "npm run babel:watch & npm run run:dev",
-    "run:dev": "NODE_ENV=development electron src/main-process/main.js",
-    "test": "NODE_ENV=test mocha ./test/**/*.spec.js",
-    "postinstall": "./node_modules/.bin/electron-rebuild"
+    "dev": "NODE_ENV=development yarn run run:server && yarn run run:webpack",
+    "postinstall": "NODE_ENV=production webpack --config webpack.config.js",
+    "start": "next start",
+    "run:server": "node server",
+    "run:webpack": "webpack --config webpack.config.js",
+    "test": "NODE_ENV=test mocha ./test/**/*.spec.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": "git+https://github.com/ihgrant/museamp.git"
   },
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
+  "author": "ihgrant",
+  "engines": {
+    "node": "7"
   },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.10.1",
+    "babel-loader": "^6.4.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
-    "babel-preset-react": "^6.5.0",
-    "electron-prebuilt": "^1.2.0",
-    "electron-rebuild": "^1.1.5",
+    "babel-preset-react": "^6.24.1",
     "mocha": "^2.5.3",
-    "should": "^9.0.2"
+    "should": "^9.0.2",
+    "webpack": "^2.4.1"
   },
   "dependencies": {
+    "babel-preset-latest": "^6.24.1",
     "bluebird": "^3.4.0",
-    "electron-prebuilt": "^1.2.5",
+    "express": "4",
+    "express-promise-router": "^1.1.1",
     "findit": "^2.0.0",
     "lodash": "^4.13.1",
     "musicmetadata": "^2.0.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-photonkit": "^0.4.1",
+    "react-player": "^0.15.0",
     "react-redux": "^4.4.5",
-    "react-treeview": "^0.4.5",
+    "react-treeview": "^0.4.6",
     "redux": "^3.5.2",
     "sequelize": "^3.23.3",
     "sqlite3": "^3.1.4"

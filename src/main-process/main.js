@@ -81,6 +81,15 @@ ipcMain.on('GET_LIBRARY', (event, arg) => {
 	})
 });
 
+ipcMain.on('GET_SONG_PATH', (event, arg) => {
+	console.log(arg);
+	songLibrary.getSongPath(arg).then(response => {
+		event.sender.send('GET_SONG_PATH_REPLY', response.path);
+	}).catch(err => {
+		event.sender.send('GET_SONG_PATH_REPLY', err);
+	})
+});
+
 songLibrary.initialize().then(() => {
 	console.log('initialized.');
 }).catch(err => console.error(err));

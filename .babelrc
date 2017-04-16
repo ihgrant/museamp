@@ -1,4 +1,6 @@
 {
-  "plugins": ["transform-es2015-modules-commonjs"],
-  "presets": ["react"]
+  "presets": [
+    "react",
+    "babel-preset-latest"
+  ]
 }
