@@ -12,32 +12,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": "git+https://github.com/ihgrant/museamp.git"
   },
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
-  },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "author": "ihgrant",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
     "babel-preset-react": "^6.5.0",
-    "electron-prebuilt": "^1.2.0",
     "electron-rebuild": "^1.1.5",
     "mocha": "^2.5.3",
     "should": "^9.0.2"
   },
   "dependencies": {
     "bluebird": "^3.4.0",
-    "electron-prebuilt": "^1.2.5",
+    "electron": "^1.6.2",
     "findit": "^2.0.0",
     "lodash": "^4.13.1",
     "musicmetadata": "^2.0.4",

@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class PlaylistItem extends Component {
     constructor() {
@@ -7,12 +7,14 @@ class PlaylistItem extends Component {
         this.onDoubleClick = this.onDoubleClick.bind(this);
     }
     onDoubleClick(e) {
-        console.log(this.props.item.title);
+        console.log(this.props.item.id);
     }
     render() {
         return (
-            <tr onDoubleClick={this.onDoubleClick}>
-                {this.props.columns.map(col => <td key={col}>{this.props.item[col]}</td>)}
+            <tr onDoubleClick={this.props.onDoubleClick}>
+                {this.props.columns.map(col => (
+                    <td key={col}>{this.props.item[col]}</td>
+                ))}
             </tr>
         );
     }
