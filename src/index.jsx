@@ -3,8 +3,8 @@
 // All of the Node.js APIs are available in this process.
 
 const { ipcRenderer } = require('electron');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import museAmp from './reducers';
@@ -26,15 +26,6 @@ function onPlay(songId) {
     ipcRenderer.send('PLAY_SONG', songId);
 }
 
-function render() {
-    ReactDOM.render(
-        <Provider store={store}>
-            <AppContainer onChooseDirectory={onChooseDirectory} />
-        </Provider>,
-        document.getElementById('page')
-    );
-}
-
 setTimeout(() => {
     ipcRenderer.send('GET_LIBRARY', '');
 }, 500);
@@ -49,8 +40,9 @@ ipcRenderer.on('GET_LIBRARY_REPLY', (event, library) => {
     }
 });
 
-ipcRenderer.on('GET_SONG', (e, song) => {
-    render(library, song);
-});
-
-render(library);
+render(
+    <Provider store={store}>
+        <AppContainer onChooseDirectory={onChooseDirectory} />
+    </Provider>,
+    document.getElementById('page')
+);

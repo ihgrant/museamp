@@ -6,10 +6,10 @@ class Controls extends Component {
         super();
     }
     openDirectory() {
-        this.refs.dir.click();
+        this.dir.click();
     }
     componentDidMount() {
-        this.refs.dir.setAttribute('webkitdirectory', 'true');
+        this.dir.setAttribute('webkitdirectory', 'true');
     }
     render() {
         return (
@@ -45,7 +45,7 @@ class Controls extends Component {
                 <div className="btn-group">
                     <button
                         className="btn btn-default"
-                        onClick={this.openDirectory}
+                        onClick={() => this.openDirectory()}
                     >
                         <span className="icon icon-folder icon-text" />
                         Open Folder...
@@ -53,7 +53,7 @@ class Controls extends Component {
                 </div>
                 <input
                     type="file"
-                    ref="dir"
+                    ref={el => this.dir = el}
                     onChange={this.props.onChooseDirectory}
                     style={{ display: 'none' }}
                 />

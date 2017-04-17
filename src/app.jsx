@@ -52,7 +52,7 @@ class App extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.chosenSongId) {
             const chosenSong = _.find(
-                this.props.library,
+                this.props.playlist.songs,
                 el => el.id === nextProps.chosenSongId
             );
             if (chosenSong) {
@@ -79,9 +79,9 @@ class App extends Component {
                     />
                 </Toolbar>
                 <Content>
-                    <LibraryNav library={this.props.library} />
+                    <LibraryNav library={this.props.playlist.songs} />
                     <Playlist
-                        list={this.props.library}
+                        list={this.props.playlist.songs}
                         onChoose={this.props.onChooseSong.bind(this)}
                     />
                 </Content>

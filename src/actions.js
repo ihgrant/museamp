@@ -10,13 +10,20 @@ export function addSong(song) {
 export function removeSong(songId) {
     return {
         type: 'REMOVE_SONG',
-        songId: songId
+        id: songId
+    };
+}
+
+export function choosePlaylist(id) {
+    return {
+        type: 'CHOOSE_PLAYLIST',
+        id: id
     };
 }
 
 export function chooseSong(songId) {
     return {
         type: 'CHOOSE_SONG',
-        songId: songId
+        id: songId
     };
 }
