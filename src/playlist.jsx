@@ -19,7 +19,7 @@ class Playlist extends Component {
             </div>;
         });
         const columns = this.props.list.length
-            ? _.keys(this.props.list[0])
+            ? _.keys(this.props.list[0]).filter(el => el !== 'song_path')
             : [];
 
         return (

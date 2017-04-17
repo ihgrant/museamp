@@ -113,13 +113,16 @@ var addSong = song => {
 };
 
 var getAllSongs = function() {
-    return Songs.findAll().then(instances => {
-        return instances.map(inst => inst.dataValues);
+    return Songs.findAll({ include: [SongPaths] }).then(instances => {
+        return instances.map(inst => inst.get({ plain: true }));
     });
 };
 
-var getSongPath = songId => {
-    return SongPaths.find({ where: { songId: songId } }).then(songPath =>
+var getSongWithPath = songId => {
+    return Songs.find({
+        include: [SongPaths],
+        where: { id: songId }
+    }).then(songPath =>
         songPath.get({
             plain: true
         })
@@ -143,6 +146,6 @@ module.exports = {
     authenticate,
     deleteAllSongs,
     getAllSongs,
-    getSongPath,
+    getSongWithPath,
     initialize
 };

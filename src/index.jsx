@@ -5,14 +5,15 @@
 const { ipcRenderer } = require('electron');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const App = require('./app');
-// var input = document.querySelector('input[type="file"]');
-// input.addEventListener('change', e => {
-// 	console.log(e.target.files[0].path);
-// })
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import museAmp from './reducers';
+import { addSong } from './actions';
+import AppContainer from './AppContainer';
 
 let library = [];
 let app;
+let store = createStore(museAmp);
 
 function onChooseDirectory(e) {
     if (e.target.files[0]) {
@@ -25,15 +26,11 @@ function onPlay(songId) {
     ipcRenderer.send('PLAY_SONG', songId);
 }
 
-function render(library, song) {
-    console.log(song);
-    app = ReactDOM.render(
-        <App
-            library={library}
-            onChooseDirectory={onChooseDirectory}
-            onChoose={onPlay}
-            song={song}
-        />,
+function render() {
+    ReactDOM.render(
+        <Provider store={store}>
+            <AppContainer onChooseDirectory={onChooseDirectory} />
+        </Provider>,
         document.getElementById('page')
     );
 }
@@ -42,12 +39,13 @@ setTimeout(() => {
     ipcRenderer.send('GET_LIBRARY', '');
 }, 500);
 
-ipcRenderer.on('GET_LIBRARY_REPLY', (event, arg) => {
-    if (arg instanceof Error) {
+ipcRenderer.on('GET_LIBRARY_REPLY', (event, library) => {
+    if (library instanceof Error) {
         console.error(err);
     } else {
-        library = arg;
-        render(library);
+        library.forEach(el => {
+            store.dispatch(addSong(el));
+        });
     }
 });
 

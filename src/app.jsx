@@ -1,5 +1,6 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
 import Controls from './Controls';
 import LibraryNav from './LibraryNav';
 import Playlist from './Playlist';
@@ -17,7 +18,7 @@ class App extends Component {
         this.onForward = this.onForward.bind(this);
     }
     onBack(e) {
-        if (this.props.song) {
+        if (this.props.chosenSongId) {
             // this.player.pause();
             console.log('previous');
         }
@@ -26,7 +27,8 @@ class App extends Component {
         this.props.onPlay(id);
     }
     onPlayPause() {
-        if (this.props.song) {
+        console.log(this.props.song);
+        if (this.props.chosenSongId) {
             this.setState(
                 (prevState, props) => ({
                     paused: !prevState.paused
@@ -48,16 +50,22 @@ class App extends Component {
         console.log('onforward');
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.song);
-        if (nextProps.song) {
-            this.player.src = nextProps.song.path;
-            this.setState({ paused: false }, () => {
-                this.player.play();
-            });
+        if (nextProps.chosenSongId) {
+            const chosenSong = _.find(
+                this.props.library,
+                el => el.id === nextProps.chosenSongId
+            );
+            if (chosenSong) {
+                console.log(chosenSong);
+                this.player.src = chosenSong.song_path.path;
+                this.setState({ paused: false }, () => {
+                    this.player.play();
+                });
+            }
         }
     }
     render() {
-        console.log(this.props.library);
+        // console.log(this.props);
         return (
             <Window>
                 <Toolbar>
@@ -74,10 +82,10 @@ class App extends Component {
                     <LibraryNav library={this.props.library} />
                     <Playlist
                         list={this.props.library}
-                        onChoose={this.props.onChoose.bind(this)}
+                        onChoose={this.props.onChooseSong.bind(this)}
                     />
                 </Content>
-                <audio ref={el => this.player = el} />
+                <audio key="audio" ref={el => this.player = el} />
                 <Toolbar psType="footer" />
             </Window>
         );
@@ -88,7 +96,7 @@ App.propTypes = {
     library: PropTypes.array,
     onChooseDirectory: PropTypes.func,
     onPlay: PropTypes.func,
-    song: PropTypes.any
+    chosenSongId: PropTypes.number
 };
 
-module.exports = App;
+export default App;

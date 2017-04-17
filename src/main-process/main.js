@@ -83,7 +83,7 @@ ipcMain.on('GET_LIBRARY', (event, arg) => {
 });
 
 ipcMain.on('PLAY_SONG', (event, songId) => {
-    songLibrary.getSongPath(songId).then(song => {
+    songLibrary.getSongWithPath(songId).then(song => {
         event.sender.send('GET_SONG', song);
     });
 });
