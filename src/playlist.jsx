@@ -3,36 +3,26 @@ import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import { Content, Pane, Table } from 'react-photonkit';
 import PlaylistItem from './PlaylistItem';
+import PlaylistTabs from './PlaylistTabs';
 
 class Playlist extends Component {
     constructor() {
         super();
     }
+    closePlaylist() {
+        //
+    }
     render() {
-        const tabs = this.props.playlists.map(el => {
-            <div className="tab-item" key={el.id}>
-                <span
-                    className="icon icon-cancel icon-close-tab"
-                    onClick={this.closePlaylist.bind(null, el.id)}
-                />
-                {el.name}
-            </div>;
-        });
         const columns = this.props.list.length
             ? _.keys(this.props.list[0]).filter(el => el !== 'song_path')
             : [];
 
         return (
             <Pane>
-                <div className="tab-group">
-                    <div className="tab-item">
-                        {'Library Selection'}
-                    </div>
-                    {tabs}
-                    <div className="tab-item tab-item-fixed">
-                        <span className="icon icon-plus" />
-                    </div>
-                </div>
+                <PlaylistTabs
+                    closePlaylist={this.closePlaylist}
+                    playlists={this.props.playlists}
+                />
                 <Content>
                     <Table>
                         <thead>
