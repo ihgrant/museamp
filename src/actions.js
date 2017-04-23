@@ -1,5 +1,12 @@
 // actions.js
 
+export function addPlaylist(name) {
+    return {
+        type: 'ADD_PLAYLIST',
+        name: name
+    };
+}
+
 export function addSong(song) {
     return {
         type: 'ADD_SONG',
@@ -7,23 +14,30 @@ export function addSong(song) {
     };
 }
 
-export function removeSong(songId) {
-    return {
-        type: 'REMOVE_SONG',
-        id: songId
-    };
-}
-
-export function choosePlaylist(id) {
+export function choosePlaylist(playlistId) {
     return {
         type: 'CHOOSE_PLAYLIST',
-        id: id
+        id: playlistId
     };
 }
 
 export function chooseSong(songId) {
     return {
         type: 'CHOOSE_SONG',
+        id: songId
+    };
+}
+
+export function playlistAddSong(songId) {
+    return {
+        type: 'PLAYLIST_ADD_SONG',
+        id: songId
+    };
+}
+
+export function playlistRemoveSong(songId) {
+    return {
+        type: 'PLAYLIST_REMOVE_SONG',
         id: songId
     };
 }

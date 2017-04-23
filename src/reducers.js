@@ -1,22 +1,52 @@
 // @flow
 
-const initialState: AppState = {
+import i from 'icepick';
+
+const initialState: AppState = i.freeze({
     chosenSongId: 0,
     chosenPlaylistId: -1,
     library: [],
     paused: true,
     playlists: []
-};
+});
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
+    let currentPlaylist = state.playlists[state.chosenPlaylistId];
+
     switch (action.type) {
+        case 'ADD_PLAYLIST':
+            return i.assign({}, state, {
+                playlists: state.playlists.concat({
+                    name: action.name,
+                    songIds: []
+                })
+            });
         case 'ADD_SONG':
-            const newLibrary = state.library.concat(action.song);
-            return Object.assign({}, state, { library: newLibrary });
+            return i.assign({}, state, {
+                library: state.library.concat(action.song)
+            });
         case 'CHOOSE_PLAYLIST':
-            return Object.assign({}, state, { chosenPlaylistId: action.id });
+            return i.assoc(state, 'chosenPlaylistId', action.id);
         case 'CHOOSE_SONG':
-            return Object.assign({}, state, { chosenSongId: action.id });
+            return i.assoc(state, 'chosenSongId', action.id);
+        case 'PLAYLIST_ADD_SONG':
+            return i.assocIn(
+                state,
+                ['playlists', state.chosenPlaylistId, 'songIds'],
+                i.push(
+                    state.playlists[state.chosenPlaylistId].songIds,
+                    action.id
+                )
+            );
+        case 'PLAYLIST_REMOVE_SONG':
+            return i.assocIn(
+                state,
+                ['playlists', state.chosenPlaylistId, 'songIds'],
+                i.filter(
+                    id => id !== action.id,
+                    state.playlists[state.chosenPlaylistId].songIds
+                )
+            );
         default:
             (action: empty);
             return state;

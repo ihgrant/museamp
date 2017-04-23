@@ -2,9 +2,10 @@
 
 type Action =
     | { type: 'ADD_SONG', song: Song }
-    | { type: 'REMOVE_SONG', id: number }
     | { type: 'CHOOSE_PLAYLIST', id: number }
-    | { type: 'CHOOSE_SONG', id: number };
+    | { type: 'CHOOSE_SONG', id: number }
+    | { type: 'PLAYLIST_ADD_SONG', id: number }
+    | { type: 'PLAYLIST_REMOVE_SONG', id: number };
 
 type AppState = {
     +chosenSongId: number,
@@ -16,7 +17,7 @@ type AppState = {
 
 type Playlist = {
     +name: string,
-    +songs: Song[]
+    +songIds: number[]
 };
 
 type Song = {
