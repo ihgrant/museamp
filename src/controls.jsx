@@ -1,5 +1,7 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
+import Button from './components/Button';
+import ButtonGroup from './components/ButtonGroup';
 
 class Controls extends Component {
     constructor() {
@@ -14,43 +16,23 @@ class Controls extends Component {
     render() {
         return (
             <div className="toolbar-actions">
-                <div className="btn-group">
-                    <button
-                        className="btn btn-default"
-                        onClick={this.props.onBack}
-                    >
-                        <span className="icon icon-fast-backward" />
-                    </button>
-                    <button
-                        className="btn btn-default"
+                <ButtonGroup>
+                    <Button icon="fast-backward" onClick={this.props.onBack} />
+                    <Button
+                        icon={this.props.paused ? 'play' : 'pause'}
                         onClick={this.props.onPlayPause}
-                    >
-                        <span
-                            className={`icon icon-${this.props.paused ? 'play' : 'pause'}`}
-                        />
-                    </button>
-                    <button
-                        className="btn btn-default"
-                        onClick={this.props.onStop}
-                    >
-                        <span className="icon icon-stop" />
-                    </button>
-                    <button
-                        className="btn btn-default"
+                    />
+                    <Button icon="stop" onClick={this.props.onStop} />
+                    <Button
+                        icon="fast-forward"
                         onClick={this.props.onForward}
-                    >
-                        <span className="icon icon-fast-forward" />
-                    </button>
-                </div>
-                <div className="btn-group">
-                    <button
-                        className="btn btn-default"
-                        onClick={() => this.openDirectory()}
-                    >
-                        <span className="icon icon-folder icon-text" />
-                        Open Folder...
-                    </button>
-                </div>
+                    />
+                </ButtonGroup>
+                <ButtonGroup>
+                    <Button icon="folder" onClick={() => this.openDirectory()}>
+                        {`Open Folder...`}
+                    </Button>
+                </ButtonGroup>
                 <input
                     type="file"
                     ref={el => this.dir = el}

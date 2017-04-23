@@ -55,9 +55,6 @@ app.on('activate', function() {
     }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
 ipcMain.on('CHOOSE_DIR', (event, arg) => {
     console.log(arg);
     getFiles(arg)
@@ -94,16 +91,3 @@ songLibrary
         console.log('initialized.');
     })
     .catch(err => console.error(err));
-
-// songLibrary.deleteAllSongs().then(() => {
-// 	console.log(process.cwd());
-// 	console.log('done');
-// 	return getFiles('/Users/ian/Music').then(files => {
-// 		console.log(files);
-// 		return Promise.map(files, file => {
-// 			return songLibrary.addSong(file)
-// 		});
-// 	}).then(() => {
-// 		console.log('done again.');
-// 	});
-// }).catch(err => console.error(err));
