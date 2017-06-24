@@ -84,11 +84,11 @@ var authenticate = () => {
     return sequelize.authenticate();
 };
 
-var initialize = function() {
+var initialize = function () {
     return sequelize.sync();
 };
 
-var deleteAllSongs = function() {
+var deleteAllSongs = function () {
     return SongPaths.truncate().then(() => {
         return Songs.truncate();
     });
@@ -112,7 +112,7 @@ var addSong = song => {
     });
 };
 
-var getAllSongs = function() {
+var getAllSongs = function () {
     return Songs.findAll({ include: [SongPaths] }).then(instances => {
         return instances.map(inst => inst.get({ plain: true }));
     });
@@ -126,7 +126,7 @@ var getSongWithPath = songId => {
         songPath.get({
             plain: true
         })
-    );
+        );
 };
 
 var flattenSong = song => {

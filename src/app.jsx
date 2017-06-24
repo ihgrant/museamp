@@ -1,38 +1,46 @@
-'use strict';
+// @flow
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
+import { Toolbar, Pane } from 'react-photonkit';
+
+import Content from './components/Content'
 import Controls from './Controls';
 import LibraryNav from './LibraryNav';
-import Playlist from './Playlist';
-import { Window, Toolbar, Content, Pane } from 'react-photonkit';
+import Playlist from './containers/PlaylistContainer';
+import Window from './components/Window';
 
 class App extends Component {
+    props: {
+        library: Song[],
+        onChooseDirectory: string => void,
+        playlist: Playlist
+    };
+    state: {
+        paused: boolean
+    }
     constructor() {
         super();
-        this.state = {
-            paused: true
-        };
+        this.state = { paused: true };
         this.onBack = this.onBack.bind(this);
         this.onPlayPause = this.onPlayPause.bind(this);
         this.onStop = this.onStop.bind(this);
         this.onForward = this.onForward.bind(this);
     }
-    onBack(e) {
+    onBack() {
         if (this.props.chosenSongId) {
             // this.player.pause();
             console.log('previous');
         }
     }
-    onChoose(id) {
+    onChoose(id: number) {
+        // console.log(id)
         this.props.onPlay(id);
     }
     onPlayPause() {
         console.log(this.props.song);
         if (this.props.chosenSongId) {
             this.setState(
-                (prevState, props) => ({
-                    paused: !prevState.paused
-                }),
+                (prevState, props) => ({ paused: !prevState.paused }),
                 () => {
                     if (this.state.paused) {
                         this.player.pause();

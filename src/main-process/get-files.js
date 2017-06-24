@@ -10,7 +10,7 @@ var getFiles = function (dir) {
 		var cover = '';
 
 		finder.on('file', (file, stat) => {
-			files.push({file, stat});
+			files.push({ file, stat });
 		});
 
 		finder.on('end', () => {
@@ -39,7 +39,7 @@ var getFileInfo = function (file) {
 
 var isMusic = function (filename) {
 	var a = filename.split('.');
-	var ext = a[a.length-1];
+	var ext = a[a.length - 1];
 	var valid = [
 		'mp3',
 		'wav'
@@ -49,7 +49,7 @@ var isMusic = function (filename) {
 
 var isCoverImage = function (filename) {
 	var a = filename.split('.');
-	var ext = a[a.length-1];
+	var ext = a[a.length - 1];
 	var valid = [
 		'jpg',
 		'png'

@@ -12,5 +12,6 @@
     },
     "prettier.parser": "flow",
     "prettier.semi": true,
+    "prettier.printWidth": 80,
     "editor.formatOnSave": true
 }

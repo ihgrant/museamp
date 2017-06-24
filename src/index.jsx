@@ -27,22 +27,28 @@ function onPlay(songId) {
 }
 
 setTimeout(() => {
-    ipcRenderer.send('GET_LIBRARY', '');
-}, 500);
-
-ipcRenderer.on('GET_LIBRARY_REPLY', (event, library) => {
-    if (library instanceof Error) {
-        console.error(err);
-    } else {
+    getLibrary().then(library => {
         library.forEach(el => {
             store.dispatch(addSong(el));
+        })
+    })
+}, 500);
+
+function getLibrary() {
+    return new Promise((resolve, reject) => {
+        ipcRenderer.on('GET_LIBRARY_REPLY', (event, library) => {
+            if (library instanceof Error) {
+                reject(err);
+            }
+            resolve(library);
         });
-    }
-});
+        ipcRenderer.send('GET_LIBRARY', '');
+    })
+}
 
 render(
     <Provider store={store}>
-        <AppContainer onChooseDirectory={onChooseDirectory} />
+        <AppContainer onChooseDirectory={onChooseDirectory} onPlay={onPlay} />
     </Provider>,
     document.getElementById('page')
 );

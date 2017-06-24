@@ -22,7 +22,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.24.1",
     "electron-rebuild": "^1.1.5",
-    "flow-bin": "^0.44.0",
+    "flow-bin": "^0.48.0",
     "should": "^9.0.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.3"
