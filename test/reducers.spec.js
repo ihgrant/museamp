@@ -7,7 +7,7 @@ test('reducers', function (t) {
     t.deepEqual(
         state,
         {
-            chosenSongId: 0,
+            chosenSongId: -1,
             chosenPlaylistId: -1,
             library: [],
             paused: true,
@@ -21,7 +21,7 @@ test('reducers', function (t) {
     t.deepEqual(
         state,
         {
-            chosenSongId: 0,
+            chosenSongId: -1,
             chosenPlaylistId: -1,
             library: [],
             paused: true,
@@ -35,7 +35,7 @@ test('reducers', function (t) {
     t.deepEqual(
         state,
         {
-            chosenSongId: 0,
+            chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
             paused: true,
@@ -49,7 +49,7 @@ test('reducers', function (t) {
     t.deepEqual(
         state,
         {
-            chosenSongId: 0,
+            chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
             paused: true,
@@ -63,7 +63,7 @@ test('reducers', function (t) {
     t.deepEqual(
         state,
         {
-            chosenSongId: 0,
+            chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
             paused: true,
@@ -77,7 +77,7 @@ test('reducers', function (t) {
     t.deepEqual(
         state,
         {
-            chosenSongId: 0,
+            chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
             paused: true,
@@ -91,7 +91,7 @@ test('reducers', function (t) {
     t.deepEqual(
         state,
         {
-            chosenSongId: 0,
+            chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
             paused: true,

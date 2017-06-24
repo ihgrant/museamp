@@ -3,7 +3,7 @@
 import i from 'icepick';
 
 const initialState: AppState = i.freeze({
-    chosenSongId: 0,
+    chosenSongId: -1,
     chosenPlaylistId: -1,
     library: [],
     paused: true,

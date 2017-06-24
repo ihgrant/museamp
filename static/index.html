@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Museamp</title>
-    <link rel="stylesheet" type="text/css" href="../node_modules/react-treeview/react-treeview.css">
-    <style media="screen">
-        .info {
-            display: block;
-        }
-        .node {
-            font-weight: bold;
-        }
-    </style>
-  </head>
-  <body>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    <div id="page"></div>
-  </body>
 
-  <script>
+<head>
+  <meta charset="UTF-8">
+  <title>Museamp</title>
+  <link rel="stylesheet" type="text/css" href="../node_modules/react-treeview/react-treeview.css">
+  <style media="screen">
+    .info {
+      display: block;
+    }
+
+    tr.active.active {
+      color: #fff;
+      background-color: #116cd6 !important;
+    }
+
+    .node {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- All of the Node.js APIs are available in this renderer process. -->
+  <div id="page"></div>
+</body>
+
+<script>
   console.log(process.env.NODE_ENV);
-    // if (process.env.NODE_ENV === 'development') {
-    //     const electronHot = require('electron-hot-loader');
-    //     electronHot.install();
-    //     electronHot.watchJsx(['./**/*.jsx']);
-    //     electronHot.watchCss(['../static/**/*.css']);
-    // }
-    // You can also require other files to run in this process
-    require('./../lib/index.js');
-  </script>
+  // if (process.env.NODE_ENV === 'development') {
+  //     const electronHot = require('electron-hot-loader');
+  //     electronHot.install();
+  //     electronHot.watchJsx(['./**/*.jsx']);
+  //     electronHot.watchCss(['../static/**/*.css']);
+  // }
+  // You can also require other files to run in this process
+  require('./../lib/index.js');
+
+</script>
+
 </html>

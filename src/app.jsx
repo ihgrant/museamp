@@ -50,19 +50,19 @@ class App extends Component {
         console.log('onforward');
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.chosenSongId) {
-            const chosenSong = _.find(
-                this.props.playlist.songs,
-                el => el.id === nextProps.chosenSongId
-            );
-            if (chosenSong) {
-                console.log(chosenSong);
-                this.player.src = chosenSong.song_path.path;
-                this.setState({ paused: false }, () => {
-                    this.player.play();
-                });
-            }
-        }
+        // if (nextProps.chosenSongId) {
+        //     const chosenSong = _.find(
+        //         this.props.library,
+        //         el => el.id === nextProps.chosenSongId
+        //     );
+        //     if (chosenSong) {
+        //         console.log(chosenSong);
+        //         this.player.src = chosenSong.song_path.path;
+        //         this.setState({ paused: false }, () => {
+        //             this.player.play();
+        //         });
+        //     }
+        // }
     }
     render() {
         // console.log(this.props);

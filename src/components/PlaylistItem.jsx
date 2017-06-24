@@ -1,28 +1,20 @@
 'use strict';
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-class PlaylistItem extends Component {
-    constructor() {
-        super();
-        this.onDoubleClick = this.onDoubleClick.bind(this);
-    }
-    onDoubleClick(e) {
-        console.log(this.props.item.id);
-    }
-    render() {
-        return (
-            <tr onDoubleClick={this.props.onDoubleClick}>
-                {this.props.columns.map(col => (
-                    <td key={col}>{this.props.item[col]}</td>
-                ))}
-            </tr>
-        );
-    }
+function PlaylistItem(props: {
+    active: ?boolean,
+    columns: string[],
+    item: Song,
+    onDoubleClick: e => void,
+    onClick: e => void
+} = { active: false }) {
+    return (
+        <tr className={props.active ? 'active' : ''} onDoubleClick={props.onDoubleClick} onClick={props.onClick}>
+            {props.columns.map(col => (
+                <td key={col}>{props.item[col]}</td>
+            ))}
+        </tr>
+    );
 }
-
-PlaylistItem.propTypes = {
-    columns: PropTypes.array,
-    item: PropTypes.object.isRequired
-};
 
 export default PlaylistItem;
