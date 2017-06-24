@@ -58,7 +58,7 @@ app.on('activate', function() {
 ipcMain.on('CHOOSE_DIR', (event, arg) => {
     console.log(arg);
     getFiles(arg)
-        .then(songs => Promise.map(songs, song => songLibrary.addSong(file)))
+        .then(songs => Promise.map(songs, song => songLibrary.addSong(song)))
         .then(() => songLibrary.getAllSongs())
         .then(songs => {
             event.sender.send('GET_LIBRARY_REPLY', songs);

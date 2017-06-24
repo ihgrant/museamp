@@ -28,11 +28,9 @@ class Controls extends Component {
                         onClick={this.props.onForward}
                     />
                 </ButtonGroup>
-                <ButtonGroup>
-                    <Button icon="folder" onClick={() => this.openDirectory()}>
-                        {`Open Folder...`}
-                    </Button>
-                </ButtonGroup>
+                <Button icon="folder" onClick={() => this.openDirectory()}>
+                    {`Open Folder...`}
+                </Button>
                 <input
                     type="file"
                     ref={el => this.dir = el}
