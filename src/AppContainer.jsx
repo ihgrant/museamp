@@ -7,9 +7,7 @@ function mapStateToProps(state: AppState) {
     return {
         chosenSongId: state.chosenSongId,
         chosenPlaylistId: state.chosenPlaylistId,
-        playlist: state.chosenPlaylistId > -1
-            ? state.playlists[state.chosenPlaylistId]
-            : { name: 'Library Selection', songs: state.library }
+        library: state.library,
     };
 }
 

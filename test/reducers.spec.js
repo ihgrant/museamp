@@ -1,7 +1,7 @@
 const test = require('tape');
 import reducer from '../src/reducers';
 
-test('reducers', function(t) {
+test('reducers', function (t) {
     let state = reducer(undefined, {});
 
     t.deepEqual(
@@ -84,6 +84,20 @@ test('reducers', function(t) {
             playlists: [{ name: 'test', songIds: [1] }]
         },
         'removes a song from a playlist'
+    );
+
+    state = reducer(state, { type: 'REMOVE_PLAYLIST', id: 0 });
+
+    t.deepEqual(
+        state,
+        {
+            chosenSongId: 0,
+            chosenPlaylistId: 0,
+            library: [],
+            paused: true,
+            playlists: []
+        },
+        'removes a playlist'
     );
 
     t.end();

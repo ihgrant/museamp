@@ -5,7 +5,8 @@ type Action =
     | { type: 'CHOOSE_PLAYLIST', id: number }
     | { type: 'CHOOSE_SONG', id: number }
     | { type: 'PLAYLIST_ADD_SONG', id: number }
-    | { type: 'PLAYLIST_REMOVE_SONG', id: number };
+    | { type: 'PLAYLIST_REMOVE_SONG', id: number }
+    | { type: 'REMOVE_PLAYLIST', id: number };
 
 type AppState = {
     +chosenSongId: number,

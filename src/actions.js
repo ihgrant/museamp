@@ -7,6 +7,13 @@ export function addPlaylist(name) {
     };
 }
 
+export function removePlaylist(id) {
+    return {
+        type: 'REMOVE_PLAYLIST',
+        id: id
+    }
+}
+
 export function addSong(song) {
     return {
         type: 'ADD_SONG',

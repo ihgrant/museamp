@@ -79,11 +79,8 @@ class App extends Component {
                     />
                 </Toolbar>
                 <Content>
-                    <LibraryNav library={this.props.playlist.songs} />
-                    <Playlist
-                        list={this.props.playlist.songs}
-                        onChoose={this.props.onChooseSong.bind(this)}
-                    />
+                    <LibraryNav library={this.props.library} />
+                    <Playlist onChoose={this.onChoose.bind(this)} />
                 </Content>
                 <audio key="audio" ref={el => this.player = el} />
                 <Toolbar psType="footer" />

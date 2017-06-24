@@ -11,6 +11,8 @@ const initialState: AppState = i.freeze({
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
+    console.info(action.type);
+
     let currentPlaylist = state.playlists[state.chosenPlaylistId];
 
     switch (action.type) {
@@ -43,10 +45,14 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
                 state,
                 ['playlists', state.chosenPlaylistId, 'songIds'],
                 i.filter(
-                    id => id !== action.id,
+                    el => el !== action.id,
                     state.playlists[state.chosenPlaylistId].songIds
                 )
             );
+        case 'REMOVE_PLAYLIST':
+            return i.assign({}, state, {
+                playlists: state.playlists.filter((el, i) => i !== action.id)
+            });
         default:
             (action: empty);
             return state;

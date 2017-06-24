@@ -1,4 +1,4 @@
-'use strict';
+// @flow
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import { Content, Pane, Table } from 'react-photonkit';
@@ -6,6 +6,9 @@ import PlaylistItem from './PlaylistItem';
 import PlaylistTabs from './PlaylistTabs';
 
 class Playlist extends Component {
+    props: {
+        songs: Song[]
+    }
     constructor() {
         super();
     }
@@ -13,16 +16,13 @@ class Playlist extends Component {
         //
     }
     render() {
-        const columns = this.props.list.length
-            ? _.keys(this.props.list[0]).filter(el => el !== 'song_path')
+        const columns = this.props.songs.length
+            ? _.keys(this.props.songs[0]).filter(el => el !== 'song_path')
             : [];
 
         return (
             <Pane>
-                <PlaylistTabs
-                    closePlaylist={this.closePlaylist}
-                    playlists={this.props.playlists}
-                />
+                <PlaylistTabs />
                 <Content>
                     <Table>
                         <thead>
@@ -31,7 +31,7 @@ class Playlist extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.props.list.map(el => (
+                            {this.props.songs.map(el => (
                                 <PlaylistItem
                                     columns={columns}
                                     item={el}
@@ -48,15 +48,8 @@ class Playlist extends Component {
     }
 }
 
-Playlist.propTypes = {
-    playlists: PropTypes.array,
-    list: PropTypes.array,
-    onChoose: PropTypes.func.isRequired
-};
-
 Playlist.defaultProps = {
-    list: [],
-    playlists: []
+    songs: [],
 };
 
 export default Playlist;
