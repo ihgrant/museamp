@@ -23,6 +23,7 @@
     "babel-register": "^6.24.1",
     "electron-rebuild": "^1.1.5",
     "flow-bin": "^0.48.0",
+    "prettier": "^1.5.2",
     "should": "^9.0.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.3"
@@ -37,6 +38,7 @@
     "musicmetadata": "^2.0.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-electron-menu": "^0.3.0",
     "react-photonkit": "^0.4.1",
     "react-redux": "^5.0.4",
     "react-treeview": "^0.4.5",
