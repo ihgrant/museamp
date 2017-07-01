@@ -11,28 +11,31 @@ import museAmp from './reducers';
 import { addSong } from './actions';
 import AppContainer from './AppContainer';
 
+const { Menu } = require('electron').remote
 let library = [];
 let app;
 let store = createStore(museAmp);
+
+// set up menu items
+// let template = [
+//     {
+//         submenu: [{ role: 'quit' }]
+//     },
+//     {
+//         label: 'Playback',
+//         submenu: [
+//             { label: 'Shuffle', click: () => store.dispatch(toggleShuffle()), type: 'checkbox', value: store.getState().playbackSettings.shuffle }
+//         ]
+//     }
+// ]
+// const menu = Menu.buildFromTemplate(template)
+// Menu.setApplicationMenu(menu)
 
 function onChooseDirectory(e) {
     if (e.target.files[0]) {
         ipcRenderer.send('CHOOSE_DIR', e.target.files[0].path);
     }
 }
-
-function onPlay(songId) {
-    console.log(songId);
-    ipcRenderer.send('PLAY_SONG', songId);
-}
-
-setTimeout(() => {
-    getLibrary().then(library => {
-        library.forEach(el => {
-            store.dispatch(addSong(el));
-        })
-    })
-}, 500);
 
 function getLibrary() {
     return new Promise((resolve, reject) => {
@@ -48,7 +51,14 @@ function getLibrary() {
 
 render(
     <Provider store={store}>
-        <AppContainer onChooseDirectory={onChooseDirectory} onPlay={onPlay} />
+        <AppContainer onChooseDirectory={onChooseDirectory} />
     </Provider>,
-    document.getElementById('page')
+    document.getElementById('page'),
+    () => {
+        getLibrary().then(library => {
+            library.forEach(el => {
+                store.dispatch(addSong(el));
+            })
+        })
+    }
 );

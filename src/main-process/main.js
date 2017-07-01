@@ -80,15 +80,9 @@ ipcMain.on('GET_LIBRARY', (event, arg) => {
         });
 });
 
-ipcMain.on('PLAY_SONG', (event, songId) => {
-    songLibrary.getSongWithPath(songId).then(song => {
-        event.sender.send('GET_SONG', song);
-    });
-});
-
 songLibrary
     .initialize()
     .then(() => {
-        console.log('initialized.');
+        console.log('library initialized.');
     })
     .catch(err => console.error(err));
