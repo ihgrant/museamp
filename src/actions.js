@@ -48,3 +48,7 @@ export function playlistRemoveSong(songId) {
         id: songId
     };
 }
+
+export function toggleShuffle() {
+    return { type: 'TOGGLE_SHUFFLE' }
+}

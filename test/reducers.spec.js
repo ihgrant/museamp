@@ -11,6 +11,12 @@ test('reducers', function (t) {
             chosenPlaylistId: -1,
             library: [],
             paused: true,
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: false,
+            },
             playlists: []
         },
         'returns initial state'
@@ -25,6 +31,13 @@ test('reducers', function (t) {
             chosenPlaylistId: -1,
             library: [],
             paused: true,
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: false,
+            },
+
             playlists: [{ name: 'test', songIds: [] }]
         },
         'adds a playlist'
@@ -39,6 +52,12 @@ test('reducers', function (t) {
             chosenPlaylistId: 0,
             library: [],
             paused: true,
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: false,
+            },
             playlists: [{ name: 'test', songIds: [] }]
         },
         'chooses a playlist'
@@ -53,6 +72,12 @@ test('reducers', function (t) {
             chosenPlaylistId: 0,
             library: [],
             paused: true,
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: false,
+            },
             playlists: [{ name: 'test', songIds: [0] }]
         },
         'adds a song to a playlist'
@@ -67,6 +92,12 @@ test('reducers', function (t) {
             chosenPlaylistId: 0,
             library: [],
             paused: true,
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: false,
+            },
             playlists: [{ name: 'test', songIds: [0, 1] }]
         },
         'adds another song to a playlist'
@@ -81,6 +112,12 @@ test('reducers', function (t) {
             chosenPlaylistId: 0,
             library: [],
             paused: true,
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: false,
+            },
             playlists: [{ name: 'test', songIds: [1] }]
         },
         'removes a song from a playlist'
@@ -95,9 +132,35 @@ test('reducers', function (t) {
             chosenPlaylistId: 0,
             library: [],
             paused: true,
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: false,
+            },
             playlists: []
         },
         'removes a playlist'
+    );
+
+    state = reducer(state, { type: 'TOGGLE_SHUFFLE' });
+
+    t.deepEqual(
+        state,
+        {
+            chosenSongId: -1,
+            chosenPlaylistId: 0,
+            library: [],
+            paused: true,
+            playlists: [],
+            playbackSettings: {
+                cursorFollowsPlayback: false,
+                playbackFollowsCursor: false,
+                repeat: false,
+                shuffle: true,
+            }
+        },
+        'toggles shuffle'
     );
 
     t.end();

@@ -6,8 +6,18 @@ const initialState: AppState = i.freeze({
     chosenSongId: -1,
     chosenPlaylistId: -1,
     library: [],
-    paused: true,
-    playlists: []
+    playback: {
+        paused: true,
+        progress: 0,
+        songId: -1
+    },
+    playbackSettings: {
+        cursorFollowsPlayback: false,
+        playbackFollowsCursor: false,
+        repeat: false,
+        shuffle: false,
+    },
+    playlists: [],
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
@@ -53,6 +63,8 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
             return i.assign({}, state, {
                 playlists: state.playlists.filter((el, i) => i !== action.id)
             });
+        case 'TOGGLE_SHUFFLE':
+            return i.assocIn(state, ['playbackSettings', 'shuffle'], !state.playbackSettings.shuffle);
         default:
             (action: empty);
             return state;

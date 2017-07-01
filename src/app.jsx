@@ -1,12 +1,13 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
-import { Toolbar, Pane } from 'react-photonkit';
-
+import { Pane } from 'react-photonkit';
 import Content from './components/Content'
 import Controls from './Controls';
 import LibraryNav from './LibraryNav';
+import Menus from './containers/MenusContainer'
 import Playlist from './containers/PlaylistContainer';
+import Toolbar from './components/Toolbar';
 import Window from './components/Window';
 
 class App extends Component {
@@ -74,9 +75,15 @@ class App extends Component {
     }
     render() {
         // console.log(this.props);
+        const chosenSong = _.find(
+            this.props.library,
+            el => el.id === this.props.chosenSongId
+        );
+
         return (
             <Window>
-                <Toolbar>
+                <Menus />
+                <Toolbar style={{ alignItems: 'center', display: 'flex' }}>
                     <Controls
                         onBack={this.onBack}
                         onPlayPause={this.onPlayPause}
@@ -85,13 +92,16 @@ class App extends Component {
                         onChooseDirectory={this.props.onChooseDirectory}
                         paused={this.state.paused}
                     />
+                    <input type='range' style={{ flex: 1, marginRight: '1em' }} />
                 </Toolbar>
                 <Content>
                     <LibraryNav library={this.props.library} />
                     <Playlist onChoose={this.onChoose.bind(this)} />
                 </Content>
                 <audio key="audio" ref={el => this.player = el} />
-                <Toolbar psType="footer" />
+                <Toolbar ptType="footer">
+                    <h1 className='title'>{chosenSong ? `${chosenSong.artist} - ${chosenSong.title}` : ''}</h1>
+                </Toolbar>
             </Window>
         );
     }
