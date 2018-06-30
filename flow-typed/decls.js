@@ -11,12 +11,12 @@ type Action =
 type AppState = {
     +chosenSongId: number,
     +chosenPlaylistId: number,
-        +library: Song[],
-            +paused: boolean,
-                +playbackSettings: {
-    +shuffle: boolean
-},
-+playlists: Playlist[]
+    +library: Song[],
+    +paused: boolean,
+    +playbackSettings: {
+        +shuffle: boolean
+    },
+    +playlists: Playlist[]
 };
 
 type Playlist = {

@@ -7,9 +7,10 @@ var sequelize = new Sequelize('database', 'username', 'password', {
         min: 0,
         idle: 10000
     },
-    storage: process.env.NODE_ENV === 'test'
-        ? './test-database.sqlite'
-        : './database.sqlite'
+    storage:
+        process.env.NODE_ENV === 'test'
+            ? './test-database.sqlite'
+            : './database.sqlite'
 });
 
 var Songs = sequelize.define(
@@ -84,11 +85,11 @@ var authenticate = () => {
     return sequelize.authenticate();
 };
 
-var initialize = function () {
+var initialize = function() {
     return sequelize.sync();
 };
 
-var deleteAllSongs = function () {
+var deleteAllSongs = function() {
     return SongPaths.truncate().then(() => {
         return Songs.truncate();
     });
@@ -112,7 +113,7 @@ var addSong = song => {
     });
 };
 
-var getAllSongs = function () {
+var getAllSongs = function() {
     return Songs.findAll({ include: [SongPaths] }).then(instances => {
         return instances.map(inst => inst.get({ plain: true }));
     });
@@ -122,11 +123,14 @@ var getSongWithPath = songId => {
     return Songs.find({
         include: [SongPaths],
         where: { id: songId }
-    }).then(songPath =>
-        songPath.get({
-            plain: true
-        })
-        );
+    }).then(songPath => {
+        if (songPath) {
+            return songPath.get({
+                plain: true
+            });
+        }
+        throw new Error('Song not found!');
+    });
 };
 
 var flattenSong = song => {

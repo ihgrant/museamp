@@ -1,6 +1,7 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 const { ipcRenderer } = require('electron');
 import React from 'react';
@@ -11,7 +12,7 @@ import museAmp from './reducers';
 import { addSong } from './actions';
 import AppContainer from './AppContainer';
 
-const { Menu } = require('electron').remote
+const { Menu } = require('electron').remote;
 let library = [];
 let app;
 let store = createStore(museAmp);
@@ -46,7 +47,7 @@ function getLibrary() {
             resolve(library);
         });
         ipcRenderer.send('GET_LIBRARY', '');
-    })
+    });
 }
 
 render(
@@ -58,7 +59,7 @@ render(
         getLibrary().then(library => {
             library.forEach(el => {
                 store.dispatch(addSong(el));
-            })
-        })
+            });
+        });
     }
 );
