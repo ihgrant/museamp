@@ -1,5 +1,12 @@
 // actions.js
 
+export function addLibrary(library: Song[]) {
+    return {
+        type: 'ADD_LIBRARY',
+        library
+    };
+}
+
 export function addPlaylist(name) {
     return {
         type: 'ADD_PLAYLIST',

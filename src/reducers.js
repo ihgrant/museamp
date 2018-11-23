@@ -21,11 +21,13 @@ const initialState: AppState = i.freeze({
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
-    console.info(action);
+    console.info('action', action.type);
 
     let currentPlaylist = state.playlists[state.chosenPlaylistId];
 
     switch (action.type) {
+        case 'ADD_LIBRARY':
+            return i.assign({}, state, { library: action.library });
         case 'ADD_PLAYLIST':
             return i.assign({}, state, {
                 chosenPlaylistId: state.playlists.length,

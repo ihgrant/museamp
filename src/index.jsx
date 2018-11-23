@@ -9,7 +9,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import museAmp from './reducers';
-import { addSong, updateMessage } from './actions';
+import { addLibrary, updateMessage } from './actions';
 import AppContainer from './containers/AppContainer';
 
 const { Menu } = require('electron').remote;
@@ -46,9 +46,7 @@ render(
     document.getElementById('page'),
     () => {
         getLibrary().then(library => {
-            library.forEach(el => {
-                store.dispatch(addSong(el));
-            });
+            store.dispatch(addLibrary(library));
         });
     }
 );
