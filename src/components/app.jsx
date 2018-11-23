@@ -2,13 +2,13 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import { Pane } from 'react-photonkit';
-import Content from './components/Content'
+import Content from './Content';
 import Controls from './Controls';
 import LibraryNav from './LibraryNav';
-import Menus from './containers/MenusContainer'
-import Playlist from './containers/PlaylistContainer';
-import Toolbar from './components/Toolbar';
-import Window from './components/Window';
+import Toolbar from './Toolbar';
+import Window from './Window';
+import Menus from '../containers/MenusContainer';
+import Playlist from '../containers/PlaylistContainer';
 
 class App extends Component {
     props: {
@@ -18,7 +18,7 @@ class App extends Component {
     };
     state: {
         paused: boolean
-    }
+    };
     constructor() {
         super();
         this.state = { paused: true };
@@ -92,15 +92,22 @@ class App extends Component {
                         onChooseDirectory={this.props.onChooseDirectory}
                         paused={this.state.paused}
                     />
-                    <input type='range' style={{ flex: 1, marginRight: '1em' }} />
+                    <input
+                        type="range"
+                        style={{ flex: 1, marginRight: '1em' }}
+                    />
                 </Toolbar>
                 <Content>
                     <LibraryNav library={this.props.library} />
                     <Playlist onChoose={this.onChoose.bind(this)} />
                 </Content>
-                <audio key="audio" ref={el => this.player = el} />
+                <audio key="audio" ref={el => (this.player = el)} />
                 <Toolbar ptType="footer">
-                    <h1 className='title'>{chosenSong ? `${chosenSong.artist} - ${chosenSong.title}` : ''}</h1>
+                    <h1 className="title">
+                        {chosenSong
+                            ? `${chosenSong.artist} - ${chosenSong.title}`
+                            : ''}
+                    </h1>
                 </Toolbar>
             </Window>
         );

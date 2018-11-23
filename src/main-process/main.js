@@ -79,7 +79,27 @@ ipcMain.on('CHOOSE_DIR', (event, arg) => {
     console.log('CHOOSE_DIR', arg);
 
     getFiles(arg)
-        .then(songs => Promise.map(songs, song => songLibrary.addSong(song)))
+        .then(songs => {
+            return songLibrary
+                .addSongs(songs)
+                .then(() =>
+                    console.info('>> finished adding songs to database.')
+                );
+
+            // return Promise.map(songs, (song, i) => {
+            //     ipcMain.emit(
+            //         'MESSAGE',
+            //         `inserting song ${i + 1} of ${songs.length}`
+            //     );
+            //     // event.sender.send(
+            //     //     'MESSAGE',
+            //     //     `inserting song ${i + 1} of ${songs.length}`
+            //     // );
+            //     return songLibrary.addSong(song);
+            // }).then(() =>
+            //     console.info('>> finished adding songs to database.')
+            // );
+        })
         .then(() => songLibrary.getAllSongs())
         .then(songs => {
             event.sender.send('GET_LIBRARY_REPLY', songs);
@@ -100,9 +120,9 @@ ipcMain.on('GET_LIBRARY', (event, arg) => {
         });
 });
 
-songLibrary
-    .initialize()
-    .then(() => {
-        console.log('library initialized.');
-    })
-    .catch(err => console.error(err));
+// songLibrary
+//     .initialize()
+//     .then(() => {
+//         console.log('>> library initialized.');
+//     })
+//     .catch(err => console.error(err));

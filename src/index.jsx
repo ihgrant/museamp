@@ -9,28 +9,13 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import museAmp from './reducers';
-import { addSong } from './actions';
-import AppContainer from './AppContainer';
+import { addSong, updateMessage } from './actions';
+import AppContainer from './containers/AppContainer';
 
 const { Menu } = require('electron').remote;
 let library = [];
 let app;
 let store = createStore(museAmp);
-
-// set up menu items
-// let template = [
-//     {
-//         submenu: [{ role: 'quit' }]
-//     },
-//     {
-//         label: 'Playback',
-//         submenu: [
-//             { label: 'Shuffle', click: () => store.dispatch(toggleShuffle()), type: 'checkbox', value: store.getState().playbackSettings.shuffle }
-//         ]
-//     }
-// ]
-// const menu = Menu.buildFromTemplate(template)
-// Menu.setApplicationMenu(menu)
 
 function onChooseDirectory(e) {
     if (e.target.files[0]) {
@@ -49,6 +34,10 @@ function getLibrary() {
         ipcRenderer.send('GET_LIBRARY', '');
     });
 }
+
+// ipcRenderer.on('MESSAGE', (event, message) => {
+//     store.dispatch(updateMessage(message));
+// });
 
 render(
     <Provider store={store}>

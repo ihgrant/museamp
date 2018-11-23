@@ -11,7 +11,7 @@ export function removePlaylist(id) {
     return {
         type: 'REMOVE_PLAYLIST',
         id: id
-    }
+    };
 }
 
 export function addSong(song) {
@@ -50,5 +50,9 @@ export function playlistRemoveSong(songId) {
 }
 
 export function toggleShuffle() {
-    return { type: 'TOGGLE_SHUFFLE' }
+    return { type: 'TOGGLE_SHUFFLE' };
+}
+
+export function updateMessage(message) {
+    return { type: 'UPDATE_MESSAGE', message };
 }

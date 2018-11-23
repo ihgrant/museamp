@@ -1,7 +1,7 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
-import Button from './components/Button';
-import ButtonGroup from './components/ButtonGroup';
+import Button from './Button';
+import ButtonGroup from './ButtonGroup';
 
 class Controls extends Component {
     constructor() {
@@ -33,7 +33,7 @@ class Controls extends Component {
                 </Button>
                 <input
                     type="file"
-                    ref={el => this.dir = el}
+                    ref={el => (this.dir = el)}
                     onChange={this.props.onChooseDirectory}
                     style={{ display: 'none' }}
                 />

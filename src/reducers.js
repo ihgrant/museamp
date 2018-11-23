@@ -6,6 +6,7 @@ const initialState: AppState = i.freeze({
     chosenSongId: -1,
     chosenPlaylistId: -1,
     library: [],
+    message: '',
     playback: {
         paused: true,
         progress: 0,
@@ -15,9 +16,9 @@ const initialState: AppState = i.freeze({
         cursorFollowsPlayback: false,
         playbackFollowsCursor: false,
         repeat: false,
-        shuffle: false,
+        shuffle: false
     },
-    playlists: [],
+    playlists: []
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
@@ -28,6 +29,7 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
     switch (action.type) {
         case 'ADD_PLAYLIST':
             return i.assign({}, state, {
+                chosenPlaylistId: state.playlists.length + 1,
                 playlists: state.playlists.concat({
                     name: action.name,
                     songIds: []
@@ -61,10 +63,17 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
             );
         case 'REMOVE_PLAYLIST':
             return i.assign({}, state, {
+                chosenPlaylistId: -1,
                 playlists: state.playlists.filter((el, i) => i !== action.id)
             });
         case 'TOGGLE_SHUFFLE':
-            return i.assocIn(state, ['playbackSettings', 'shuffle'], !state.playbackSettings.shuffle);
+            return i.assocIn(
+                state,
+                ['playbackSettings', 'shuffle'],
+                !state.playbackSettings.shuffle
+            );
+        case 'UPDATE_MESSAGE':
+            return i.assign({}, state, { message: action.message });
         default:
             (action: empty);
             return state;

@@ -24,7 +24,8 @@ var Songs = sequelize.define(
         album: Sequelize.STRING,
         albumArtist: Sequelize.STRING,
         artist: Sequelize.STRING,
-        title: Sequelize.STRING
+        title: Sequelize.STRING,
+        path: Sequelize.STRING
     },
     {
         freezeTableName: true // Model tableName will be the same as the model name
@@ -79,7 +80,7 @@ var PlaylistDetails = sequelize.define('playlistDetails', {
     sort: Sequelize.INTEGER
 });
 
-Songs.hasOne(SongPaths);
+// Songs.hasOne(SongPaths);
 
 var authenticate = () => {
     return sequelize.authenticate();
@@ -100,28 +101,43 @@ var addSong = song => {
         album: song.album,
         albumArtist: song.albumArtist,
         artist: song.artist.join('||'),
-        title: song.title
+        title: song.title,
+        path: song.path
     }).then(instance => {
-        if (song.path) {
-            return SongPaths.create({
-                path: song.path,
-                songId: instance.id
-            }).then(() => instance);
-        } else {
-            return instance;
-        }
+        // if (song.path) {
+        //     console.log(`adding song ${song.path}`);
+        //     return SongPaths.create({
+        //         path: song.path,
+        //         songId: instance.id
+        //     }).then(() => instance);
+        // } else {
+        return instance;
+        // }
     });
 };
 
+var addSongs = songs => {
+    return Songs.bulkCreate(
+        songs.map(song => ({
+            album: song.album,
+            albumArtist: song.albumArtist,
+            artist: song.artist.join('||'),
+            title: song.title,
+            path: song.path
+        }))
+    );
+};
+
 var getAllSongs = function() {
-    return Songs.findAll({ include: [SongPaths] }).then(instances => {
+    // return Songs.findAll({ include: [SongPaths] }).then(instances => {
+    return Songs.findAll().then(instances => {
         return instances.map(inst => inst.get({ plain: true }));
     });
 };
 
 var getSongWithPath = songId => {
     return Songs.find({
-        include: [SongPaths],
+        // include: [SongPaths],
         where: { id: songId }
     }).then(songPath => {
         if (songPath) {
@@ -147,6 +163,7 @@ var unflattenSong = song => {
 
 module.exports = {
     addSong,
+    addSongs,
     authenticate,
     deleteAllSongs,
     getAllSongs,
