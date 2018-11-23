@@ -1,5 +1,4 @@
 // @flow
-
 import i from 'icepick';
 
 const initialState: AppState = i.freeze({
@@ -22,14 +21,14 @@ const initialState: AppState = i.freeze({
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
-    console.info(action.type);
+    console.info(action);
 
     let currentPlaylist = state.playlists[state.chosenPlaylistId];
 
     switch (action.type) {
         case 'ADD_PLAYLIST':
             return i.assign({}, state, {
-                chosenPlaylistId: state.playlists.length + 1,
+                chosenPlaylistId: state.playlists.length,
                 playlists: state.playlists.concat({
                     name: action.name,
                     songIds: []
@@ -76,6 +75,7 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
             return i.assign({}, state, { message: action.message });
         default:
             (action: empty);
+            console.warn('unmatched action', action);
             return state;
     }
 }

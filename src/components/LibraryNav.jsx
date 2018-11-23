@@ -1,16 +1,16 @@
 // @flow
-import React, { Component, PropTypes } from "react";
-import { Pane } from "react-photonkit";
-import Treeview from "react-treeview";
-import _ from "lodash";
+import React from 'react';
+import { Pane } from 'react-photonkit';
+import Treeview from 'react-treeview';
+import _ from 'lodash';
 
-class LibraryNav extends Component {
-    props: {
-        library: Song[]
-    };
+class LibraryNav extends React.Component<
+    { library: Song[] },
+    { groupBy: 'artist' | 'album' | 'albumArtist' }
+> {
     constructor() {
         super();
-        this.state = { groupBy: "artist" };
+        this.state = { groupBy: 'artist' };
     }
     render() {
         const groups = _.groupBy(this.props.library, this.state.groupBy);
@@ -39,7 +39,7 @@ class LibraryNav extends Component {
 
         return (
             <Pane ptSize="sm" sidebar>
-                <form style={{ padding: ".5em" }}>
+                <form style={{ padding: '.5em' }}>
                     <input
                         className="form-control"
                         name="filter"
@@ -51,7 +51,7 @@ class LibraryNav extends Component {
                         onChange={e =>
                             this.setState({ groupBy: e.currentTarget.value })}
                     >
-                        {["artist", "album", "albumArtist"].map(el =>
+                        {['artist', 'album', 'albumArtist'].map(el =>
                             <option key={el} value={el}>
                                 {el}
                             </option>
