@@ -23,7 +23,7 @@
     "babel-register": "^6.24.1",
     "electron-devtools-installer": "^2.2.0",
     "electron-rebuild": "^1.6.0",
-    "flow-bin": "^0.75.0",
+    "flow-bin": "^0.86.0",
     "prettier": "^1.5.3",
     "should": "^11.2.1",
     "tap-spec": "^4.1.1",
