@@ -1,9 +1,20 @@
+// @flow
 'use strict';
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Button from './Button';
 import ButtonGroup from './ButtonGroup';
 
-class Controls extends Component {
+class Controls extends React.Component<
+    {
+        onBack: () => void,
+        onChooseDirectory: () => void,
+        onPlayPause: () => void,
+        onStop: () => void,
+        onForward: () => void,
+        paused: boolean
+    },
+    {}
+> {
     constructor() {
         super();
     }
@@ -41,14 +52,5 @@ class Controls extends Component {
         );
     }
 }
-
-Controls.propTypes = {
-    onBack: PropTypes.func,
-    onChooseDirectory: PropTypes.func,
-    onPlayPause: PropTypes.func,
-    onStop: PropTypes.func,
-    onForward: PropTypes.func,
-    paused: PropTypes.bool
-};
 
 export default Controls;

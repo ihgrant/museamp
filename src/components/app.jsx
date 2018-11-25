@@ -114,11 +114,4 @@ class App extends Component {
     }
 }
 
-App.propTypes = {
-    library: PropTypes.array,
-    onChooseDirectory: PropTypes.func,
-    onPlay: PropTypes.func,
-    chosenSongId: PropTypes.number
-};
-
 export default App;
