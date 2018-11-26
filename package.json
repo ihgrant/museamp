@@ -39,7 +39,6 @@
     "lodash": "^4.13.1",
     "musicmetadata": "^2.0.4",
     "react": "16.4",
-    "react-beautiful-dnd": "^10.0.2",
     "react-dom": "16.4",
     "react-electron-menu": "^0.3.0",
     "react-photonkit": "https://github.com/ihgrant/react-photonkit.git#0.5.1",

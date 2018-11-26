@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { addPlaylist, choosePlaylist, removePlaylist } from '../actions';
 import Icon from './Icon';

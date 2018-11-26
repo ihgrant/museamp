@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 const { Menu } = require('electron').remote;
 
 function Menus(props: { shuffle: boolean, toggleShuffle: () => void }) {

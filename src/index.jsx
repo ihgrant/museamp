@@ -8,9 +8,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import museAmp from './reducers';
-import { addLibrary, updateMessage } from './actions';
 import AppContainer from './containers/AppContainer';
+import { addLibrary, updateMessage } from './actions';
+import museAmp from './reducers';
 
 const { Menu } = require('electron').remote;
 let library = [];

@@ -1,28 +1,30 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
+import React from 'react';
 import { Pane } from 'react-photonkit';
 import Content from './Content';
 import Controls from './Controls';
 import LibraryNav from './LibraryNav';
-import Toolbar from './Toolbar';
-import Window from './Window';
 import Menus from '../containers/MenusContainer';
 import Playlist from '../containers/PlaylistContainer';
+import Toolbar from './Toolbar';
+import Window from './Window';
 
-class App extends Component {
-    props: {
+class App extends React.Component<
+    {
         library: Song[],
         onChooseDirectory: string => void,
         playlist: Playlist
-    };
-    state: {
+    },
+    {
         paused: boolean
-    };
+    }
+> {
     constructor() {
         super();
         this.state = { paused: true };
         this.onBack = this.onBack.bind(this);
+        this.onChoose = this.onChoose.bind(this);
         this.onPlayPause = this.onPlayPause.bind(this);
         this.onStop = this.onStop.bind(this);
         this.onForward = this.onForward.bind(this);
@@ -99,7 +101,7 @@ class App extends Component {
                 </Toolbar>
                 <Content>
                     <LibraryNav library={this.props.library} />
-                    <Playlist onChoose={this.onChoose.bind(this)} />
+                    <Playlist onChoose={this.onChoose} />
                 </Content>
                 <audio key="audio" ref={el => (this.player = el)} />
                 <Toolbar ptType="footer">
