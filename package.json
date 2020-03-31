@@ -36,7 +36,7 @@
     "express": "^4.15.4",
     "findit": "^2.0.0",
     "icepick": "^2.1.1",
-    "lodash": "^4.13.1",
+    "lodash": "^4.17.13",
     "musicmetadata": "^2.0.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
