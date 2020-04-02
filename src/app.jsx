@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
+import { find } from 'lodash-es';
 import { Pane } from 'react-photonkit';
 import Content from './components/Content';
 import Controls from './Controls';
@@ -62,7 +62,7 @@ class App extends Component<
     }
     componentWillReceiveProps(nextProps) {
         // if (nextProps.chosenSongId) {
-        //     const chosenSong = _.find(
+        //     const chosenSong = find(
         //         this.props.library,
         //         el => el.id === nextProps.chosenSongId
         //     );
@@ -77,7 +77,7 @@ class App extends Component<
     }
     render() {
         // console.log(this.props);
-        const chosenSong = _.find(
+        const chosenSong = find(
             this.props.library,
             el => el.id === this.props.chosenSongId
         );

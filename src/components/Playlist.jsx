@@ -1,17 +1,18 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
 import { Content, Pane, Table } from 'react-photonkit';
 import PlaylistItem from './PlaylistItem';
 import PlaylistTabs from './PlaylistTabs';
 
-function Playlist(props: {
-    chosenSongId: number,
-    onChooseSong: number => void,
-    songs: Song[]
-} = { songs: [] }) {
+function Playlist(
+    props: {
+        chosenSongId?: number,
+        onChooseSong?: number => void,
+        songs: Song[]
+    } = { songs: [] }
+) {
     const columns = props.songs.length
-        ? _.keys(props.songs[0]).filter(el => el !== 'song_path')
+        ? Object.keys(props.songs[0]).filter(el => el !== 'song_path')
         : [];
 
     return (

@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Pane } from 'react-photonkit';
 import Treeview from 'react-treeview';
-import _ from 'lodash';
+import { groupBy } from 'lodash-es';
 
 class LibraryNav extends Component<{ library: Song[] }, { groupBy: string }> {
     constructor() {
@@ -10,8 +10,8 @@ class LibraryNav extends Component<{ library: Song[] }, { groupBy: string }> {
         this.state = { groupBy: 'artist' };
     }
     render() {
-        const groups = _.groupBy(this.props.library, this.state.groupBy);
-        const list = _.keys(groups).map(key => {
+        const groups = groupBy(this.props.library, this.state.groupBy);
+        const list = Object.keys(groups).map(key => {
             const members = groups[key].map(el => (
                 <span className="nav-group-item" key={el.title}>
                     {el.title}

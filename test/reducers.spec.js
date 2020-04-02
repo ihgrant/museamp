@@ -1,7 +1,7 @@
 const test = require('tape');
 import reducer from '../src/reducers';
 
-test('reducers', function (t) {
+test('reducers', function(t) {
     let state = reducer(undefined, {});
 
     t.deepEqual(
@@ -10,12 +10,16 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: -1,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: false,
+                shuffle: false
             },
             playlists: []
         },
@@ -30,12 +34,16 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: -1,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: false,
+                shuffle: false
             },
 
             playlists: [{ name: 'test', songIds: [] }]
@@ -51,12 +59,16 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: false,
+                shuffle: false
             },
             playlists: [{ name: 'test', songIds: [] }]
         },
@@ -71,12 +83,16 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: false,
+                shuffle: false
             },
             playlists: [{ name: 'test', songIds: [0] }]
         },
@@ -91,12 +107,16 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: false,
+                shuffle: false
             },
             playlists: [{ name: 'test', songIds: [0, 1] }]
         },
@@ -111,12 +131,16 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: false,
+                shuffle: false
             },
             playlists: [{ name: 'test', songIds: [1] }]
         },
@@ -131,12 +155,16 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: false,
+                shuffle: false
             },
             playlists: []
         },
@@ -151,13 +179,17 @@ test('reducers', function (t) {
             chosenSongId: -1,
             chosenPlaylistId: 0,
             library: [],
-            paused: true,
+            playback: {
+                paused: true,
+                progress: 0,
+                songId: -1
+            },
             playlists: [],
             playbackSettings: {
                 cursorFollowsPlayback: false,
                 playbackFollowsCursor: false,
                 repeat: false,
-                shuffle: true,
+                shuffle: true
             }
         },
         'toggles shuffle'
