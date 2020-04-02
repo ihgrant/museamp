@@ -1,6 +1,6 @@
 // @flow
-import React from 'react'
+import React from 'react';
 
 export default function Content(props: { children: React$Children }) {
-    return <div className="window-content">{props.children}</div>
+    return <div className="window-content">{props.children}</div>;
 }

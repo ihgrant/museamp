@@ -7,7 +7,7 @@ function mapStateToProps(state: AppState) {
     return {
         chosenSongId: state.chosenSongId,
         chosenPlaylistId: state.chosenPlaylistId,
-        library: state.library,
+        library: state.library
     };
 }
 

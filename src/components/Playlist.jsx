@@ -21,7 +21,11 @@ function Playlist(
             <Content>
                 <Table>
                     <thead>
-                        <tr>{columns.map(el => <th key={el}>{el}</th>)}</tr>
+                        <tr>
+                            {columns.map(el => (
+                                <th key={el}>{el}</th>
+                            ))}
+                        </tr>
                     </thead>
                     <tbody>
                         {props.songs.map(el => (
@@ -31,8 +35,7 @@ function Playlist(
                                 item={el}
                                 key={el.id}
                                 onClick={() => props.chooseSong(el.id)}
-                                onDoubleClick={() =>
-                                    props.onChoose(el.id)}
+                                onDoubleClick={() => props.onChoose(el.id)}
                             />
                         ))}
                     </tbody>

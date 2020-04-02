@@ -1,5 +1,4 @@
 // @flow
-
 import i from 'icepick';
 
 const initialState: AppState = i.freeze({
@@ -15,9 +14,9 @@ const initialState: AppState = i.freeze({
         cursorFollowsPlayback: false,
         playbackFollowsCursor: false,
         repeat: false,
-        shuffle: false,
+        shuffle: false
     },
-    playlists: [],
+    playlists: []
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
@@ -64,7 +63,11 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
                 playlists: state.playlists.filter((el, i) => i !== action.id)
             });
         case 'TOGGLE_SHUFFLE':
-            return i.assocIn(state, ['playbackSettings', 'shuffle'], !state.playbackSettings.shuffle);
+            return i.assocIn(
+                state,
+                ['playbackSettings', 'shuffle'],
+                !state.playbackSettings.shuffle
+            );
         default:
             (action: empty);
             return state;

@@ -33,7 +33,7 @@ class Controls extends Component {
                 </Button>
                 <input
                     type="file"
-                    ref={el => this.dir = el}
+                    ref={el => (this.dir = el)}
                     onChange={this.props.onChooseDirectory}
                     style={{ display: 'none' }}
                 />
