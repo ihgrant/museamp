@@ -47,7 +47,7 @@
     "react-redux": "^5.0.6",
     "react-treeview": "^0.4.7",
     "redux": "^3.7.2",
-    "sequelize": "^3.23.3",
+    "sequelize": "^5.15.1",
     "sqlite3": "^4.1.1"
   }
 }
