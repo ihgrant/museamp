@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
-import { find } from 'lodash-es';
+import { find } from 'lodash';
 import { Pane } from 'react-photonkit';
 import Content from './components/Content';
 import Controls from './Controls';
