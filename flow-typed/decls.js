@@ -1,22 +1,31 @@
 // @flow
 
 type Action =
+    | { type: 'ADD_PLAYLIST', name: string }
     | { type: 'ADD_SONG', song: Song }
     | { type: 'CHOOSE_PLAYLIST', id: number }
     | { type: 'CHOOSE_SONG', id: number }
     | { type: 'PLAYLIST_ADD_SONG', id: number }
     | { type: 'PLAYLIST_REMOVE_SONG', id: number }
-    | { type: 'REMOVE_PLAYLIST', id: number };
+    | { type: 'REMOVE_PLAYLIST', id: number }
+    | { type: 'TOGGLE_SHUFFLE' };
 
 type AppState = {
     +chosenSongId: number,
     +chosenPlaylistId: number,
-        +library: Song[],
-            +paused: boolean,
-                +playbackSettings: {
-    +shuffle: boolean
-},
-+playlists: Playlist[]
+    +library: Song[],
+    +playback: {
+        +paused: boolean,
+        +progress: number,
+        +songId: number
+    },
+    +playbackSettings: {
+        +cursorFollowsPlayback: boolean,
+        +playbackFollowsCursor: boolean,
+        +repeat: boolean,
+        +shuffle: boolean
+    },
+    +playlists: Playlist[]
 };
 
 type Playlist = {
