@@ -2,7 +2,7 @@
   "name": "museamp",
   "version": "1.0.0-alpha.1",
   "description": "a music player using electron",
-  "main": "main.js",
+  "main": "src/main-process/main.js",
   "scripts": {
     "babel:watch": "babel src --out-dir lib -s -w",
     "start": "npm run babel:watch & npm run run:dev",
@@ -17,13 +17,15 @@
   "author": "ihgrant",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
-    "babel-preset-react": "^6.5.0",
-    "babel-register": "^6.24.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-flow": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
     "electron-devtools-installer": "^2.2.0",
     "electron-rebuild": "^1.6.0",
-    "flow-bin": "^0.52.0",
+    "flow-bin": "^0.121.0",
     "prettier": "^1.5.3",
     "should": "^11.2.1",
     "tap-spec": "^4.1.1",
@@ -46,6 +48,6 @@
     "react-treeview": "^0.4.7",
     "redux": "^3.7.2",
     "sequelize": "^3.23.3",
-    "sqlite3": "^3.1.9"
+    "sqlite3": "^4.1.1"
   }
 }
