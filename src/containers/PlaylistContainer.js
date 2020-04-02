@@ -1,15 +1,19 @@
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import { chooseSong } from '../actions'
-import Playlist from '../components/Playlist'
+import { chooseSong } from '../actions';
+import Playlist from '../components/Playlist';
 
 function mapStateToProps(state: AppState) {
     return {
         chosenSongId: state.chosenSongId,
-        songs: state.chosenPlaylistId > -1
-            ? state.library.filter(el => _.includes(state.playlists[state.chosenPlaylistId].songIds, el.id))
-            : state.library
-    }
+        songs:
+            state.chosenPlaylistId > -1
+                ? state.library.filter(el =>
+                      state.playlists[state.chosenPlaylistId].songIds.includes(
+                          el.id
+                      )
+                  )
+                : state.library
+    };
 }
 
 function mapDispatchToProps(dispatch) {
