@@ -15,9 +15,9 @@ const initialState: AppState = i.freeze({
         cursorFollowsPlayback: false,
         playbackFollowsCursor: false,
         repeat: false,
-        shuffle: false,
+        shuffle: false
     },
-    playlists: [],
+    playlists: []
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {

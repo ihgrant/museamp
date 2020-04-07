@@ -11,7 +11,7 @@ import museAmp from './reducers';
 import { addSongBulk } from './actions/library';
 import AppContainer from './AppContainer';
 
-const { Menu } = require('electron').remote
+const { Menu } = require('electron').remote;
 let library = [];
 let app;
 let store = createStore(museAmp);
@@ -46,7 +46,7 @@ function getLibrary() {
             resolve(library);
         });
         ipcRenderer.send('GET_LIBRARY', '');
-    })
+    });
 }
 
 render(
