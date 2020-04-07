@@ -25,41 +25,41 @@ test('reducers', function(t) {
         'returns initial state'
     );
 
-    state = reducer(state, { type: 'ADD_PLAYLIST', name: 'test' });
+    state = reducer(state, { type: 'PLAYLIST/ADD', name: 'test' });
     t.deepEqual(
         state.playlists,
         [{ name: 'test', songIds: [] }],
         'adds a playlist'
     );
 
-    state = reducer(state, { type: 'CHOOSE_PLAYLIST', id: 0 });
+    state = reducer(state, { type: 'PLAYLIST/CHOOSE', id: 0 });
     t.equal(state.chosenPlaylistId, 0, 'chooses a playlist');
 
-    state = reducer(state, { type: 'PLAYLIST_ADD_SONG', id: 0 });
+    state = reducer(state, { type: 'PLAYLIST/ADD_SONG', id: 0 });
     t.deepEqual(
         state.playlists,
         [{ name: 'test', songIds: [0] }],
         'adds a song to a playlist'
     );
 
-    state = reducer(state, { type: 'PLAYLIST_ADD_SONG', id: 1 });
+    state = reducer(state, { type: 'PLAYLIST/ADD_SONG', id: 1 });
     t.deepEqual(
         state.playlists,
         [{ name: 'test', songIds: [0, 1] }],
         'adds another song to a playlist'
     );
 
-    state = reducer(state, { type: 'PLAYLIST_REMOVE_SONG', id: 0 });
+    state = reducer(state, { type: 'PLAYLIST/REMOVE_SONG', id: 0 });
     t.deepEqual(
         state.playlists,
         [{ name: 'test', songIds: [1] }],
         'removes a song from a playlist'
     );
 
-    state = reducer(state, { type: 'REMOVE_PLAYLIST', id: 0 });
+    state = reducer(state, { type: 'PLAYLIST/REMOVE', id: 0 });
     t.deepEqual(state.playlists, [], 'removes a playlist');
 
-    state = reducer(state, { type: 'TOGGLE_SHUFFLE' });
+    state = reducer(state, { type: 'PLAYBACK/TOGGLE_SHUFFLE' });
     t.deepEqual(state.playbackSettings.shuffle, true, 'toggles shuffle');
 
     t.end();
