@@ -1,8 +1,9 @@
 // @flow
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addPlaylist, choosePlaylist, removePlaylist } from '../actions'
 import Icon from './Icon'
+import { choosePlaylist } from '../actions/playlist';
+import { addPlaylist, removePlaylist } from '../actions/playlist';
 
 function mapStateToProps(state: AppState) {
     return {

@@ -1,7 +1,8 @@
 // @flow
 import { connect } from 'react-redux';
 import App from './App';
-import { choosePlaylist, chooseSong } from './actions';
+import { choosePlaylist } from './actions/playlist';
+import { chooseSong } from './actions/playback';
 
 function mapStateToProps(state: AppState) {
     return {
