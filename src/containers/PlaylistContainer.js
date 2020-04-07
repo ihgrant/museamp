@@ -19,9 +19,9 @@ function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch) {
     return {
         chooseSong(id: number) {
-            dispatch(chooseSong(id))
+            dispatch(chooseSong(id));
         }
-    }
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Playlist)
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist);

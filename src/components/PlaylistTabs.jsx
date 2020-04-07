@@ -9,21 +9,21 @@ function mapStateToProps(state: AppState) {
     return {
         chosenPlaylistId: state.chosenPlaylistId,
         playlists: state.playlists
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         onChoosePlaylist: (id: number) => {
-            dispatch(choosePlaylist(id))
+            dispatch(choosePlaylist(id));
         },
         onNewPlaylist: (name: string) => {
-            dispatch(addPlaylist(name))
+            dispatch(addPlaylist(name));
         },
         onRemovePlaylist: (id: number) => {
-            dispatch(removePlaylist(id))
+            dispatch(removePlaylist(id));
         }
-    }
+    };
 }
 
 function PlaylistTabs(props: {
@@ -37,7 +37,11 @@ function PlaylistTabs(props: {
         const isChosen = i === props.chosenPlaylistId;
 
         return (
-            <div className={`tab-item ${isChosen ? 'active' : ''}`} key={el.name} onClick={() => props.onChoosePlaylist(i)}>
+            <div
+                className={`tab-item ${isChosen ? 'active' : ''}`}
+                key={el.name}
+                onClick={() => props.onChoosePlaylist(i)}
+            >
                 <span
                     className="icon icon-cancel icon-close-tab"
                     onClick={() => props.onRemovePlaylist(i)}
@@ -49,18 +53,26 @@ function PlaylistTabs(props: {
 
     return (
         <div className="tab-group">
-            <div className={`tab-item ${props.chosenPlaylistId === -1 ? 'active' : ''}`} onClick={() => props.onChoosePlaylist(-1)}>
+            <div
+                className={`tab-item ${
+                    props.chosenPlaylistId === -1 ? 'active' : ''
+                }`}
+                onClick={() => props.onChoosePlaylist(-1)}
+            >
                 {'Library Selection'}
             </div>
             {tabs}
-            <div className="tab-item tab-item-fixed" onClick={() => {
-                // const newName = prompt('Name your new playlist:') // this is apparently unsupported so I need my own dialog boxes!
-                const newName = Math.random().toString();
-                if (newName.length) {
-                    props.onNewPlaylist(newName);
-                }
-            }}>
-                <Icon name='plus' />
+            <div
+                className="tab-item tab-item-fixed"
+                onClick={() => {
+                    // const newName = prompt('Name your new playlist:') // this is apparently unsupported so I need my own dialog boxes!
+                    const newName = Math.random().toString();
+                    if (newName.length) {
+                        props.onNewPlaylist(newName);
+                    }
+                }}
+            >
+                <Icon name="plus" />
             </div>
         </div>
     );

@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-const { Menu } = require('electron').remote
+// @flow
+import React, { Component, PropTypes } from 'react';
+const { Menu } = require('electron').remote;
 
 function Menus(props: { shuffle: boolean, toggleShuffle: () => void }) {
     const currentMenu = Menu.getApplicationMenu();
@@ -12,17 +13,22 @@ function Menus(props: { shuffle: boolean, toggleShuffle: () => void }) {
         {
             label: 'Playback',
             submenu: [
-                { label: 'Shuffle', click: () => props.toggleShuffle(), type: 'checkbox', value: props.shuffle }
+                {
+                    label: 'Shuffle',
+                    click: () => props.toggleShuffle(),
+                    type: 'checkbox',
+                    value: props.shuffle
+                }
             ]
         }
-    ]
-    console.log(currentMenu.items.length)
+    ];
+    console.log(currentMenu.items.length);
 
     if (currentMenu.items.length !== template.length) {
-        const menu = Menu.buildFromTemplate(template)
-        Menu.setApplicationMenu(menu)
+        const menu = Menu.buildFromTemplate(template);
+        Menu.setApplicationMenu(menu);
     } else {
-        currentMenu.items[1].submenu.value = props.shuffle
+        currentMenu.items[1].submenu.value = props.shuffle;
     }
 
     return null;
