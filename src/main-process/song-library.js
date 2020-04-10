@@ -1,5 +1,5 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('database', 'username', 'password', {
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
     dialect: 'sqlite',
     pool: {
@@ -13,7 +13,7 @@ var sequelize = new Sequelize('database', 'username', 'password', {
             : './database.sqlite'
 });
 
-var Songs = sequelize.define(
+const Songs = sequelize.define(
     'songs',
     {
         id: {
@@ -31,7 +31,7 @@ var Songs = sequelize.define(
     }
 );
 
-var SongPaths = sequelize.define('song_paths', {
+const SongPaths = sequelize.define('song_paths', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -47,7 +47,7 @@ var SongPaths = sequelize.define('song_paths', {
     path: Sequelize.STRING
 });
 
-var Playlists = sequelize.define('playlists', {
+const Playlists = sequelize.define('playlists', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -56,7 +56,7 @@ var Playlists = sequelize.define('playlists', {
     name: Sequelize.STRING
 });
 
-var PlaylistDetails = sequelize.define('playlistDetails', {
+const PlaylistDetails = sequelize.define('playlistDetails', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -81,21 +81,21 @@ var PlaylistDetails = sequelize.define('playlistDetails', {
 
 Songs.hasOne(SongPaths);
 
-var authenticate = () => {
+const authenticate = () => {
     return sequelize.authenticate();
 };
 
-var initialize = function() {
+const initialize = function() {
     return sequelize.sync();
 };
 
-var deleteAllSongs = function() {
+const deleteAllSongs = function() {
     return SongPaths.truncate().then(() => {
         return Songs.truncate();
     });
 };
 
-var addSong = song => {
+const addSong = song => {
     return Songs.create({
         album: song.album,
         albumArtist: song.albumArtist,
@@ -113,30 +113,26 @@ var addSong = song => {
     });
 };
 
-var getAllSongs = function() {
+const getAllSongs = function() {
     return Songs.findAll({ include: [SongPaths] }).then(instances => {
         return instances.map(inst => inst.get({ plain: true }));
     });
 };
 
-var getSongWithPath = songId => {
+const getSongWithPath = songId => {
     return Songs.find({
         include: [SongPaths],
         where: { id: songId }
-    }).then(songPath =>
-        songPath.get({
-            plain: true
-        })
-    );
+    }).then(songPath => songPath.get({ plain: true }));
 };
 
-var flattenSong = song => {
+const flattenSong = song => {
     return Object.assign({}, song, {
         artist: song.artist.join('||')
     });
 };
 
-var unflattenSong = song => {
+const unflattenSong = song => {
     return Object.assign({}, song, {
         artist: song.artist.split('||')
     });
