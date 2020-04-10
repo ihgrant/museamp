@@ -3,9 +3,11 @@ import classNames from 'classnames';
 import React from 'react';
 import Icon from './Icon';
 
-function Button(
-    props: { icon: ?string, label: ?string, onClick?: Event => any }
-) {
+function Button(props: {
+    icon: ?string,
+    label: ?string,
+    onClick?: Event => any
+}) {
     const classes = classNames({
         btn: true,
         'btn-default': true,

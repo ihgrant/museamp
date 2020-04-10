@@ -1,8 +1,7 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { choosePlaylist } from '../actions/playlist';
-import { addPlaylist, removePlaylist } from '../actions/playlist';
+import { addPlaylist, choosePlaylist, removePlaylist } from '../actions';
 import Icon from './Icon';
 import type { Dispatch } from 'redux';
 

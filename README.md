@@ -25,3 +25,8 @@
 -   [ ] add songs to a playlist
     -   [ ] right-click -> send to playlist
     -   [ ] drag and drop onto tab
+
+### dependencies
+
+-   [ ] upgrade react
+-   [ ] upgrade react-redux

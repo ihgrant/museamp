@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Pane } from 'react-photonkit';
 import Treeview from 'react-treeview';
-import { groupBy } from 'lodash-es';
+import { groupBy } from 'lodash';
 
 class LibraryNav extends Component<{ library: Song[] }, { groupBy: string }> {
     static defaultProps = {

@@ -1,9 +1,9 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
 
 export default function Toolbar(props: {
-    children: ?React$Node,
+    children: ?React.Node,
     ptType: 'header' | 'footer',
     style: Object,
     title: ?string
