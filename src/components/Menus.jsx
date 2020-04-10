@@ -1,7 +1,15 @@
+// @flow
 import React, { Component, PropTypes } from 'react';
 const { Menu } = require('electron').remote;
 
-function Menus(props: { shuffle: boolean, toggleShuffle: () => void }) {
+export type OwnProps = {||};
+export type Props = {|
+    ...OwnProps,
+    shuffle: boolean,
+    toggleShuffle: () => void
+|};
+
+function Menus(props: Props) {
     const currentMenu = Menu.getApplicationMenu();
 
     // set up menu items

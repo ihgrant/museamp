@@ -1,8 +1,19 @@
 // @flow
-import React, { PropTypes } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { addPlaylist, choosePlaylist, removePlaylist } from '../actions';
 import Icon from './Icon';
+import type { Dispatch } from 'redux';
+
+type OwnProps = {||};
+type Props = {|
+    ...OwnProps,
+    chosenPlaylistId: number,
+    onChoosePlaylist: number => void,
+    onRemovePlaylist: number => void,
+    onNewPlaylist: string => void,
+    playlists: Playlist[]
+|};
 
 function mapStateToProps(state: AppState) {
     return {
@@ -11,7 +22,7 @@ function mapStateToProps(state: AppState) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch<Action>) {
     return {
         onChoosePlaylist: (id: number) => {
             dispatch(choosePlaylist(id));
@@ -25,13 +36,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-function PlaylistTabs(props: {
-    chosenPlaylistId: number,
-    onChoosePlaylist: number => void,
-    onRemovePlaylist: string => void,
-    onNewPlaylist: string => void,
-    playlists: Playlist[]
-}) {
+function PlaylistTabs(props: Props) {
     const tabs = props.playlists.map((el, i) => {
         const isChosen = i === props.chosenPlaylistId;
 
@@ -77,4 +82,9 @@ function PlaylistTabs(props: {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlaylistTabs);
+const WrappedComponent = connect<Props, OwnProps, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+)(PlaylistTabs);
+
+export default WrappedComponent;

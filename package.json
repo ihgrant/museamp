@@ -1,13 +1,14 @@
-{
+  {
   "name": "museamp",
   "version": "1.0.0-alpha.1",
   "description": "a music player using electron",
   "main": "src/main-process/main.js",
   "scripts": {
     "babel:watch": "babel src --out-dir lib -s -w",
-    "start": "npm run babel:watch & npm run run:dev",
+    "start": "yarn run babel:watch & yarn run run:dev",
     "run:dev": "NODE_ENV=development electron src/main-process/main.js",
-    "test": "tape -r @babel/register test/**/*.js | tap-spec",
+    "test": "tape -r @babel/register test/**/*.js",
+    "test:coverage": "nyc tape -r @babel/register test/**/*.js | tap-nyc",
     "postinstall": "./node_modules/.bin/electron-rebuild"
   },
   "repository": {
@@ -28,9 +29,10 @@
     "electron-devtools-installer": "^2.2.0",
     "electron-rebuild": "^1.10.1",
     "flow-bin": "^0.121.0",
+    "nyc": "^15.0.0",
     "prettier": "^1.5.3",
     "should": "^11.2.1",
-    "tap-spec": "^4.1.1",
+    "tap-nyc": "^1.0.3",
     "tape": "^4.8.0"
   },
   "dependencies": {

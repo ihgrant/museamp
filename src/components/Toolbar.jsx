@@ -1,15 +1,13 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
 
-export default function Toolbar(
-    props: {
-        children?: React$Children,
-        ptType: 'header' | 'footer',
-        style?: Object,
-        title: ?string
-    } = { ptType: 'header', style: {} }
-) {
+export default function Toolbar(props: {
+    children: ?React.Node,
+    ptType: 'header' | 'footer',
+    style: Object,
+    title: ?string
+}) {
     const classes = classNames({
         toolbar: true,
         'toolbar-header': props.ptType !== 'footer',
@@ -32,3 +30,5 @@ export default function Toolbar(
         </header>
     );
 }
+
+Toolbar.defaultProps = { ptType: 'header', style: {} };

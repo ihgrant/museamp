@@ -1,4 +1,5 @@
 // @flow
+import { libraryActions, playbackActions, playlistActions } from './consts';
 import i from 'icepick';
 
 const initialState: AppState = i.freeze({
@@ -25,22 +26,26 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
     let currentPlaylist = state.playlists[state.chosenPlaylistId];
 
     switch (action.type) {
-        case 'ADD_PLAYLIST':
+        case playlistActions.ADD:
             return i.assign({}, state, {
                 playlists: state.playlists.concat({
                     name: action.name,
                     songIds: []
                 })
             });
-        case 'ADD_SONG':
+        case libraryActions.ADD_SONG:
             return i.assign({}, state, {
                 library: state.library.concat(action.song)
             });
-        case 'CHOOSE_PLAYLIST':
+        case libraryActions.ADD_SONG_BULK:
+            return i.assign({}, state, {
+                library: action.songs
+            });
+        case playlistActions.CHOOSE:
             return i.assoc(state, 'chosenPlaylistId', action.id);
-        case 'CHOOSE_SONG':
+        case playbackActions.CHOOSE_SONG:
             return i.assoc(state, 'chosenSongId', action.id);
-        case 'PLAYLIST_ADD_SONG':
+        case playlistActions.ADD_SONG:
             return i.assocIn(
                 state,
                 ['playlists', state.chosenPlaylistId, 'songIds'],
@@ -49,7 +54,7 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
                     action.id
                 )
             );
-        case 'PLAYLIST_REMOVE_SONG':
+        case playlistActions.REMOVE_SONG:
             return i.assocIn(
                 state,
                 ['playlists', state.chosenPlaylistId, 'songIds'],
@@ -58,11 +63,11 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
                     state.playlists[state.chosenPlaylistId].songIds
                 )
             );
-        case 'REMOVE_PLAYLIST':
+        case playlistActions.REMOVE:
             return i.assign({}, state, {
                 playlists: state.playlists.filter((el, i) => i !== action.id)
             });
-        case 'TOGGLE_SHUFFLE':
+        case playbackActions.TOGGLE_SHUFFLE:
             return i.assocIn(
                 state,
                 ['playbackSettings', 'shuffle'],

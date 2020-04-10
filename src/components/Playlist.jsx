@@ -4,13 +4,14 @@ import { Content, Pane, Table } from 'react-photonkit';
 import PlaylistItem from './PlaylistItem';
 import PlaylistTabs from './PlaylistTabs';
 
-function Playlist(
-    props: {
-        chosenSongId?: number,
-        onChooseSong?: number => void,
-        songs: Song[]
-    } = { songs: [] }
-) {
+export type Props = {|
+    chosenSongId?: number,
+    onChoose: number => void,
+    chooseSong: number => void,
+    songs: Song[]
+|};
+
+function Playlist(props: Props) {
     const columns = props.songs.length
         ? Object.keys(props.songs[0]).filter(el => el !== 'song_path')
         : [];
@@ -44,5 +45,7 @@ function Playlist(
         </Pane>
     );
 }
+
+Playlist.defaultProps = { songs: [] };
 
 export default Playlist;

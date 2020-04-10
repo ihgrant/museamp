@@ -1,7 +1,9 @@
 // @flow
 import { connect } from 'react-redux';
 import App from './App';
-import { choosePlaylist, chooseSong } from './actions';
+import { choosePlaylist } from './actions/playlist';
+import { chooseSong } from './actions/playback';
+import type { OwnProps, Props } from './App';
 
 function mapStateToProps(state: AppState) {
     return {
@@ -22,6 +24,9 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+const AppContainer = connect<Props, OwnProps, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
 
 export default AppContainer;
