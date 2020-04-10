@@ -5,6 +5,9 @@ import Treeview from 'react-treeview';
 import { groupBy } from 'lodash-es';
 
 class LibraryNav extends Component<{ library: Song[] }, { groupBy: string }> {
+    static defaultProps = {
+        library: []
+    };
     constructor() {
         super();
         this.state = { groupBy: 'artist' };
@@ -53,9 +56,5 @@ class LibraryNav extends Component<{ library: Song[] }, { groupBy: string }> {
         );
     }
 }
-
-LibraryNav.defaultProps = {
-    library: []
-};
 
 export default LibraryNav;

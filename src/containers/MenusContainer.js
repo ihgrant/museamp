@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import { toggleShuffle } from '../actions/playback';
 import Menus from '../components/Menus';
+import type { OwnProps, Props } from '../components/Menus';
 
 function mapStateToProps(state: AppState) {
     return {
@@ -17,4 +18,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menus)
+export default connect<Props, OwnProps, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+)(Menus);

@@ -3,11 +3,11 @@ import React from 'react';
 import classNames from 'classnames';
 
 export default function Toolbar(props: {
-    children: ?React$Children,
+    children: ?React$Node,
     ptType: 'header' | 'footer',
     style: Object,
     title: ?string
-} = { ptType: 'header', style: {} }) {
+}) {
     const classes = classNames({
         toolbar: true,
         'toolbar-header': props.ptType !== 'footer',
@@ -30,3 +30,5 @@ export default function Toolbar(props: {
         </header>
     );
 }
+
+Toolbar.defaultProps = { ptType: 'header', style: {} };

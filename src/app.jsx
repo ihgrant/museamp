@@ -10,13 +10,17 @@ import Playlist from './containers/PlaylistContainer';
 import Toolbar from './components/Toolbar';
 import Window from './components/Window';
 
+export type OwnProps = {| onChooseDirectory: string => void |};
+export type Props = {|
+    ...OwnProps,
+    chosenPlaylistId: number,
+    chosenSongId?: number,
+    library: Song[],
+    playlist: Playlist
+|};
+
 class App extends Component<
-    {
-        chosenSongId?: mixed,
-        library: Song[],
-        onChooseDirectory: string => void,
-        playlist: Playlist
-    },
+    Props,
     {
         paused: boolean
     }
@@ -24,23 +28,18 @@ class App extends Component<
     constructor() {
         super();
         this.state = { paused: true };
-        this.onBack = this.onBack.bind(this);
-        this.onPlayPause = this.onPlayPause.bind(this);
-        this.onStop = this.onStop.bind(this);
-        this.onForward = this.onForward.bind(this);
     }
-    onBack() {
+    onBack = () => {
         if (this.props.chosenSongId) {
             // this.player.pause();
             console.log('previous');
         }
-    }
-    onChoose(id: number) {
+    };
+    onChoose = (id: number) => {
         // console.log(id)
         this.props.onPlay(id);
-    }
-    onPlayPause() {
-        console.log(this.props.song);
+    };
+    onPlayPause = () => {
         if (this.props.chosenSongId) {
             this.setState(
                 (prevState, props) => ({ paused: !prevState.paused }),
@@ -53,13 +52,13 @@ class App extends Component<
                 }
             );
         }
-    }
-    onStop() {
+    };
+    onStop = () => {
         this.player.pause();
-    }
-    onForward() {
+    };
+    onForward = () => {
         console.log('onforward');
-    }
+    };
     componentWillReceiveProps(nextProps) {
         // if (nextProps.chosenSongId) {
         //     const chosenSong = find(
@@ -115,12 +114,5 @@ class App extends Component<
         );
     }
 }
-
-App.propTypes = {
-    library: PropTypes.array,
-    onChooseDirectory: PropTypes.func,
-    onPlay: PropTypes.func,
-    chosenSongId: PropTypes.number
-};
 
 export default App;

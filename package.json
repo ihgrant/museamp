@@ -1,11 +1,11 @@
-{
+  {
   "name": "museamp",
   "version": "1.0.0-alpha.1",
   "description": "a music player using electron",
   "main": "src/main-process/main.js",
   "scripts": {
     "babel:watch": "babel src --out-dir lib -s -w",
-    "start": "npm run babel:watch & npm run run:dev",
+    "start": "yarn run babel:watch & yarn run run:dev",
     "run:dev": "NODE_ENV=development electron src/main-process/main.js",
     "test": "tape -r @babel/register test/**/*.js",
     "test:coverage": "nyc tape -r @babel/register test/**/*.js | tap-nyc",
