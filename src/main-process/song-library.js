@@ -120,7 +120,7 @@ const getAllSongs = function() {
 };
 
 const getSongWithPath = songId => {
-    return Songs.find({
+    return Songs.findOne({
         include: [SongPaths],
         where: { id: songId }
     }).then(songPath => songPath.get({ plain: true }));
