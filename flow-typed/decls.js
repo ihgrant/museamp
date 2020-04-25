@@ -4,6 +4,11 @@ type Action =
     | { type: 'LIBRARY/ADD_SONG', song: Song }
     | { type: 'LIBRARY/ADD_SONG_BULK', songs: Song[] }
     | { type: 'PLAYBACK/CHOOSE_SONG', id: number }
+    | { type: 'PLAYBACK/NEXT' }
+    | { type: 'PLAYBACK/PAUSE' }
+    | { type: 'PLAYBACK/PLAY' }
+    | { type: 'PLAYBACK/PREVIOUS' }
+    | { type: 'PLAYBACK/STOP' }
     | { type: 'PLAYBACK/TOGGLE_SHUFFLE' }
     | { type: 'PLAYLIST/ADD', name: string }
     | { type: 'PLAYLIST/ADD_SONG', id: number }

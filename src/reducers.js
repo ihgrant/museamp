@@ -26,13 +26,6 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
     let currentPlaylist = state.playlists[state.chosenPlaylistId];
 
     switch (action.type) {
-        case playlistActions.ADD:
-            return i.assign({}, state, {
-                playlists: state.playlists.concat({
-                    name: action.name,
-                    songIds: []
-                })
-            });
         case libraryActions.ADD_SONG:
             return i.assign({}, state, {
                 library: state.library.concat(action.song)
@@ -40,6 +33,22 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
         case libraryActions.ADD_SONG_BULK:
             return i.assign({}, state, {
                 library: action.songs
+            });
+        case playbackActions.CHOOSE_SONG:
+            return i.assign({}, state, { chosenSongId: action.id });
+        case playbackActions.NEXT:
+        case playbackActions.PAUSE:
+        case playbackActions.PLAY:
+        case playbackActions.PREVIOUS:
+        case playbackActions.STOP:
+            console.log(action.type);
+            return;
+        case playlistActions.ADD:
+            return i.assign({}, state, {
+                playlists: state.playlists.concat({
+                    name: action.name,
+                    songIds: []
+                })
             });
         case playlistActions.CHOOSE:
             return i.assoc(state, 'chosenPlaylistId', action.id);

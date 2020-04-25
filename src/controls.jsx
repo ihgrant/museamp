@@ -1,32 +1,51 @@
-'use strict';
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React from 'react';
+import { connect } from 'react-redux';
+import { next, pause, play, previous, stop } from './actions/playback';
 import Button from './components/Button';
 import ButtonGroup from './components/ButtonGroup';
 
-class Controls extends Component {
+type OwnProps = {| onChooseDirectory: string => void |};
+type Props = {|
+    ...OwnProps,
+    onNext: () => void,
+    onPause: () => void,
+    onPlay: () => void,
+    onPrevious: () => void,
+    onStop: () => void,
+    paused: boolean
+|};
+
+class Controls extends React.Component<Props, {}> {
+    dir: ?HTMLInputElement;
     constructor() {
         super();
     }
     openDirectory() {
-        this.dir.click();
+        if (this.dir) {
+            this.dir.click();
+        }
     }
     componentDidMount() {
-        this.dir.setAttribute('webkitdirectory', 'true');
+        if (this.dir) {
+            this.dir.setAttribute('webkitdirectory', 'true');
+        }
     }
     render() {
+        const PauseButton = (
+            <Button icon={'pause'} onClick={this.props.onPause} />
+        );
+        const PlayButton = <Button icon={'play'} onClick={this.props.onPlay} />;
         return (
             <div className="toolbar-actions">
                 <ButtonGroup>
-                    <Button icon="fast-backward" onClick={this.props.onBack} />
                     <Button
-                        icon={this.props.paused ? 'play' : 'pause'}
-                        onClick={this.props.onPlayPause}
+                        icon="fast-backward"
+                        onClick={this.props.onPrevious}
                     />
+                    {this.props.paused ? PlayButton : PauseButton}
                     <Button icon="stop" onClick={this.props.onStop} />
-                    <Button
-                        icon="fast-forward"
-                        onClick={this.props.onForward}
-                    />
+                    <Button icon="fast-forward" onClick={this.props.onNext} />
                 </ButtonGroup>
                 <Button icon="folder" onClick={() => this.openDirectory()}>
                     {`Open Folder...`}
@@ -42,13 +61,23 @@ class Controls extends Component {
     }
 }
 
-Controls.propTypes = {
-    onBack: PropTypes.func,
-    onChooseDirectory: PropTypes.func,
-    onPlayPause: PropTypes.func,
-    onStop: PropTypes.func,
-    onForward: PropTypes.func,
-    paused: PropTypes.bool
-};
+function mapStateToProps(state: AppState) {
+    return {
+        paused: state.playback.paused
+    };
+}
 
-export default Controls;
+function mapDispatchToProps(dispatch) {
+    return {
+        onNext: () => dispatch(next),
+        onPause: () => dispatch(pause()),
+        onPlay: () => dispatch(play()),
+        onPrevious: () => dispatch(previous),
+        onStop: () => dispatch(stop())
+    };
+}
+
+export default connect<Props, OwnProps, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+)(Controls);

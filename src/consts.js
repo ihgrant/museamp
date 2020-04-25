@@ -6,7 +6,11 @@ const libraryActions = {
 };
 const playbackActions = {
     CHOOSE_SONG: 'PLAYBACK/CHOOSE_SONG',
-    NEXT_SONG: 'PLAYBACK/NEXT_SONG',
+    NEXT: 'PLAYBACK/NEXT',
+    PAUSE: 'PLAYBACK/PAUSE',
+    PLAY: 'PLAYBACK/PLAY',
+    PREVIOUS: 'PLAYBACK/PREVIOUS',
+    STOP: 'PLAYBACK/STOP',
     TOGGLE_SHUFFLE: 'PLAYBACK/TOGGLE_SHUFFLE'
 };
 const playlistActions = {
