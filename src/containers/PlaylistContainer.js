@@ -8,12 +8,12 @@ function mapStateToProps(state: AppState) {
         chosenSongId: state.chosenSongId,
         songs:
             state.chosenPlaylistId > -1
-                ? state.library.filter(el =>
+                ? state.library.filter((el) =>
                       state.playlists[state.chosenPlaylistId].songIds.includes(
                           el.id
                       )
                   )
-                : state.library
+                : state.library,
     };
 }
 

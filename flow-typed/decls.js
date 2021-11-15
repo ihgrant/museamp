@@ -23,20 +23,20 @@ type AppState = {
     +playback: {
         +paused: boolean,
         +progress: number,
-        +songId: number
+        +songId: number,
     },
     +playbackSettings: {
         +cursorFollowsPlayback: boolean,
         +playbackFollowsCursor: boolean,
         +repeat: boolean,
-        +shuffle: boolean
+        +shuffle: boolean,
     },
-    +playlists: Playlist[]
+    +playlists: Playlist[],
 };
 
 type Playlist = {
     +name: string,
-    +songIds: number[]
+    +songIds: number[],
 };
 
 type Song = {
@@ -45,7 +45,7 @@ type Song = {
     artist: ?string,
     id: number,
     song_path: ?SongPath,
-    title: ?string
+    title: ?string,
 };
 
 type SongPath = {

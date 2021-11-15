@@ -7,13 +7,16 @@ import PlaylistTabs from './PlaylistTabs';
 export type Props = {|
     chosenSongId?: number,
     onChoose: number => void,
-    chooseSong: number => void,
-    songs: Song[]
+    chooseSong: (number) => void,
+    songs: Song[],
 |};
 
+const nondisplayColumns = ['id', 'createdAt', 'updatedAt', 'song_path'];
 function Playlist(props: Props) {
     const columns = props.songs.length
-        ? Object.keys(props.songs[0]).filter(el => el !== 'song_path')
+        ? Object.keys(props.songs[0]).filter(
+              (key) => !nondisplayColumns.includes(key)
+          )
         : [];
 
     return (
@@ -23,13 +26,13 @@ function Playlist(props: Props) {
                 <Table>
                     <thead>
                         <tr>
-                            {columns.map(el => (
+                            {columns.map((el) => (
                                 <th key={el}>{el}</th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
-                        {props.songs.map(el => (
+                        {props.songs.map((el) => (
                             <PlaylistItem
                                 active={el.id === props.chosenSongId}
                                 columns={columns}

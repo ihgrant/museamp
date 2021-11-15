@@ -6,7 +6,7 @@ export type OwnProps = {||};
 export type Props = {|
     ...OwnProps,
     shuffle: boolean,
-    toggleShuffle: () => void
+    toggleShuffle: () => void,
 |};
 
 function Menus(props: Props) {
@@ -15,7 +15,7 @@ function Menus(props: Props) {
     // set up menu items
     let template = [
         {
-            submenu: [{ role: 'quit' }]
+            submenu: [{ role: 'quit' }],
         },
         {
             label: 'Playback',
@@ -24,10 +24,10 @@ function Menus(props: Props) {
                     label: 'Shuffle',
                     click: () => props.toggleShuffle(),
                     type: 'checkbox',
-                    value: props.shuffle
-                }
-            ]
-        }
+                    value: props.shuffle,
+                },
+            ],
+        },
     ];
     console.log(currentMenu.items.length);
 

@@ -3,14 +3,14 @@ import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 import { Pane } from 'react-photonkit';
 import Content from './components/Content';
-import Controls from './Controls';
+import Controls from './components/Controls';
 import LibraryNav from './LibraryNav';
 import Menus from './containers/MenusContainer';
 import Playlist from './containers/PlaylistContainer';
 import Toolbar from './components/Toolbar';
 import Window from './components/Window';
 
-export type OwnProps = {| onChooseDirectory: string => void |};
+export type OwnProps = {| onChooseDirectory: (string) => void |};
 export type Props = {|
     ...OwnProps,
     chosenPlaylistId: number,
@@ -22,7 +22,7 @@ export type Props = {|
 class App extends Component<
     Props,
     {
-        paused: boolean
+        paused: boolean,
     }
 > {
     constructor() {

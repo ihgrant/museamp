@@ -9,18 +9,18 @@ function mapStateToProps(state: AppState) {
     return {
         chosenSongId: state.chosenSongId,
         chosenPlaylistId: state.chosenPlaylistId,
-        library: state.library
+        library: state.library,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        onChoosePlaylist: playlistId => {
+        onChoosePlaylist: (playlistId: number) => {
             dispatch(choosePlaylist(playlistId));
         },
-        onChooseSong: songId => {
+        onChooseSong: (songId: number) => {
             dispatch(chooseSong(songId));
-        }
+        },
     };
 }
 

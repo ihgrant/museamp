@@ -6,7 +6,7 @@ import type { OwnProps, Props } from '../components/Menus';
 
 function mapStateToProps(state: AppState) {
     return {
-        shuffle: state.playbackSettings.shuffle
+        shuffle: state.playbackSettings.shuffle,
     };
 }
 
@@ -14,7 +14,7 @@ function mapDispatchToProps(dispatch) {
     return {
         toggleShuffle() {
             dispatch(toggleShuffle());
-        }
+        },
     };
 }
 

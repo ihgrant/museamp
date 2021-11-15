@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { next, pause, play, previous, stop } from './actions/playback';
-import Button from './components/Button';
-import ButtonGroup from './components/ButtonGroup';
+import { next, pause, play, previous, stop } from '../actions/playback';
+import Button from './Button';
+import ButtonGroup from './ButtonGroup';
 
-type OwnProps = {| onChooseDirectory: string => void |};
+type OwnProps = {| onChooseDirectory: (string) => void |};
 type Props = {|
     ...OwnProps,
     onNext: () => void,
@@ -13,7 +13,7 @@ type Props = {|
     onPlay: () => void,
     onPrevious: () => void,
     onStop: () => void,
-    paused: boolean
+    paused: boolean,
 |};
 
 class Controls extends React.Component<Props, {}> {
@@ -32,10 +32,6 @@ class Controls extends React.Component<Props, {}> {
         }
     }
     render() {
-        const PauseButton = (
-            <Button icon={'pause'} onClick={this.props.onPause} />
-        );
-        const PlayButton = <Button icon={'play'} onClick={this.props.onPlay} />;
         return (
             <div className="toolbar-actions">
                 <ButtonGroup>
@@ -43,7 +39,11 @@ class Controls extends React.Component<Props, {}> {
                         icon="fast-backward"
                         onClick={this.props.onPrevious}
                     />
-                    {this.props.paused ? PlayButton : PauseButton}
+                    {this.props.paused ? (
+                        <Button icon="play" onClick={this.props.onPlay} />
+                    ) : (
+                        <Button icon="pause" onClick={this.props.onPause} />
+                    )}
                     <Button icon="stop" onClick={this.props.onStop} />
                     <Button icon="fast-forward" onClick={this.props.onNext} />
                 </ButtonGroup>
@@ -51,10 +51,10 @@ class Controls extends React.Component<Props, {}> {
                     {`Open Folder...`}
                 </Button>
                 <input
-                    type="file"
-                    ref={el => (this.dir = el)}
                     onChange={this.props.onChooseDirectory}
+                    ref={(el) => (this.dir = el)}
                     style={{ display: 'none' }}
+                    type="file"
                 />
             </div>
         );
@@ -63,7 +63,7 @@ class Controls extends React.Component<Props, {}> {
 
 function mapStateToProps(state: AppState) {
     return {
-        paused: state.playback.paused
+        paused: state.playback.paused,
     };
 }
 
@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch) {
         onPause: () => dispatch(pause()),
         onPlay: () => dispatch(play()),
         onPrevious: () => dispatch(previous),
-        onStop: () => dispatch(stop())
+        onStop: () => dispatch(stop()),
     };
 }
 

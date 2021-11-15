@@ -3,7 +3,7 @@ import { playbackActions } from '../consts';
 export function chooseSong(songId: number) {
     return {
         type: playbackActions.CHOOSE_SONG,
-        id: songId
+        id: songId,
     };
 }
 

@@ -1,53 +1,49 @@
-var fs = require('fs');
-var find = require('findit');
-var Promise = require('bluebird');
-var mm = Promise.promisify(require('musicmetadata'));
+const fs = require('fs');
+const find = require('findit');
+const Promise = require('bluebird');
+const mm = Promise.promisify(require('musicmetadata'));
 
-var getFiles = function(dir) {
+const getFiles = function(dir) {
     return new Promise((resolve, reject) => {
-        var finder = find(dir, null);
-        var files = [];
-        var cover = '';
+        const finder = find(dir, null);
+        let files = [];
+        let cover = '';
 
         finder.on('file', (file, stat) => {
             files.push({ file, stat });
         });
 
         finder.on('end', () => {
-            const result = files.filter(el => {
-                return isMusic(el.file);
-            });
+            const result = files.filter(el => isMusic(el.file));
 
-            Promise.map(result, el => {
-                return getFileInfo(el.file);
-            }).then(resolve);
+            Promise.map(result, el => getFileInfo(el.file)).then(resolve);
         });
 
         finder.on('error', reject);
     });
 };
 
-var getFileInfo = function(file) {
-    var stream = fs.createReadStream(file);
+const getFileInfo = function(file) {
+    const stream = fs.createReadStream(file);
 
-    return mm(stream).then(metadata => {
-        return Object.assign({}, metadata, {
+    return mm(stream).then(metadata =>
+        Object.assign({}, metadata, {
             path: file
-        });
-    });
+        })
+    );
 };
 
-var isMusic = function(filename) {
-    var a = filename.split('.');
-    var ext = a[a.length - 1];
-    var valid = ['mp3', 'wav'];
+const isMusic = function(filename) {
+    const a = filename.split('.');
+    const ext = a[a.length - 1];
+    const valid = ['mp3', 'wav'];
     return valid.indexOf(ext) !== -1;
 };
 
-var isCoverImage = function(filename) {
-    var a = filename.split('.');
-    var ext = a[a.length - 1];
-    var valid = ['jpg', 'png'];
+const isCoverImage = function(filename) {
+    const a = filename.split('.');
+    const ext = a[a.length - 1];
+    const valid = ['jpg', 'png'];
     return valid.indexOf(ext) !== -1;
 };
 
