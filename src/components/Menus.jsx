@@ -5,6 +5,7 @@ const { Menu } = require('electron').remote;
 export type OwnProps = {||};
 export type Props = {|
     ...OwnProps,
+    deleteLibrary: () => void,
     shuffle: boolean,
     toggleShuffle: () => void,
 |};
@@ -26,6 +27,12 @@ function Menus(props: Props) {
                     type: 'checkbox',
                     value: props.shuffle,
                 },
+            ],
+        },
+        {
+            label: 'DEV',
+            submenu: [
+                { label: 'Delete Library', click: () => props.deleteLibrary() },
             ],
         },
     ];

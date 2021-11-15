@@ -82,6 +82,15 @@ ipcMain.on('GET_LIBRARY', (event, arg) => {
         });
 });
 
+ipcMain.on('DELETE_LIBRARY', (event) => {
+    songLibrary
+        .deleteAllSongs()
+        .then(() => {
+            event.sender.send('DELETE_LIBRARY_REPLY');
+        })
+        .catch(console.error);
+});
+
 songLibrary
     .initialize()
     .then(() => {
