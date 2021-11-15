@@ -1,6 +1,6 @@
 // @flow
 import { connect } from 'react-redux';
-import { chooseSong } from '../actions';
+import { chooseSong, chooseAndPlaySong } from '../actions/playback';
 import Playlist from '../components/Playlist';
 
 function mapStateToProps(state: AppState) {
@@ -21,7 +21,10 @@ function mapDispatchToProps(dispatch) {
     return {
         chooseSong(id: number) {
             dispatch(chooseSong(id));
-        }
+        },
+        chooseAndPlaySong(id: number, filepath: string) {
+            dispatch(chooseAndPlaySong(id, filepath));
+        },
     };
 }
 

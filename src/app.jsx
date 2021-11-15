@@ -1,6 +1,6 @@
 // @flow
+import { get } from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { find } from 'lodash';
 import { Pane } from 'react-photonkit';
 import Content from './components/Content';
 import Controls from './components/Controls';
@@ -13,10 +13,9 @@ import Window from './components/Window';
 export type OwnProps = {| onChooseDirectory: (string) => void |};
 export type Props = {|
     ...OwnProps,
-    chosenPlaylistId: number,
-    chosenSongId?: number,
+    chosenSong?: Song,
     library: Song[],
-    playlist: Playlist
+    onPlay: () => void,
 |};
 
 class App extends Component<
@@ -30,7 +29,7 @@ class App extends Component<
         this.state = { paused: true };
     }
     onBack = () => {
-        if (this.props.chosenSongId) {
+        if (this.props.chosenSong) {
             // this.player.pause();
             console.log('previous');
         }
@@ -40,7 +39,7 @@ class App extends Component<
         this.props.onPlay(id);
     };
     onPlayPause = () => {
-        if (this.props.chosenSongId) {
+        if (this.props.chosenSong) {
             this.setState(
                 (prevState, props) => ({ paused: !prevState.paused }),
                 () => {
@@ -59,39 +58,16 @@ class App extends Component<
     onForward = () => {
         console.log('onforward');
     };
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps.chosenSongId) {
-        //     const chosenSong = find(
-        //         this.props.library,
-        //         el => el.id === nextProps.chosenSongId
-        //     );
-        //     if (chosenSong) {
-        //         console.log(chosenSong);
-        //         this.player.src = chosenSong.song_path.path;
-        //         this.setState({ paused: false }, () => {
-        //             this.player.play();
-        //         });
-        //     }
-        // }
-    }
     render() {
         // console.log(this.props);
-        const chosenSong = find(
-            this.props.library,
-            el => el.id === this.props.chosenSongId
-        );
+        const songPath = get(this.props, 'chosenSong.song_path');
 
         return (
             <Window>
                 <Menus />
                 <Toolbar style={{ alignItems: 'center', display: 'flex' }}>
                     <Controls
-                        onBack={this.onBack}
-                        onPlayPause={this.onPlayPause}
-                        onStop={this.onStop}
-                        onForward={this.onForward}
                         onChooseDirectory={this.props.onChooseDirectory}
-                        paused={this.state.paused}
                     />
                     <input
                         type="range"
@@ -102,11 +78,15 @@ class App extends Component<
                     <LibraryNav library={this.props.library} />
                     <Playlist onChoose={this.onChoose.bind(this)} />
                 </Content>
-                <audio key="audio" ref={el => (this.player = el)} />
+                <audio
+                    src={songPath}
+                    key="audio"
+                    ref={(el) => (this.player = el)}
+                />
                 <Toolbar ptType="footer">
                     <h1 className="title">
-                        {chosenSong
-                            ? `${chosenSong.artist} - ${chosenSong.title}`
+                        {this.props.chosenSong
+                            ? `${this.props.chosenSong.artist} - ${this.props.chosenSong.title}`
                             : ''}
                     </h1>
                 </Toolbar>

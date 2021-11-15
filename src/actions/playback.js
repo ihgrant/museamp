@@ -1,4 +1,15 @@
 import { playbackActions } from '../consts';
+import { load as loadAudio, play as playAudio } from '../audio-context';
+
+export function chooseAndPlaySong(songId: number, filepath: string) {
+    return function(dispatch) {
+        dispatch(chooseSong(songId));
+        loadAudio(filepath).then(() => {
+            dispatch(play());
+            playAudio();
+        });
+    };
+}
 
 export function chooseSong(songId: number) {
     return {

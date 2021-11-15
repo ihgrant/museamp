@@ -6,12 +6,13 @@ import PlaylistTabs from './PlaylistTabs';
 
 export type Props = {|
     chosenSongId?: number,
-    onChoose: number => void,
+    chooseAndPlaySong: (number, string) => void,
     chooseSong: (number) => void,
     songs: Song[],
 |};
 
 const nondisplayColumns = ['id', 'createdAt', 'updatedAt', 'song_path'];
+
 function Playlist(props: Props) {
     const columns = props.songs.length
         ? Object.keys(props.songs[0]).filter(
@@ -39,7 +40,12 @@ function Playlist(props: Props) {
                                 item={el}
                                 key={el.id}
                                 onClick={() => props.chooseSong(el.id)}
-                                onDoubleClick={() => props.onChoose(el.id)}
+                                onDoubleClick={() =>
+                                    props.chooseAndPlaySong(
+                                        el.id,
+                                        el.song_path.path
+                                    )
+                                }
                             />
                         ))}
                     </tbody>

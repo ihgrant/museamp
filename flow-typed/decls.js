@@ -44,11 +44,11 @@ type Song = {
     albumArtist: ?string,
     artist: ?string,
     id: number,
-    song_path: ?SongPath,
+    path: SongPath,
     title: ?string,
 };
 
 type SongPath = {
     id: number,
-    songPath: string
+    path: string,
 };

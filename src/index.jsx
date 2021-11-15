@@ -6,7 +6,8 @@ const { ipcRenderer } = require('electron');
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import museAmp from './reducers';
 import { addSongBulk } from './actions/library';
 import AppContainer from './AppContainer';
@@ -14,22 +15,7 @@ import AppContainer from './AppContainer';
 const { Menu } = require('electron').remote;
 let library = [];
 let app;
-let store = createStore(museAmp);
-
-// set up menu items
-// let template = [
-//     {
-//         submenu: [{ role: 'quit' }]
-//     },
-//     {
-//         label: 'Playback',
-//         submenu: [
-//             { label: 'Shuffle', click: () => store.dispatch(toggleShuffle()), type: 'checkbox', value: store.getState().playbackSettings.shuffle }
-//         ]
-//     }
-// ]
-// const menu = Menu.buildFromTemplate(template)
-// Menu.setApplicationMenu(menu)
+let store = createStore(museAmp, applyMiddleware(thunk));
 
 function onChooseDirectory(e) {
     if (e.target.files[0]) {

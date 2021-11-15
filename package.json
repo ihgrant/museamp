@@ -41,6 +41,7 @@
     "electron": "1",
     "express": "^4.15.4",
     "findit": "^2.0.0",
+    "howler": "^2.2.1",
     "icepick": "^2.1.1",
     "lodash": "^4.17.15",
     "musicmetadata": "^2.0.4",
@@ -51,6 +52,7 @@
     "react-redux": "^5.1",
     "react-treeview": "^0.4.7",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.3.0",
     "sequelize": "5",
     "sqlite3": "^4.1.1"
   }
