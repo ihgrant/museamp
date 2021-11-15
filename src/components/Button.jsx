@@ -4,8 +4,8 @@ import React from 'react';
 import Icon from './Icon';
 
 function Button(props: {
-    icon: ?string,
-    label: ?string,
+    icon?: string,
+    label?: string,
     onClick?: Event => any
 }) {
     const classes = classNames({
@@ -16,7 +16,7 @@ function Button(props: {
     return (
         <button className={classes} onClick={props.onClick}>
             {props.icon ? <Icon name={props.icon} /> : null}
-            {props.label}
+            {props.label || null}
         </button>
     );
 }

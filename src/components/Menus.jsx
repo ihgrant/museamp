@@ -5,8 +5,9 @@ const { Menu } = require('electron').remote;
 export type OwnProps = {||};
 export type Props = {|
     ...OwnProps,
+    deleteLibrary: () => void,
     shuffle: boolean,
-    toggleShuffle: () => void
+    toggleShuffle: () => void,
 |};
 
 function Menus(props: Props) {
@@ -15,7 +16,7 @@ function Menus(props: Props) {
     // set up menu items
     let template = [
         {
-            submenu: [{ role: 'quit' }]
+            submenu: [{ role: 'quit' }],
         },
         {
             label: 'Playback',
@@ -24,10 +25,16 @@ function Menus(props: Props) {
                     label: 'Shuffle',
                     click: () => props.toggleShuffle(),
                     type: 'checkbox',
-                    value: props.shuffle
-                }
-            ]
-        }
+                    value: props.shuffle,
+                },
+            ],
+        },
+        {
+            label: 'DEV',
+            submenu: [
+                { label: 'Delete Library', click: () => props.deleteLibrary() },
+            ],
+        },
     ];
     console.log(currentMenu.items.length);
 

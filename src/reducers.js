@@ -9,15 +9,15 @@ const initialState: AppState = i.freeze({
     playback: {
         paused: true,
         progress: 0,
-        songId: -1
+        songId: -1,
     },
     playbackSettings: {
         cursorFollowsPlayback: false,
         playbackFollowsCursor: false,
         repeat: false,
-        shuffle: false
+        shuffle: false,
     },
-    playlists: []
+    playlists: [],
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
@@ -26,20 +26,29 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
     let currentPlaylist = state.playlists[state.chosenPlaylistId];
 
     switch (action.type) {
+        case libraryActions.ADD_SONG:
+            return i.assign({}, state, {
+                library: state.library.concat(action.song),
+            });
+        case libraryActions.ADD_SONG_BULK:
+            return i.assign({}, state, {
+                library: action.songs,
+            });
+        case playbackActions.CHOOSE_SONG:
+            return i.assign({}, state, { chosenSongId: action.id });
+        case playbackActions.NEXT:
+        case playbackActions.PAUSE:
+        case playbackActions.PLAY:
+        case playbackActions.PREVIOUS:
+        case playbackActions.STOP:
+            console.log(action.type);
+            return state;
         case playlistActions.ADD:
             return i.assign({}, state, {
                 playlists: state.playlists.concat({
                     name: action.name,
-                    songIds: []
-                })
-            });
-        case libraryActions.ADD_SONG:
-            return i.assign({}, state, {
-                library: state.library.concat(action.song)
-            });
-        case libraryActions.ADD_SONG_BULK:
-            return i.assign({}, state, {
-                library: action.songs
+                    songIds: [],
+                }),
             });
         case playlistActions.CHOOSE:
             return i.assoc(state, 'chosenPlaylistId', action.id);
@@ -59,13 +68,13 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
                 state,
                 ['playlists', state.chosenPlaylistId, 'songIds'],
                 i.filter(
-                    el => el !== action.id,
+                    (el) => el !== action.id,
                     state.playlists[state.chosenPlaylistId].songIds
                 )
             );
         case playlistActions.REMOVE:
             return i.assign({}, state, {
-                playlists: state.playlists.filter((el, i) => i !== action.id)
+                playlists: state.playlists.filter((el, i) => i !== action.id),
             });
         case playbackActions.TOGGLE_SHUFFLE:
             return i.assocIn(
