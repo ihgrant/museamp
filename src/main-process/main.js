@@ -1,9 +1,9 @@
-const Promise = require('bluebird');
-const getFiles = require('./get-files');
-const songLibrary = require('./song-library');
+const Promise = require("bluebird");
+const getFiles = require("./get-files");
+const songLibrary = require("./song-library");
 
-const electron = require('electron');
-const { ipcMain } = require('electron');
+const electron = require("electron");
+const { ipcMain } = require("electron");
 
 // Module to control application life.
 const app = electron.app;
@@ -15,85 +15,83 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 
 function createWindow() {
-    // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  // Create the browser window.
+  mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
-    // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/../../static/index.html`);
+  // and load the index.html of the app.
+  mainWindow.loadURL(`file://${__dirname}/../../static/index.html`);
 
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools();
 
-    // Emitted when the window is closed.
-    mainWindow.on('closed', function() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
-    });
+  // Emitted when the window is closed.
+  mainWindow.on("closed", function() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function() {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+app.on("window-all-closed", function() {
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
 
-app.on('activate', function() {
-    // On OS X it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (mainWindow === null) {
-        createWindow();
-    }
+app.on("activate", function() {
+  // On OS X it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (mainWindow === null) {
+    createWindow();
+  }
 });
 
-ipcMain.on('CHOOSE_DIR', (event, arg) => {
-    console.log('CHOOSE_DIR', arg);
+ipcMain.on("CHOOSE_DIR", (event, arg) => {
+  console.log("CHOOSE_DIR", arg);
 
-    getFiles(arg)
-        .then((songs) =>
-            Promise.map(songs, (song) => songLibrary.addSong(song))
-        )
-        .then(() => songLibrary.getAllSongs())
-        .then((songs) => {
-            event.sender.send('GET_LIBRARY_REPLY', songs);
-        })
-        .catch((err) => {
-            event.sender.send('GET_LIBRARY_REPLY', err);
-        });
+  getFiles(arg)
+    .then(songs => Promise.map(songs, song => songLibrary.addSong(song)))
+    .then(() => songLibrary.getAllSongs())
+    .then(songs => {
+      event.sender.send("GET_LIBRARY_REPLY", songs);
+    })
+    .catch(err => {
+      event.sender.send("GET_LIBRARY_REPLY", err);
+    });
 });
 
-ipcMain.on('GET_LIBRARY', (event, arg) => {
-    songLibrary
-        .getAllSongs()
-        .then((songs) => {
-            event.sender.send('GET_LIBRARY_REPLY', songs);
-        })
-        .catch((err) => {
-            event.sender.send('GET_LIBRARY_REPLY', err);
-        });
+ipcMain.on("GET_LIBRARY", (event, arg) => {
+  songLibrary
+    .getAllSongs()
+    .then(songs => {
+      event.sender.send("GET_LIBRARY_REPLY", songs);
+    })
+    .catch(err => {
+      event.sender.send("GET_LIBRARY_REPLY", err);
+    });
 });
 
-ipcMain.on('DELETE_LIBRARY', (event) => {
-    songLibrary
-        .deleteAllSongs()
-        .then(() => {
-            event.sender.send('DELETE_LIBRARY_REPLY');
-        })
-        .catch(console.error);
+ipcMain.on("DELETE_LIBRARY", event => {
+  songLibrary
+    .deleteAllSongs()
+    .then(() => {
+      event.sender.send("DELETE_LIBRARY_REPLY");
+    })
+    .catch(console.error);
 });
 
 songLibrary
-    .initialize()
-    .then(() => {
-        console.log('library initialized.');
-    })
-    .catch((err) => console.error(err));
+  .initialize()
+  .then(() => {
+    console.log("library initialized.");
+  })
+  .catch(err => console.error(err));
