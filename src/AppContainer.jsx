@@ -1,36 +1,36 @@
 // @flow
-import { connect } from 'react-redux';
-import { find } from 'lodash';
-import App from './App';
-import { choosePlaylist } from './actions/playlist';
-import { play } from './actions/playback';
-import { chooseSong } from './actions/playback';
-import type { OwnProps, Props } from './App';
+import { connect } from "react-redux";
+import { find } from "lodash";
+import App from "./App";
+import { choosePlaylist } from "./actions/playlist";
+import { play } from "./actions/playback";
+import { chooseSong } from "./actions/playback";
+import type { OwnProps, Props } from "./App";
 
 function mapStateToProps(state: AppState) {
-    return {
-        chosenSong: find(state.library, (el) => el.id === state.chosenSongId),
-        library: state.library,
-    };
+  return {
+    chosenSong: find(state.library, el => el.id === state.chosenSongId),
+    library: state.library
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        onChoosePlaylist: (playlistId: number) => {
-            dispatch(choosePlaylist(playlistId));
-        },
-        onChooseSong: (songId: number) => {
-            dispatch(chooseSong(songId));
-        },
-        onPlay: () => {
-            dispatch(play());
-        },
-    };
+  return {
+    onChoosePlaylist: (playlistId: number) => {
+      dispatch(choosePlaylist(playlistId));
+    },
+    onChooseSong: (songId: number) => {
+      dispatch(chooseSong(songId));
+    },
+    onPlay: () => {
+      dispatch(play());
+    }
+  };
 }
 
 const AppContainer = connect<Props, OwnProps, _, _, _, _>(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(App);
 
 export default AppContainer;

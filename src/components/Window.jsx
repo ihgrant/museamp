@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export default function Window(props: { children: React$Children }) {
-    return <div className="window">{props.children}</div>;
+  return <div className="window">{props.children}</div>;
 }
