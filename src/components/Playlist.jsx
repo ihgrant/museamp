@@ -4,6 +4,7 @@ import { Content, Pane, Table } from "react-photonkit";
 import PlaylistItem from "./PlaylistItem";
 import PlaylistTabs from "./PlaylistTabs";
 
+export type OwnProps = {||};
 export type Props = {|
   chosenSongId?: number,
   chooseAndPlaySong: (number, string) => void,
@@ -41,7 +42,7 @@ function Playlist(props: Props) {
                 key={el.id}
                 onClick={() => props.chooseSong(el.id)}
                 onDoubleClick={() =>
-                  props.chooseAndPlaySong(el.id, el.song_path.path)
+                  props.chooseAndPlaySong(el.id, el.path.path)
                 }
               />
             ))}
