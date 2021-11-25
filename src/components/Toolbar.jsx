@@ -6,7 +6,7 @@ export default function Toolbar(props: {
   children: ?React.Node,
   ptType: "header" | "footer",
   style: Object,
-  title: ?string
+  title?: string
 }) {
   const classes = classNames({
     toolbar: true,

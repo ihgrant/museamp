@@ -1,3 +1,4 @@
+// @flow
 import { playbackActions } from "../consts";
 import { load as loadAudio, play as playAudio } from "../audio-context";
 
@@ -11,7 +12,7 @@ export function chooseAndPlaySong(songId: number, filepath: string) {
   };
 }
 
-export function chooseSong(songId: number) {
+export function chooseSong(songId: SongId) {
   return {
     type: playbackActions.CHOOSE_SONG,
     id: songId

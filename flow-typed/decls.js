@@ -11,10 +11,10 @@ type Action =
   | { type: "PLAYBACK/STOP" }
   | { type: "PLAYBACK/TOGGLE_SHUFFLE" }
   | { type: "PLAYLIST/ADD", name: string }
-  | { type: "PLAYLIST/ADD_SONG", id: number }
+  | { type: "PLAYLIST/ADD_SONG", id: SongId }
   | { type: "PLAYLIST/CHOOSE", id: number }
   | { type: "PLAYLIST/REMOVE", id: number }
-  | { type: "PLAYLIST/REMOVE_SONG", id: number };
+  | { type: "PLAYLIST/REMOVE_SONG", index: number }
 
 type AppState = {
   +chosenSongId: number,
@@ -23,7 +23,7 @@ type AppState = {
   +playback: {
     +paused: boolean,
     +progress: number,
-    +songId: number
+    +songId: SongId
   },
   +playbackSettings: {
     +cursorFollowsPlayback: boolean,
@@ -36,17 +36,19 @@ type AppState = {
 
 type Playlist = {
   +name: string,
-  +songIds: number[]
+  +songIds: SongId[]
 };
 
 type Song = {
   album: ?string,
   albumArtist: ?string,
   artist: ?string,
-  id: number,
+  id: SongId,
   path: SongPath,
   title: ?string
 };
+
+type SongId = number;
 
 type SongPath = {
   id: number,
