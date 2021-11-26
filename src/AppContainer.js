@@ -15,17 +15,7 @@ function mapStateToProps(state: AppState) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    onChoosePlaylist: (playlistId: number) => {
-      dispatch(choosePlaylist(playlistId));
-    },
-    onChooseSong: (songId: number) => {
-      dispatch(chooseSong(songId));
-    },
-    onPlay: () => {
-      dispatch(play());
-    }
-  };
+  return {};
 }
 
 const AppContainer = connect<Props, OwnProps, _, _, _, _>(
