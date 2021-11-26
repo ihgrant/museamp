@@ -20,5 +20,11 @@ const playlistActions = {
   REMOVE: "PLAYLIST/REMOVE",
   REMOVE_SONG: "PLAYLIST/REMOVE_SONG"
 };
+const queueActions = {
+  ADD: "QUEUE/ADD",
+  ADD_FIRST: "QUEUE/ADD_FIRST",
+  CLEAR: "QUEUE/CLEAR",
+  REMOVE: "QUEUE/REMOVE"
+};
 
-export { libraryActions, playbackActions, playlistActions };
+export { libraryActions, playbackActions, playlistActions, queueActions };

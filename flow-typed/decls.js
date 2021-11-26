@@ -19,6 +19,10 @@ type Action =
   | { type: "PLAYLIST/CHOOSE", id: number }
   | { type: "PLAYLIST/REMOVE", id: number }
   | { type: "PLAYLIST/REMOVE_SONG", index: number }
+  | { type: "QUEUE/ADD", id: SongId }
+  | { type: "QUEUE/ADD_FIRST", id: SongId }
+  | { type: "QUEUE/CLEAR" }
+  | { type: "QUEUE/REMOVE", index: number };
 
 type AppState = {
   +chosenSongId: number,
@@ -35,7 +39,8 @@ type AppState = {
     +repeat: boolean,
     +shuffle: boolean
   },
-  +playlists: Playlist[]
+  +playlists: Playlist[],
+  +queue: SongId[]
 };
 
 type Playlist = {
