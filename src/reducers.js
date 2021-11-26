@@ -65,7 +65,7 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
         state,
         ["playlists", state.chosenPlaylistId, "songIds"],
         i.filter(
-          el => el !== action.id,
+          (el, i) => i !== action.index,
           state.playlists[state.chosenPlaylistId].songIds
         )
       );
