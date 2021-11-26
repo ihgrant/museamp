@@ -1,5 +1,9 @@
 // @flow
 
+type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
+type GetState = () => State;
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
+type PromiseAction = Promise<Action>;
 type Action =
   | { type: "LIBRARY/ADD_SONG", song: Song }
   | { type: "LIBRARY/ADD_SONG_BULK", songs: Song[] }
