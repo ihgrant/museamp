@@ -1,13 +1,21 @@
 // @flow
 import { playbackActions } from "../consts";
-import { load as loadAudio, play as playAudio } from "../audio-context";
+import audioContext from "../audio-context";
 
-export function chooseAndPlaySong(songId: number, filepath: string) {
-  return function(dispatch) {
-    dispatch(chooseSong(songId));
-    loadAudio(filepath).then(() => {
+export function chooseAndPlaySong({
+  _audioContext = audioContext,
+  filepath,
+  songId
+}: {
+  songId: SongId,
+  filepath: string,
+  _audioContext?: typeof audioContext
+}): ThunkAction {
+  return function(dispatch: Dispatch) {
+    _audioContext.load(filepath).then(() => {
+      dispatch(chooseSong(songId));
+      _audioContext.play();
       dispatch(play());
-      playAudio();
     });
   };
 }

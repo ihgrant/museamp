@@ -3,7 +3,13 @@ import { Howl, Howler } from "howler";
 
 let currentTrack;
 
-export function load(filepath: string): Promise<void> {
+export default {
+  load,
+  pause,
+  play
+};
+
+function load(filepath: string): Promise<void> {
   return new Promise((resolve, reject) => {
     currentTrack = new Howl({
       onload: resolve,
@@ -13,9 +19,14 @@ export function load(filepath: string): Promise<void> {
   });
 }
 
-export function play(): void {
+function pause(): void {
   if (currentTrack && currentTrack.playing()) {
-    currentTrack.stop();
+    currentTrack.pause();
   }
-  currentTrack.play();
+}
+
+function play(): void {
+  if (currentTrack && !currentTrack.playing()) {
+    currentTrack.play();
+  }
 }
