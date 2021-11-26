@@ -52,7 +52,10 @@ function PlaylistTabs(props: Props) {
       >
         <span
           className="icon icon-cancel icon-close-tab"
-          onClick={() => props.onRemovePlaylist(i)}
+          onClick={e => {
+            e.stopPropagation();
+            props.onRemovePlaylist(i);
+          }}
         />
         {el.name}
       </div>
