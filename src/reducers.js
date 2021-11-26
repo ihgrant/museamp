@@ -1,5 +1,10 @@
 // @flow
-import { libraryActions, playbackActions, playlistActions } from "./consts";
+import {
+  libraryActions,
+  playbackActions,
+  playlistActions,
+  queueActions
+} from "./consts";
 import i from "icepick";
 
 const initialState: AppState = i.freeze({
@@ -17,7 +22,8 @@ const initialState: AppState = i.freeze({
     repeat: false,
     shuffle: false
   },
-  playlists: []
+  playlists: [],
+  queue: []
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
@@ -78,6 +84,18 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
         state,
         ["playbackSettings", "shuffle"],
         !state.playbackSettings.shuffle
+      );
+    case queueActions.ADD:
+      return i.assoc(state, "queue", i.push(state.queue, action.id));
+    case queueActions.ADD_FIRST:
+      return i.assoc(state, "queue", i.unshift(state.queue, action.id));
+    case queueActions.CLEAR:
+      return i.assoc(state, "queue", []);
+    case queueActions.REMOVE:
+      return i.assoc(
+        state,
+        "queue",
+        i.filter((el, i) => i !== action.index, state.queue)
       );
     default:
       (action: empty);
