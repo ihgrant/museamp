@@ -35,6 +35,17 @@ export function pause() {
   return { type: playbackActions.PAUSE };
 }
 
+export function pauseSong({
+  _audioContext = audioContext
+}: {
+  _audioContext?: typeof audioContext
+}): ThunkAction {
+  return function(dispatch: Dispatch) {
+    _audioContext.pause();
+    dispatch(pause());
+  };
+}
+
 export function play() {
   return { type: playbackActions.PLAY };
 }
