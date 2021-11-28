@@ -1,7 +1,7 @@
 // @flow
 
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-type GetState = () => State;
+type GetState = () => AppState;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Action =
@@ -18,7 +18,7 @@ type Action =
   | { type: "PLAYLIST/ADD_SONG", id: SongId }
   | { type: "PLAYLIST/CHOOSE", id: number }
   | { type: "PLAYLIST/REMOVE", id: number }
-  | { type: "PLAYLIST/REMOVE_SONG", index: number }
+  | { type: "PLAYLIST/REMOVE_SONG", index: number };
 
 type AppState = {
   +chosenSongId: number,
@@ -48,7 +48,7 @@ type Song = {
   albumArtist: ?string,
   artist: ?string,
   id: SongId,
-  path: SongPath,
+  song_path: SongPath,
   title: ?string
 };
 
