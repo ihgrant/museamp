@@ -4,13 +4,13 @@ import { chooseAndPlaySong } from "./playback";
 
 test("playback thunks", t => {
   t.test("chooseAndPlaySong", st => {
+    st.plan(4);
     let loadWasCalled = false;
     let playWasCalled = false;
     let dispatchCalls = 0;
     const mockAudioContext = {
       load: () => {
         loadWasCalled = true;
-        console.info("LOAD");
         return Promise.resolve();
       },
       play: () => {
@@ -23,7 +23,7 @@ test("playback thunks", t => {
       _audioContext: mockAudioContext
     });
 
-    dispatchAction(dispatchedAction => {
+    return dispatchAction(dispatchedAction => {
       dispatchCalls += 1;
 
       if (dispatchCalls === 1) {
@@ -43,6 +43,8 @@ test("playback thunks", t => {
       }
     });
 
+    // st.end();
+  });
     st.end();
   });
 

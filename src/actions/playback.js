@@ -12,7 +12,7 @@ export function chooseAndPlaySong({
   _audioContext?: typeof audioContext
 }): ThunkAction {
   return function(dispatch: Dispatch) {
-    _audioContext.load(filepath).then(() => {
+    return _audioContext.load(filepath).then(() => {
       dispatch(chooseSong(songId));
       _audioContext.play();
       dispatch(play());
