@@ -7,8 +7,8 @@
     "babel:watch": "babel src --out-dir lib -s -w",
     "start": "yarn run babel:watch & yarn run run:dev",
     "run:dev": "NODE_ENV=development electron src/main-process/main.js",
-    "test": "tape -r @babel/register test/**/*.js",
-    "test:coverage": "nyc tape -r @babel/register test/**/*.js | tap-nyc",
+    "test": "tape -r @babel/register './src/**/*.spec.js'",
+    "test:coverage": "nyc tape -r @babel/register './src/**/*.spec.js' | tap-nyc",
     "postinstall": "./node_modules/.bin/electron-rebuild"
   },
   "repository": {
