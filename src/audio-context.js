@@ -6,7 +6,8 @@ let currentTrack;
 export default {
   load,
   pause,
-  play
+  play,
+  stop
 };
 
 function load(filepath: string): Promise<void> {
@@ -29,4 +30,8 @@ function play(): void {
   if (currentTrack && !currentTrack.playing()) {
     currentTrack.play();
   }
+}
+
+function stop(): void {
+  Howler.stop();
 }

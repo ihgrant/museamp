@@ -50,12 +50,37 @@ export function play() {
   return { type: playbackActions.PLAY };
 }
 
+export function playSong({
+  _audioContext = audioContext
+}: {
+  _audioContext?: typeof audioContext
+}): ThunkAction {
+  return function(dispatch: Dispatch, getState: GetState) {
+    const state = getState();
+    if (state.playback.paused && state.chosenSongId > -1) {
+      _audioContext.play();
+      dispatch(play());
+    }
+  };
+}
+
 export function previous() {
   return { type: playbackActions.PREVIOUS };
 }
 
 export function stop() {
   return { type: playbackActions.STOP };
+}
+
+export function stopSong({
+  _audioContext = audioContext
+}: {
+  _audioContext?: typeof audioContext
+}): ThunkAction {
+  return function(dispatch: Dispatch) {
+    _audioContext.stop();
+    dispatch(stop());
+  };
 }
 
 export function toggleShuffle() {
