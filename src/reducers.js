@@ -21,7 +21,7 @@ const initialState: AppState = i.freeze({
 });
 
 function museAmp(state: AppState = initialState, action: Action): AppState {
-  console.info(action.type);
+  console.info("reducer", action.type);
 
   let currentPlaylist = state.playlists[state.chosenPlaylistId];
 
@@ -36,13 +36,19 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
       });
     case playbackActions.CHOOSE_SONG:
       return i.assign({}, state, { chosenSongId: action.id });
-    case playbackActions.NEXT:
-    case playbackActions.PAUSE:
     case playbackActions.PLAY:
+      return i.assocIn(state, ["playback", "paused"], false);
+    case playbackActions.PAUSE:
+      return i.assocIn(state, ["playback", "paused"], true);
+    case playbackActions.NEXT:
     case playbackActions.PREVIOUS:
-    case playbackActions.STOP:
-      console.log(action.type);
       return state;
+    case playbackActions.STOP:
+      return i
+        .chain(state)
+        .assocIn(["playback", "paused"], true)
+        .assocIn(["playback", "progress"], 0)
+        .value();
     case playlistActions.ADD:
       return i.assign({}, state, {
         playlists: state.playlists.concat({

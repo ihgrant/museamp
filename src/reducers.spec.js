@@ -25,6 +25,26 @@ test("reducers", function(t) {
     "returns initial state"
   );
 
+  t.test("playback", st => {
+    const chooseSongState = reducer(state, {
+      type: "PLAYBACK/CHOOSE_SONG",
+      id: 0
+    });
+    st.equal(chooseSongState.chosenSongId, 0, "sets chosen song id");
+
+    const playState = reducer(state, { type: "PLAYBACK/PLAY" });
+    st.equal(playState.playback.paused, false, "sets paused to false");
+
+    const pausedState = reducer(playState, { type: "PLAYBACK/PAUSE" });
+    st.equal(pausedState.playback.paused, true, "pets paused to true");
+
+    const stopState = reducer(playState, { type: "PLAYBACK/STOP" });
+    st.equal(stopState.playback.paused, true, "sets paused to true");
+    st.equal(stopState.playback.progress, 0, "resets progress");
+
+    st.end();
+  });
+
   t.test("playlist", st => {
     const addState = reducer(state, { type: "PLAYLIST/ADD", name: "test" });
     st.deepEqual(
