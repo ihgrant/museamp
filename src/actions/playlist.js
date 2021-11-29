@@ -29,6 +29,14 @@ export function playlistAddSong(songId: SongId): Action {
   };
 }
 
+export function playlistMoveSong(oldIndex: number, newIndex: number): Action {
+  return {
+    type: playlistActions.MOVE_SONG,
+    newIndex,
+    oldIndex
+  };
+}
+
 export function playlistRemoveSong(songIndex: number): Action {
   return {
     type: playlistActions.REMOVE_SONG,

@@ -101,6 +101,24 @@ test("reducers", function(t) {
       "toggles shuffle"
     );
 
+    const moveSongStartState = reducer(addSongState2, {
+      type: "PLAYLIST/ADD_SONG",
+      id: 2
+    });
+    const moveSongEndState = reducer(moveSongStartState, {
+      type: "PLAYLIST/MOVE_SONG",
+      oldIndex: 1,
+      newIndex: 2
+    });
+    st.deepEqual(
+      moveSongEndState.playlists[0],
+      {
+        name: "test",
+        songIds: [0, 2, 1]
+      },
+      "moves a song in a playlist"
+    );
+
     st.end();
   });
 

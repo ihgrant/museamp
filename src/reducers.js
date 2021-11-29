@@ -66,6 +66,19 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
         ["playlists", state.chosenPlaylistId, "songIds"],
         i.push(state.playlists[state.chosenPlaylistId].songIds, action.id)
       );
+    case playlistActions.MOVE_SONG:
+      const playlistToAlter = state.playlists[state.chosenPlaylistId].songIds;
+      const songToMove = playlistToAlter[action.oldIndex];
+      const newPlaylistOrder = i
+        .chain(playlistToAlter)
+        .splice(action.newIndex + 1, 0, songToMove)
+        .splice(action.oldIndex, 1)
+        .value();
+      return i.assocIn(
+        state,
+        ["playlists", state.chosenPlaylistId, "songIds"],
+        newPlaylistOrder
+      );
     case playlistActions.REMOVE_SONG:
       return i.assocIn(
         state,

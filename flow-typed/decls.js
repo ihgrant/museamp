@@ -16,6 +16,7 @@ type Action =
   | { type: "PLAYBACK/TOGGLE_SHUFFLE" }
   | { type: "PLAYLIST/ADD", name: string }
   | { type: "PLAYLIST/ADD_SONG", id: SongId }
+  | { type: "PLAYLIST/MOVE_SONG", newIndex: number, oldIndex: number }
   | { type: "PLAYLIST/CHOOSE", id: number }
   | { type: "PLAYLIST/REMOVE", id: number }
   | { type: "PLAYLIST/REMOVE_SONG", index: number };
