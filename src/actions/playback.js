@@ -28,7 +28,7 @@ export function chooseAndPlaySong({
   };
 }
 
-function chooseSong(songId: SongId) {
+export function chooseSong(songId: SongId) {
   return {
     type: playbackActions.CHOOSE_SONG,
     id: songId

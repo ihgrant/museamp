@@ -8,6 +8,8 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 import museAmp from "./reducers";
 import { addSongBulk } from "./actions/library";
 import AppContainer from "./AppContainer";
@@ -37,7 +39,9 @@ function getLibrary() {
 
 render(
   <Provider store={store}>
-    <AppContainer onChooseDirectory={onChooseDirectory} />
+    <DndProvider backend={HTML5Backend}>
+      <AppContainer onChooseDirectory={onChooseDirectory} />
+    </DndProvider>
   </Provider>,
   document.getElementById("page"),
   () => {

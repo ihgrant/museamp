@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { find } from "lodash";
 import App from "./App";
 import { choosePlaylist } from "./actions/playlist";
-import { play } from "./actions/playback";
 import { chooseSong } from "./actions/playback";
 import type { OwnProps, Props } from "./App";
 

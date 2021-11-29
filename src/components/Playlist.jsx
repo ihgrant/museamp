@@ -1,11 +1,14 @@
 // @flow
 import React, { Component, PropTypes } from "react";
+import { useDrop } from "react-dnd";
 import { Content, Pane, Table } from "react-photonkit";
+import { draggableTypes } from "../consts";
 import PlaylistItem from "./PlaylistItem";
 import PlaylistTabs from "./PlaylistTabs";
 
 export type OwnProps = {||};
 export type Props = {|
+  addSong: SongId => void,
   chosenSongId?: number,
   chooseAndPlaySong: (number, string) => void,
   chooseSong: number => void,
@@ -15,6 +18,15 @@ export type Props = {|
 const nondisplayColumns = ["id", "createdAt", "updatedAt", "song_path"];
 
 function Playlist(props: Props) {
+  const [collectedProps, drop] = useDrop(() => ({
+    accept: [draggableTypes.LIBRARYITEM, draggableTypes.PLAYLISTITEM],
+    collect: monitor => ({
+      border: monitor.canDrop() ? "1px solid blue" : null
+    }),
+    drop: (item, monitor) => {
+      props.addSong(item.songId);
+    }
+  }));
   const columns = props.songs.length
     ? Object.keys(props.songs[0]).filter(
         key => !nondisplayColumns.includes(key)
@@ -24,31 +36,33 @@ function Playlist(props: Props) {
   return (
     <Pane>
       <PlaylistTabs />
-      <Content>
-        <Table>
-          <thead>
-            <tr>
-              {columns.map(el => (
-                <th key={el}>{el}</th>
+      <div style={{ height: "100%", border: collectedProps.border }} ref={drop}>
+        <Content>
+          <Table>
+            <thead>
+              <tr>
+                {columns.map(el => (
+                  <th key={el}>{el}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {props.songs.map(el => (
+                <PlaylistItem
+                  active={el.id === props.chosenSongId}
+                  columns={columns}
+                  item={el}
+                  key={el.id}
+                  onClick={() => props.chooseSong(el.id)}
+                  onDoubleClick={() =>
+                    props.chooseAndPlaySong(el.id, el.song_path.path)
+                  }
+                />
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {props.songs.map(el => (
-              <PlaylistItem
-                active={el.id === props.chosenSongId}
-                columns={columns}
-                item={el}
-                key={el.id}
-                onClick={() => props.chooseSong(el.id)}
-                onDoubleClick={() =>
-                  props.chooseAndPlaySong(el.id, el.song_path.path)
-                }
-              />
-            ))}
-          </tbody>
-        </Table>
-      </Content>
+            </tbody>
+          </Table>
+        </Content>
+      </div>
     </Pane>
   );
 }
