@@ -7,7 +7,7 @@ type PromiseAction = Promise<Action>;
 type Action =
   | { type: "LIBRARY/ADD_SONG", song: Song }
   | { type: "LIBRARY/ADD_SONG_BULK", songs: Song[] }
-  | { type: "PLAYBACK/CHOOSE_SONG", id: number }
+  | { type: "PLAYBACK/CHOOSE_SONG", id: SongId }
   | { type: "PLAYBACK/NEXT" }
   | { type: "PLAYBACK/PAUSE" }
   | { type: "PLAYBACK/PLAY" }
@@ -21,7 +21,7 @@ type Action =
   | { type: "PLAYLIST/REMOVE_SONG", index: number };
 
 type AppState = {
-  +chosenSongId: number,
+  +chosenSongId: SongId,
   +chosenPlaylistId: number,
   +library: Song[],
   +playback: {
@@ -58,3 +58,5 @@ type SongPath = {
   id: number,
   path: string
 };
+
+type GenericCallback = () => void;
