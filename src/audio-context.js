@@ -2,6 +2,9 @@
 import { Howl, Howler } from "howler";
 
 let currentTrack;
+let _onPause;
+let _onPlay;
+let _onStop;
 
 export default {
   load,
@@ -10,11 +13,35 @@ export default {
   stop
 };
 
-function load(filepath: string): Promise<void> {
+function load(
+  {
+    filepath,
+    onPause,
+    onPlay,
+    onStop
+  }: {
+    filepath: string,
+    onPause?: GenericCallback,
+    onPlay?: GenericCallback,
+    onStop?: GenericCallback
+  } = {
+    onPause: _onPause,
+    onPlay: _onPlay,
+    onStop: _onStop
+  }
+): Promise<void> {
+  _onPause = onPause;
+  _onPlay = onPlay;
+  _onStop = onStop;
+
   return new Promise((resolve, reject) => {
+    Howler.stop();
     currentTrack = new Howl({
       onload: resolve,
       onloaderror: reject,
+      onpause: onPause,
+      onplay: onPlay,
+      onstop: onStop,
       src: filepath
     });
   });

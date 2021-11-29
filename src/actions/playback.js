@@ -12,15 +12,21 @@ export function chooseAndPlaySong({
   _audioContext?: typeof audioContext
 }): ThunkAction {
   return function(dispatch: Dispatch) {
-    return _audioContext.load(filepath).then(() => {
-      dispatch(chooseSong(songId));
-      _audioContext.play();
-      dispatch(play());
-    });
+    return _audioContext
+      .load({
+        filepath,
+        onPause: () => dispatch(pause()),
+        onPlay: () => dispatch(play()),
+        onStop: () => dispatch(stop())
+      })
+      .then(() => {
+        dispatch(chooseSong(songId));
+        _audioContext.play();
+      });
   };
 }
 
-export function chooseSong(songId: SongId) {
+function chooseSong(songId: SongId) {
   return {
     type: playbackActions.CHOOSE_SONG,
     id: songId
@@ -42,11 +48,11 @@ export function pauseSong({
 }): ThunkAction {
   return function(dispatch: Dispatch) {
     _audioContext.pause();
-    dispatch(pause());
+    // dispatch(pause());
   };
 }
 
-export function play() {
+function play() {
   return { type: playbackActions.PLAY };
 }
 
@@ -59,7 +65,7 @@ export function playSong({
     const state = getState();
     if (state.playback.paused && state.chosenSongId > -1) {
       _audioContext.play();
-      dispatch(play());
+      // dispatch(play());
     }
   };
 }
@@ -68,7 +74,7 @@ export function previous() {
   return { type: playbackActions.PREVIOUS };
 }
 
-export function stop() {
+function stop() {
   return { type: playbackActions.STOP };
 }
 
@@ -79,7 +85,7 @@ export function stopSong({
 }): ThunkAction {
   return function(dispatch: Dispatch) {
     _audioContext.stop();
-    dispatch(stop());
+    // dispatch(stop());
   };
 }
 
