@@ -22,10 +22,11 @@ export function choosePlaylist(playlistId: number): Action {
   };
 }
 
-export function playlistAddSong(songId: SongId): Action {
+export function playlistAddSong(songId: SongId, index?: number): Action {
   return {
     type: playlistActions.ADD_SONG,
-    id: songId
+    id: songId,
+    index
   };
 }
 

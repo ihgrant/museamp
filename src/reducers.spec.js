@@ -76,6 +76,18 @@ test("reducers", function(t) {
       "adds another song to a playlist"
     );
 
+    const addSongAtIndexState = reducer(addSongState2, {
+      type: "PLAYLIST/ADD_SONG",
+      id: 2,
+      index: 1
+    });
+    st.deepEqual(
+      addSongAtIndexState.playlists[addSongAtIndexState.chosenPlaylistId]
+        .songIds,
+      [0, 2, 1],
+      "adds a song to a playlist at the specified index"
+    );
+
     const removeSongState = reducer(addSongState2, {
       type: "PLAYLIST/REMOVE_SONG",
       index: 0
