@@ -1,13 +1,13 @@
 // @flow
 
 type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-type GetState = () => State;
+type GetState = () => AppState;
 type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 type PromiseAction = Promise<Action>;
 type Action =
   | { type: "LIBRARY/ADD_SONG", song: Song }
   | { type: "LIBRARY/ADD_SONG_BULK", songs: Song[] }
-  | { type: "PLAYBACK/CHOOSE_SONG", id: number }
+  | { type: "PLAYBACK/CHOOSE_SONG", id: SongId }
   | { type: "PLAYBACK/NEXT" }
   | { type: "PLAYBACK/PAUSE" }
   | { type: "PLAYBACK/PLAY" }
@@ -18,10 +18,10 @@ type Action =
   | { type: "PLAYLIST/ADD_SONG", id: SongId }
   | { type: "PLAYLIST/CHOOSE", id: number }
   | { type: "PLAYLIST/REMOVE", id: number }
-  | { type: "PLAYLIST/REMOVE_SONG", index: number }
+  | { type: "PLAYLIST/REMOVE_SONG", index: number };
 
 type AppState = {
-  +chosenSongId: number,
+  +chosenSongId: SongId,
   +chosenPlaylistId: number,
   +library: Song[],
   +playback: {
@@ -48,7 +48,7 @@ type Song = {
   albumArtist: ?string,
   artist: ?string,
   id: SongId,
-  path: SongPath,
+  song_path: SongPath,
   title: ?string
 };
 
@@ -58,3 +58,5 @@ type SongPath = {
   id: number,
   path: string
 };
+
+type GenericCallback = () => void;

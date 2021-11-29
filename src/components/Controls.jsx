@@ -1,7 +1,13 @@
 // @flow
 import React from "react";
 import { connect } from "react-redux";
-import { next, pause, play, previous, stop } from "../actions/playback";
+import {
+  next,
+  pauseSong,
+  playSong,
+  previous,
+  stopSong
+} from "../actions/playback";
 import Button from "./Button";
 import ButtonGroup from "./ButtonGroup";
 
@@ -67,10 +73,10 @@ function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch) {
   return {
     onNext: () => dispatch(next),
-    onPause: () => dispatch(pause()),
-    onPlay: () => dispatch(play()),
+    onPause: () => dispatch(pauseSong({})),
+    onPlay: () => dispatch(playSong({})),
     onPrevious: () => dispatch(previous),
-    onStop: () => dispatch(stop())
+    onStop: () => dispatch(stopSong({}))
   };
 }
 

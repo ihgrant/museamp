@@ -42,7 +42,7 @@ function Playlist(props: Props) {
                 key={el.id}
                 onClick={() => props.chooseSong(el.id)}
                 onDoubleClick={() =>
-                  props.chooseAndPlaySong(el.id, el.path.path)
+                  props.chooseAndPlaySong(el.id, el.song_path.path)
                 }
               />
             ))}
