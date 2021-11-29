@@ -12,13 +12,15 @@ export function chooseAndPlaySong({
   _audioContext?: typeof audioContext
 }): ThunkAction {
   return function(dispatch: Dispatch) {
-    return _audioContext
-      .load({
-        filepath,
-        onPause: () => dispatch(pause()),
-        onPlay: () => dispatch(play()),
-        onStop: () => dispatch(stop())
-      })
+    return Promise.resolve()
+      .then(() =>
+        _audioContext.load({
+          filepath,
+          onPause: () => dispatch(pause()),
+          onPlay: () => dispatch(play()),
+          onStop: () => dispatch(stop())
+        })
+      )
       .then(() => {
         dispatch(chooseSong(songId));
         _audioContext.play();
