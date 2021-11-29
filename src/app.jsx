@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from "react";
 import { Pane } from "react-photonkit";
 import Content from "./components/Content";
 import Controls from "./components/Controls";
-import LibraryNav from "./LibraryNav";
+import LibraryNav from "./components/LibraryNav";
 import Menus from "./containers/MenusContainer";
 import Playlist from "./containers/PlaylistContainer";
 import Toolbar from "./components/Toolbar";
