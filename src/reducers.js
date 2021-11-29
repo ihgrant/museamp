@@ -76,8 +76,12 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
         )
       );
     case playlistActions.REMOVE:
+      const newPlaylistList = state.playlists.filter(
+        (el, i) => i !== action.id
+      );
       return i.assign({}, state, {
-        playlists: state.playlists.filter((el, i) => i !== action.id)
+        chosenPlaylistId: newPlaylistList.length - 1,
+        playlists: newPlaylistList
       });
     case playbackActions.TOGGLE_SHUFFLE:
       return i.assocIn(
