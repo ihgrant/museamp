@@ -12,6 +12,7 @@ export type Props = {|
   chosenSongIndex: number,
   chooseAndPlaySong: (number, string) => void,
   chooseSong: number => void,
+  removeSong: SongId => void,
   songs: Song[]
 |};
 
@@ -53,9 +54,9 @@ function Playlist(props: Props) {
                   columns={columns}
                   item={el}
                   key={el.id}
-                  onClick={() => props.chooseSong(el.id)}
+                  onClick={() => props.chooseSong(i)}
                   onDoubleClick={() =>
-                    props.chooseAndPlaySong(el.id, el.song_path.path)
+                    props.chooseAndPlaySong(i, el.song_path.path)
                   }
                 />
               ))}

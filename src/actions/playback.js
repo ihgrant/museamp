@@ -1,4 +1,5 @@
 // @flow
+import { getChosenSong } from "../selectors";
 import { playbackActions } from "../consts";
 import audioContext from "../audio-context";
 
@@ -11,7 +12,14 @@ export function chooseAndPlaySong({
   filepath: string,
   _audioContext?: typeof audioContext
 }): ThunkAction {
-  return function(dispatch: Dispatch) {
+  return function(dispatch: Dispatch, getState: GetState) {
+    const state = getState();
+    const chosenSong = getChosenSong(state);
+
+    if (!chosenSong) {
+      return;
+    }
+
     return Promise.resolve()
       .then(() =>
         _audioContext.load({
@@ -35,11 +43,11 @@ export function chooseSong(songIndex: number): Action {
   };
 }
 
-export function next() {
+export function next(): Action {
   return { type: playbackActions.NEXT };
 }
 
-export function pause() {
+export function pause(): Action {
   return { type: playbackActions.PAUSE };
 }
 
@@ -54,7 +62,7 @@ export function pauseSong({
   };
 }
 
-function play() {
+function play(): Action {
   return { type: playbackActions.PLAY };
 }
 
@@ -72,11 +80,11 @@ export function playSong({
   };
 }
 
-export function previous() {
+export function previous(): Action {
   return { type: playbackActions.PREVIOUS };
 }
 
-function stop() {
+function stop(): Action {
   return { type: playbackActions.STOP };
 }
 
@@ -91,6 +99,6 @@ export function stopSong({
   };
 }
 
-export function toggleShuffle() {
+export function toggleShuffle(): Action {
   return { type: playbackActions.TOGGLE_SHUFFLE };
 }

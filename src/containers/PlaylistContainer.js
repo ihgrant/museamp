@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { chooseSong, chooseAndPlaySong } from "../actions/playback";
 import Playlist from "../components/Playlist";
 import type { OwnProps, Props } from "../components/Playlist";
-import { playlistAddSong } from "../actions/playlist";
+import { playlistAddSong, playlistRemoveSong } from "../actions/playlist";
 
 function mapStateToProps(state: AppState) {
   return {
@@ -27,6 +27,9 @@ function mapDispatchToProps(dispatch) {
     },
     chooseAndPlaySong(id: number, filepath: string) {
       dispatch(chooseAndPlaySong({ songIndex: id, filepath }));
+    },
+    removeSong(songId) {
+      dispatch(playlistRemoveSong(songId));
     }
   };
 }
