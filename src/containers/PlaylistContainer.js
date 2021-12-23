@@ -7,7 +7,7 @@ import { playlistAddSong } from "../actions/playlist";
 
 function mapStateToProps(state: AppState) {
   return {
-    chosenSongId: state.chosenSongId,
+    chosenSongIndex: state.chosenSongIndex,
     songs:
       state.chosenPlaylistId > -1
         ? state.library.filter(el =>
@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(chooseSong(id));
     },
     chooseAndPlaySong(id: number, filepath: string) {
-      dispatch(chooseAndPlaySong({ songId: id, filepath }));
+      dispatch(chooseAndPlaySong({ songIndex: id, filepath }));
     }
   };
 }

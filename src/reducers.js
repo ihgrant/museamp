@@ -3,7 +3,7 @@ import { libraryActions, playbackActions, playlistActions } from "./consts";
 import i from "icepick";
 
 const initialState: AppState = i.freeze({
-  chosenSongId: -1,
+  chosenSongIndex: -1,
   chosenPlaylistId: -1,
   library: [],
   playback: {
@@ -35,7 +35,7 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
         library: action.songs
       });
     case playbackActions.CHOOSE_SONG:
-      return i.assign({}, state, { chosenSongId: action.id });
+      return i.assign({}, state, { chosenSongIndex: action.index });
     case playbackActions.PLAY:
       return i.assocIn(state, ["playback", "paused"], false);
     case playbackActions.PAUSE:

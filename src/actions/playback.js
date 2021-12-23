@@ -5,9 +5,9 @@ import audioContext from "../audio-context";
 export function chooseAndPlaySong({
   _audioContext = audioContext,
   filepath,
-  songId
+  songIndex
 }: {
-  songId: SongId,
+  songIndex: number,
   filepath: string,
   _audioContext?: typeof audioContext
 }): ThunkAction {
@@ -22,16 +22,16 @@ export function chooseAndPlaySong({
         })
       )
       .then(() => {
-        dispatch(chooseSong(songId));
+        dispatch(chooseSong(songIndex));
         _audioContext.play();
       });
   };
 }
 
-export function chooseSong(songId: SongId) {
+export function chooseSong(songIndex: number): Action {
   return {
     type: playbackActions.CHOOSE_SONG,
-    id: songId
+    index: songIndex
   };
 }
 
@@ -65,7 +65,7 @@ export function playSong({
 }): ThunkAction {
   return function(dispatch: Dispatch, getState: GetState) {
     const state = getState();
-    if (state.playback.paused && state.chosenSongId > -1) {
+    if (state.playback.paused && state.chosenSongIndex > -1) {
       _audioContext.play();
       // dispatch(play());
     }

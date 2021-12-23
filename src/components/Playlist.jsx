@@ -9,7 +9,7 @@ import PlaylistTabs from "./PlaylistTabs";
 export type OwnProps = {||};
 export type Props = {|
   addSong: SongId => void,
-  chosenSongId?: number,
+  chosenSongIndex: number,
   chooseAndPlaySong: (number, string) => void,
   chooseSong: number => void,
   songs: Song[]
@@ -47,9 +47,9 @@ function Playlist(props: Props) {
               </tr>
             </thead>
             <tbody>
-              {props.songs.map(el => (
+              {props.songs.map((el, i) => (
                 <PlaylistItem
-                  active={el.id === props.chosenSongId}
+                  active={i === props.chosenSongIndex}
                   columns={columns}
                   item={el}
                   key={el.id}

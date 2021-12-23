@@ -6,7 +6,7 @@ test("reducers", function(t) {
   t.deepEqual(
     state,
     {
-      chosenSongId: -1,
+      chosenSongIndex: -1,
       chosenPlaylistId: -1,
       library: [],
       playback: {
@@ -28,9 +28,9 @@ test("reducers", function(t) {
   t.test("playback", st => {
     const chooseSongState = reducer(state, {
       type: "PLAYBACK/CHOOSE_SONG",
-      id: 0
+      index: 0
     });
-    st.equal(chooseSongState.chosenSongId, 0, "sets chosen song id");
+    st.equal(chooseSongState.chosenSongIndex, 0, "sets chosen song id");
 
     const playState = reducer(state, { type: "PLAYBACK/PLAY" });
     st.equal(playState.playback.paused, false, "sets paused to false");
