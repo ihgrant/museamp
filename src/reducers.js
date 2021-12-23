@@ -90,14 +90,17 @@ function museAmp(state: AppState = initialState, action: Action): AppState {
         newPlaylistOrder
       );
     case playlistActions.REMOVE_SONG:
-      return i.assocIn(
-        state,
-        ["playlists", state.chosenPlaylistId, "songIds"],
-        i.filter(
-          (el, i) => i !== action.index,
-          state.playlists[state.chosenPlaylistId].songIds
+      return i
+        .chain(state)
+        .assocIn(
+          ["playlists", state.chosenPlaylistId, "songIds"],
+          i.filter(
+            (el, i) => i !== action.index,
+            state.playlists[state.chosenPlaylistId].songIds
+          )
         )
-      );
+        .assoc("chosenSongIndex", -1)
+        .value();
     case playlistActions.REMOVE:
       const newPlaylistList = state.playlists.filter(
         (el, i) => i !== action.id

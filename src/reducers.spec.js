@@ -97,6 +97,11 @@ test("reducers", function(t) {
       [{ name: "test", songIds: [1] }],
       "removes a song from a playlist"
     );
+    st.deepEqual(
+      removeSongState.chosenSongIndex,
+      -1,
+      "unsets chosen song index"
+    );
 
     const removeState = reducer(removeSongState, {
       type: "PLAYLIST/REMOVE",

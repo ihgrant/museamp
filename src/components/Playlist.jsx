@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, PropTypes } from "react";
 import { useDrop } from "react-dnd";
+import { useHotkeys } from "react-hotkeys-hook";
 import { Content, Pane, Table } from "react-photonkit";
 import { draggableTypes } from "../consts";
 import PlaylistItem from "./PlaylistItem";
@@ -33,6 +34,15 @@ function Playlist(props: Props) {
         key => !nondisplayColumns.includes(key)
       )
     : [];
+  useHotkeys(
+    "backspace",
+    () => {
+      if (props.chosenSongIndex > -1) {
+        props.removeSong(props.chosenSongIndex);
+      }
+    },
+    [props.chosenSongIndex]
+  );
 
   return (
     <Pane>
