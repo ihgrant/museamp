@@ -17,19 +17,32 @@ test("playback thunks", t => {
         playWasCalled = true;
       }
     };
+    const testState = {
+      chosenSongIndex: 1,
+      chosenPlaylistId: 0,
+      playlists: [{ name: "test playlist", songIds: [0, 1] }],
+      library: [
+        { id: 0, title: "song 1" },
+        { id: 1, title: "song 2" },
+        { id: 2, title: "song 3" }
+      ]
+    };
     const dispatchAction = chooseAndPlaySong({
-      songId: 2,
+      songIndex: 2,
       filepath: "./test-path",
       _audioContext: mockAudioContext
     });
 
-    return dispatchAction(dispatchedAction => {
-      st.deepEqual(
-        dispatchedAction,
-        { type: "PLAYBACK/CHOOSE_SONG", id: 2 },
-        "dispatches choose action"
-      );
-    }).then(() => {
+    return dispatchAction(
+      dispatchedAction => {
+        st.deepEqual(
+          dispatchedAction,
+          { type: "PLAYBACK/CHOOSE_SONG", index: 2 },
+          "dispatches choose action"
+        );
+      },
+      () => testState
+    ).then(() => {
       st.equal(loadWasCalled, true, "load was called");
       st.equal(playWasCalled, true, "play was called");
     });

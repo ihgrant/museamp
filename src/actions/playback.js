@@ -1,17 +1,25 @@
 // @flow
+import { getChosenSong } from "../selectors";
 import { playbackActions } from "../consts";
 import audioContext from "../audio-context";
 
 export function chooseAndPlaySong({
   _audioContext = audioContext,
   filepath,
-  songId
+  songIndex
 }: {
-  songId: SongId,
+  songIndex: number,
   filepath: string,
   _audioContext?: typeof audioContext
 }): ThunkAction {
-  return function(dispatch: Dispatch) {
+  return function(dispatch: Dispatch, getState: GetState) {
+    const state = getState();
+    const chosenSong = getChosenSong(state);
+
+    if (!chosenSong) {
+      return;
+    }
+
     return Promise.resolve()
       .then(() =>
         _audioContext.load({
@@ -22,24 +30,24 @@ export function chooseAndPlaySong({
         })
       )
       .then(() => {
-        dispatch(chooseSong(songId));
+        dispatch(chooseSong(songIndex));
         _audioContext.play();
       });
   };
 }
 
-function chooseSong(songId: SongId) {
+export function chooseSong(songIndex: number): Action {
   return {
     type: playbackActions.CHOOSE_SONG,
-    id: songId
+    index: songIndex
   };
 }
 
-export function next() {
+export function next(): Action {
   return { type: playbackActions.NEXT };
 }
 
-export function pause() {
+export function pause(): Action {
   return { type: playbackActions.PAUSE };
 }
 
@@ -54,7 +62,7 @@ export function pauseSong({
   };
 }
 
-function play() {
+function play(): Action {
   return { type: playbackActions.PLAY };
 }
 
@@ -65,18 +73,18 @@ export function playSong({
 }): ThunkAction {
   return function(dispatch: Dispatch, getState: GetState) {
     const state = getState();
-    if (state.playback.paused && state.chosenSongId > -1) {
+    if (state.playback.paused && state.chosenSongIndex > -1) {
       _audioContext.play();
       // dispatch(play());
     }
   };
 }
 
-export function previous() {
+export function previous(): Action {
   return { type: playbackActions.PREVIOUS };
 }
 
-function stop() {
+function stop(): Action {
   return { type: playbackActions.STOP };
 }
 
@@ -91,6 +99,6 @@ export function stopSong({
   };
 }
 
-export function toggleShuffle() {
+export function toggleShuffle(): Action {
   return { type: playbackActions.TOGGLE_SHUFFLE };
 }

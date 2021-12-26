@@ -1,18 +1,22 @@
 // @flow
-import React, { Component, PropTypes } from "react";
+import React, { Component, PropTypes, useEffect } from "react";
 const { Menu } = require("electron").remote;
 
 export type OwnProps = {||};
 export type Props = {|
   ...OwnProps,
+  addPlaylist: string => void,
+  chosenPlaylistId: number,
+  chosenSongIndex: number,
   deleteLibrary: () => void,
+  removePlaylist: number => void,
   shuffle: boolean,
+  playlistRemoveSong: number => void,
   toggleShuffle: () => void
 |};
 
 function Menus(props: Props) {
   const currentMenu = Menu.getApplicationMenu();
-
   // set up menu items
   let template = [
     {
@@ -30,18 +34,37 @@ function Menus(props: Props) {
       ]
     },
     {
+      label: "Playlist",
+      submenu: [
+        {
+          label: "New",
+          click: () => {
+            const newName = Math.random().toString();
+            props.addPlaylist(newName);
+          }
+        },
+        {
+          label: "Delete",
+          click: () => props.removePlaylist(props.chosenPlaylistId),
+          enabled: props.chosenPlaylistId > -1
+        },
+        {
+          label: "Remove Song",
+          click: () => props.playlistRemoveSong(props.chosenSongIndex),
+          enabled: props.chosenSongIndex > -1
+        }
+      ]
+    },
+    {
       label: "DEV",
       submenu: [{ label: "Delete Library", click: () => props.deleteLibrary() }]
     }
   ];
-  console.log(currentMenu.items.length);
 
-  if (currentMenu.items.length !== template.length) {
+  useEffect(() => {
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-  } else {
-    currentMenu.items[1].submenu.value = props.shuffle;
-  }
+  }, [props]);
 
   return null;
 }

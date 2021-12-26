@@ -1,5 +1,10 @@
 // @flow
 
+const draggableTypes = {
+  LIBRARYITEM: "libraryitem",
+  PLAYLISTITEM: "playlistitem"
+};
+
 const libraryActions = {
   ADD_SONG: "LIBRARY/ADD_SONG",
   ADD_SONG_BULK: "LIBRARY/ADD_SONG_BULK"
@@ -17,8 +22,9 @@ const playlistActions = {
   ADD: "PLAYLIST/ADD",
   ADD_SONG: "PLAYLIST/ADD_SONG",
   CHOOSE: "PLAYLIST/CHOOSE",
+  MOVE_SONG: "PLAYLIST/MOVE_SONG",
   REMOVE: "PLAYLIST/REMOVE",
   REMOVE_SONG: "PLAYLIST/REMOVE_SONG"
 };
 
-export { libraryActions, playbackActions, playlistActions };
+export { draggableTypes, libraryActions, playbackActions, playlistActions };

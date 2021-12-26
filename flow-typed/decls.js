@@ -7,7 +7,7 @@ type PromiseAction = Promise<Action>;
 type Action =
   | { type: "LIBRARY/ADD_SONG", song: Song }
   | { type: "LIBRARY/ADD_SONG_BULK", songs: Song[] }
-  | { type: "PLAYBACK/CHOOSE_SONG", id: SongId }
+  | { type: "PLAYBACK/CHOOSE_SONG", index: SongId }
   | { type: "PLAYBACK/NEXT" }
   | { type: "PLAYBACK/PAUSE" }
   | { type: "PLAYBACK/PLAY" }
@@ -15,13 +15,14 @@ type Action =
   | { type: "PLAYBACK/STOP" }
   | { type: "PLAYBACK/TOGGLE_SHUFFLE" }
   | { type: "PLAYLIST/ADD", name: string }
-  | { type: "PLAYLIST/ADD_SONG", id: SongId }
+  | { type: "PLAYLIST/ADD_SONG", id: SongId, index?: number }
+  | { type: "PLAYLIST/MOVE_SONG", newIndex: number, oldIndex: number }
   | { type: "PLAYLIST/CHOOSE", id: number }
   | { type: "PLAYLIST/REMOVE", id: number }
   | { type: "PLAYLIST/REMOVE_SONG", index: number };
 
 type AppState = {
-  +chosenSongId: SongId,
+  +chosenSongIndex: number,
   +chosenPlaylistId: number,
   +library: Song[],
   +playback: {

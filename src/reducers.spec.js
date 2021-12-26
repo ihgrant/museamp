@@ -6,7 +6,7 @@ test("reducers", function(t) {
   t.deepEqual(
     state,
     {
-      chosenSongId: -1,
+      chosenSongIndex: -1,
       chosenPlaylistId: -1,
       library: [],
       playback: {
@@ -28,9 +28,9 @@ test("reducers", function(t) {
   t.test("playback", st => {
     const chooseSongState = reducer(state, {
       type: "PLAYBACK/CHOOSE_SONG",
-      id: 0
+      index: 0
     });
-    st.equal(chooseSongState.chosenSongId, 0, "sets chosen song id");
+    st.equal(chooseSongState.chosenSongIndex, 0, "sets chosen song id");
 
     const playState = reducer(state, { type: "PLAYBACK/PLAY" });
     st.equal(playState.playback.paused, false, "sets paused to false");
@@ -76,6 +76,18 @@ test("reducers", function(t) {
       "adds another song to a playlist"
     );
 
+    const addSongAtIndexState = reducer(addSongState2, {
+      type: "PLAYLIST/ADD_SONG",
+      id: 2,
+      index: 1
+    });
+    st.deepEqual(
+      addSongAtIndexState.playlists[addSongAtIndexState.chosenPlaylistId]
+        .songIds,
+      [0, 2, 1],
+      "adds a song to a playlist at the specified index"
+    );
+
     const removeSongState = reducer(addSongState2, {
       type: "PLAYLIST/REMOVE_SONG",
       index: 0
@@ -84,6 +96,11 @@ test("reducers", function(t) {
       removeSongState.playlists,
       [{ name: "test", songIds: [1] }],
       "removes a song from a playlist"
+    );
+    st.deepEqual(
+      removeSongState.chosenSongIndex,
+      -1,
+      "unsets chosen song index"
     );
 
     const removeState = reducer(removeSongState, {
@@ -99,6 +116,24 @@ test("reducers", function(t) {
       shuffleState.playbackSettings.shuffle,
       true,
       "toggles shuffle"
+    );
+
+    const moveSongStartState = reducer(addSongState2, {
+      type: "PLAYLIST/ADD_SONG",
+      id: 2
+    });
+    const moveSongEndState = reducer(moveSongStartState, {
+      type: "PLAYLIST/MOVE_SONG",
+      oldIndex: 1,
+      newIndex: 2
+    });
+    st.deepEqual(
+      moveSongEndState.playlists[0],
+      {
+        name: "test",
+        songIds: [0, 2, 1]
+      },
+      "moves a song in a playlist"
     );
 
     st.end();

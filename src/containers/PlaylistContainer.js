@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import { chooseSong, chooseAndPlaySong } from "../actions/playback";
 import Playlist from "../components/Playlist";
 import type { OwnProps, Props } from "../components/Playlist";
+import { playlistAddSong, playlistRemoveSong } from "../actions/playlist";
 
 function mapStateToProps(state: AppState) {
   return {
-    chosenSongId: state.chosenSongId,
+    chosenSongIndex: state.chosenSongIndex,
     songs:
       state.chosenPlaylistId > -1
         ? state.library.filter(el =>
@@ -18,11 +19,17 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    addSong(id: SongId) {
+      dispatch(playlistAddSong(id));
+    },
     chooseSong(id: number) {
       dispatch(chooseSong(id));
     },
     chooseAndPlaySong(id: number, filepath: string) {
-      dispatch(chooseAndPlaySong({ songId: id, filepath }));
+      dispatch(chooseAndPlaySong({ songIndex: id, filepath }));
+    },
+    removeSong(songId) {
+      dispatch(playlistRemoveSong(songId));
     }
   };
 }
