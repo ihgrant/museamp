@@ -5,10 +5,11 @@ import App from "./App";
 import { choosePlaylist } from "./actions/playlist";
 import { chooseSong } from "./actions/playback";
 import type { OwnProps, Props } from "./App";
+import { getChosenSong } from "./selectors";
 
 function mapStateToProps(state: AppState) {
   return {
-    chosenSong: find(state.library, el => el.id === state.chosenSongId),
+    chosenSong: getChosenSong(state),
     library: state.library
   };
 }
