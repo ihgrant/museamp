@@ -53,14 +53,11 @@ function Menus(props: Props) {
       submenu: [{ label: "Delete Library", click: () => props.deleteLibrary() }]
     }
   ];
-  console.log(currentMenu.items.length);
 
-  if (currentMenu.items.length !== template.length) {
+  useEffect(() => {
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-  } else {
-    currentMenu.items[1].submenu.value = props.shuffle;
-  }
+  }, [props]);
 
   return null;
 }
