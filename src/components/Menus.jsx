@@ -1,18 +1,20 @@
 // @flow
-import React, { Component, PropTypes } from "react";
+import React, { Component, PropTypes, useEffect } from "react";
 const { Menu } = require("electron").remote;
 
 export type OwnProps = {||};
 export type Props = {|
   ...OwnProps,
+  addPlaylist: string => void,
+  chosenSongIndex: number,
   deleteLibrary: () => void,
   shuffle: boolean,
+  playlistRemoveSong: number => void,
   toggleShuffle: () => void
 |};
 
 function Menus(props: Props) {
   const currentMenu = Menu.getApplicationMenu();
-
   // set up menu items
   let template = [
     {
@@ -26,6 +28,23 @@ function Menus(props: Props) {
           click: () => props.toggleShuffle(),
           type: "checkbox",
           value: props.shuffle
+        }
+      ]
+    },
+    {
+      label: "Playlist",
+      submenu: [
+        {
+          label: "New",
+          click: () => {
+            const newName = Math.random().toString();
+            props.addPlaylist(newName);
+          }
+        },
+        {
+          label: "Remove Song",
+          click: () => props.playlistRemoveSong(props.chosenSongIndex),
+          enabled: props.chosenSongIndex > -1
         }
       ]
     },
