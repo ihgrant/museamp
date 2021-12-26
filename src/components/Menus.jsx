@@ -6,8 +6,10 @@ export type OwnProps = {||};
 export type Props = {|
   ...OwnProps,
   addPlaylist: string => void,
+  chosenPlaylistId: number,
   chosenSongIndex: number,
   deleteLibrary: () => void,
+  removePlaylist: number => void,
   shuffle: boolean,
   playlistRemoveSong: number => void,
   toggleShuffle: () => void
@@ -40,6 +42,11 @@ function Menus(props: Props) {
             const newName = Math.random().toString();
             props.addPlaylist(newName);
           }
+        },
+        {
+          label: "Delete",
+          click: () => props.removePlaylist(props.chosenPlaylistId),
+          enabled: props.chosenPlaylistId > -1
         },
         {
           label: "Remove Song",
